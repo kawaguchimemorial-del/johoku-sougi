@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
@@ -27,6 +28,7 @@ export async function generateMetadata({
     title: `${plan.name}｜北区・板橋区・戸田斎場での${plan.name}相談`,
     description: `${plan.name}は${plan.summary}北区・板橋区で戸田斎場を利用した${plan.name}のご相談を、城北セレモニーサポートセンター（運営・施行：川口典礼）が承ります。目安${formatPrice(plan.price)}。`,
     path: plan.href,
+    image: plan.image,
   });
 }
 
@@ -54,6 +56,23 @@ export default async function PlanPage({
 
       <section className="py-12">
         <Container>
+          {/* プランのイメージ画像（スマホで大きすぎないよう高さを抑える） */}
+          <figure className="mb-8 overflow-hidden rounded-xl border border-black/5 shadow-sm">
+            <div className="relative aspect-[16/9] max-h-[420px] w-full bg-cream">
+              <Image
+                src={plan.image}
+                alt={plan.imageAlt}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 900px"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="bg-cream px-4 py-2 text-xs text-muted">
+              祭壇・お見送りの一例です。写真はイメージを含み、内容やご要望により設えは異なります。
+            </figcaption>
+          </figure>
+
           {plan.description.map((p) => (
             <p key={p} className="mb-4 leading-relaxed">
               {p}

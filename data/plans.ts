@@ -8,6 +8,9 @@ export type Plan = {
   price: number; // 税込目安（円）
   summary: string;
   scale: string; // 規模の目安
+  // イメージ画像（public 配下の絶対パス）
+  image: string;
+  imageAlt: string;
   // 比較しやすくするための補足（価格だけが主役にならないように）
   forWhom: string; // どんな方に向いているか
   checkFirst: string; // まず確認すべきこと
@@ -26,6 +29,8 @@ export const plans: Plan[] = [
     price: 496000,
     summary: "通夜を行わず、一日でお見送りする形式です。",
     scale: "5〜30名程度のご相談が多い形式です。",
+    image: "/images/plan/one-day-funeral.png",
+    imageAlt: "一日葬・家族葬の祭壇イメージ",
     forWhom:
       "ご高齢のご家族や、遠方・少人数で負担を抑えたい方に向いています。",
     checkFirst: "ご希望の日程・参列人数・宗教者の有無をご確認ください。",
@@ -50,6 +55,8 @@ export const plans: Plan[] = [
     price: 189000,
     summary: "通夜・告別式を行わず、火葬を中心にお見送りする形式です。",
     scale: "ごく身近な方のみで見送りたい場合に選ばれています。",
+    image: "/images/plan/direct-funeral.png",
+    imageAlt: "火葬式・直葬のイメージ",
     forWhom:
       "限られた人数で静かに、できるだけシンプルに見送りたい方に向いています。",
     checkFirst: "ご安置先と、お別れの時間をどう持つかをご確認ください。",
@@ -81,6 +88,8 @@ export const plans: Plan[] = [
     price: 628000,
     summary: "ご家族・ご親族を中心に、ゆっくりとお見送りする形式です。",
     scale: "ご家族・近しい方を中心にお別れの時間を大切にしたい方に。",
+    image: "/images/plan/family-funeral.png",
+    imageAlt: "家族葬の祭壇イメージ",
     forWhom:
       "周囲に気をつかいすぎず、故人との時間を大切にしたい方に向いています。",
     checkFirst: "参列いただく範囲と、通夜・告別式を行うかをご確認ください。",
