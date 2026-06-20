@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
+/* 城北セレモニーサポートセンター — 紺・白・金。上品で落ち着いた信頼感。 */
+@theme {
+  --color-navy: #1b2a4a;
+  --color-navy-dark: #131f38;
+  --color-navy-light: #2c4170;
+  --color-gold: #b08d4f;
+  --color-gold-light: #c9a96a;
+  --color-cream: #f7f4ee;
+  --color-ink: #232323;
+  --color-muted: #5d6470;
+
+  --font-sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP",
+    Meiryo, "メイリオ", system-ui, sans-serif;
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #232323;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* スマホ固定CTA分の余白を確保 */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 4.75rem;
+  }
 }
