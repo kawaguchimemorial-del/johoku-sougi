@@ -134,7 +134,7 @@ export const halls: Hall[] = [
     area: "東京都北区",
     summary:
       "北区の式場。北区でお見送りをご検討の方の選択肢の一つです。",
-    image: "/images/hall/kita-ceremony-hall/cover.png",
+    image: "/images/hall/kita-ceremony-hall/cover.jpg",
     imageAlt: "北区セレモニーホールの外観・施設イメージ",
     forms: ["家族葬", "一日葬", "火葬式・直葬"],
     lead: "北区の式場での一日葬・火葬式・直葬・家族葬。住み慣れた地域でのお別れをサポートします。",
@@ -180,7 +180,7 @@ export const halls: Hall[] = [
     area: "東京都板橋区",
     summary:
       "板橋区の式場。家族葬や一日葬など、落ち着いたお見送りのご相談に対応できます。",
-    image: "/images/hall/funado-saijo/cover.png",
+    image: "/images/hall/funado-saijo/cover.jpg",
     imageAlt: "舟渡斎場の外観・施設イメージ",
     forms: ["家族葬", "一日葬", "火葬式・直葬"],
     lead: "板橋区の式場での一日葬・火葬式・直葬・家族葬。ご事情に合わせたお別れをサポートします。",
