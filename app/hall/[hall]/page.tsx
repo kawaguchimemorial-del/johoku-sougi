@@ -5,12 +5,13 @@ import { Container } from "@/components/Container";
 import { PageHero } from "@/components/PageHero";
 import { CtaSection } from "@/components/CtaSection";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PlanCard } from "@/components/PlanCard";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd, faqLd } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
 import { disclaimer } from "@/app/config/site";
 import { halls, getHall } from "@/data/halls";
-import { plans, formatPrice } from "@/data/plans";
+import { plans } from "@/data/plans";
 
 export function generateStaticParams() {
   return halls.map((h) => ({ hall: h.slug }));
@@ -105,20 +106,7 @@ export default async function HallPage({
           <p className="mt-3 leading-relaxed text-muted">{hall.popularNote}</p>
           <div className="mt-6 grid gap-5 sm:grid-cols-3">
             {plans.map((p) => (
-              <Link
-                key={p.slug}
-                href={p.href}
-                className="group flex flex-col rounded-xl border border-black/5 bg-white p-6 shadow-sm transition hover:border-gold/40 hover:shadow-md"
-              >
-                <h3 className="text-lg font-bold text-navy">{p.name}</h3>
-                <p className="mt-2 flex-1 text-sm text-muted">{p.summary}</p>
-                <p className="mt-3 font-bold text-navy">
-                  目安 {formatPrice(p.price)}
-                </p>
-                <span className="mt-3 text-sm font-bold text-gold group-hover:underline">
-                  詳しく見る →
-                </span>
-              </Link>
+              <PlanCard key={p.slug} plan={p} />
             ))}
           </div>
           <p className="mt-4 text-xs text-muted">

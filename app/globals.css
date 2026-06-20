@@ -32,9 +32,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* スマホ固定CTA分の余白を確保 */
+/* スマホ固定CTA分の余白を確保（iOSのセーフエリアも考慮） */
 @media (max-width: 767px) {
   body {
-    padding-bottom: 4.75rem;
+    padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
   }
 }

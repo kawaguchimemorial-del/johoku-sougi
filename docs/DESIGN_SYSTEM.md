@@ -62,6 +62,20 @@
 - `components/MobileFixedCTA.tsx`。画面下部に固定、`md` 以上で非表示。
 - 2分割：左＝電話（金背景・最優先）、右＝相談・見積り（紺背景・`/contact/`）。
 
+## 8b. カードコンポーネント（共通化）
+
+- **PlanCard**（`components/PlanCard.tsx`）：プラン比較用。税込目安を大きく、その下に
+  「向いている方」「まず確認すること」を添え、価格だけが主役にならないようにする。
+  トップ・エリア・斎場ページのプラン一覧で共通利用。
+- **HallCard**（`components/HallCard.tsx`）：斎場用。斎場名・対応形式タグ・地域相談導線・
+  「詳しく見る」＋「空き確認を相談する」の2ボタン。トップ・斎場一覧で共通利用。
+- **PriceNote**（`components/PriceNote.tsx`）：価格注記の共通表示。価格の近くに必ず置く。
+
+## 8c. セーフエリア対応
+
+- `app/layout.tsx` に `viewport`（`themeColor` / `viewportFit: "cover"`）を設定。
+- 固定CTAと `body` 下部余白は `env(safe-area-inset-bottom)` を加味し、iPhone等で重ならないようにする。
+
 ## 9. NGデザイン
 
 - 派手な価格バナー／安売り感／過度な煽り。

@@ -4,6 +4,8 @@ import { Container } from "@/components/Container";
 import { CallButton } from "@/components/CallButton";
 import { CtaSection } from "@/components/CtaSection";
 import { PriceNote } from "@/components/PriceNote";
+import { PlanCard } from "@/components/PlanCard";
+import { HallCard } from "@/components/HallCard";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/jsonld";
 import { siteConfig, ctaText, disclaimer } from "@/app/config/site";
@@ -65,6 +67,19 @@ export default function Home() {
             </Link>
           </div>
           <p className="mt-4 text-sm text-white/80">{ctaText.primary}</p>
+
+          <ul className="mt-6 flex flex-wrap gap-2">
+            {["斎場の空き確認", "病院・施設からの搬送", "安置先のご相談", "お見積り"].map(
+              (c) => (
+                <li
+                  key={c}
+                  className="rounded-full border border-white/20 bg-white/5 px-3 py-1 text-xs text-white/90"
+                >
+                  {c}
+                </li>
+              )
+            )}
+          </ul>
         </Container>
       </section>
 
@@ -143,28 +158,18 @@ export default function Home() {
       <section className="py-14">
         <Container>
           <h2 className="text-xl font-bold text-navy sm:text-2xl">
-            ご葬儀の形式
+            ご葬儀の形式から相談する
           </h2>
+          <p className="mt-2 text-sm text-muted">
+            一日葬・火葬式・直葬・家族葬を、向いている方やまず確認することとあわせて比較できます。
+          </p>
           <div className="mt-6 grid gap-5 sm:grid-cols-3">
             {plans.map((p) => (
-              <Link
-                key={p.slug}
-                href={p.href}
-                className="group flex flex-col rounded-xl border border-black/5 bg-white p-6 shadow-sm transition hover:border-gold/40 hover:shadow-md"
-              >
-                <h3 className="text-lg font-bold text-navy">{p.name}</h3>
-                <p className="mt-2 flex-1 text-sm text-muted">{p.summary}</p>
-                <p className="mt-3 font-bold text-navy">
-                  目安 {formatPrice(p.price)}
-                </p>
-                <span className="mt-3 text-sm font-bold text-gold group-hover:underline">
-                  詳しく見る →
-                </span>
-              </Link>
+              <PlanCard key={p.slug} plan={p} />
             ))}
           </div>
           <p className="mt-4 text-xs text-muted">
-            ※ 表示価格は目安です。内容により費用が変わる場合があります。正確な費用は個別にお見積りします。
+            ※ 表示価格は目安です。内容により費用が変わる場合があります。式場料金・火葬料金・宗教者へのお礼・返礼品・飲食費などは内容により変動します。正確な費用は個別にお見積りします。
           </p>
         </Container>
       </section>
@@ -173,33 +178,17 @@ export default function Home() {
       <section className="bg-cream py-14">
         <Container>
           <h2 className="text-xl font-bold text-navy sm:text-2xl">対応斎場</h2>
+          <p className="mt-2 text-sm text-muted">
+            北区・板橋区から利用しやすい式場を、状況に合わせてご案内します。空き確認だけのご相談も承ります。
+          </p>
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
             {halls.map((h) => (
-              <div
-                key={h.slug}
-                className="rounded-xl border border-black/5 bg-white p-6 shadow-sm"
-              >
-                <h3 className="text-lg font-bold text-navy">{h.name}</h3>
-                <p className="mt-1 text-xs text-muted">{h.area}</p>
-                <p className="mt-2 text-sm">{h.summary}</p>
-                {h.hasDetail ? (
-                  <Link
-                    href={h.href}
-                    className="mt-3 inline-block text-sm font-bold text-gold hover:underline"
-                  >
-                    詳しく見る →
-                  </Link>
-                ) : (
-                  <Link
-                    href="/hall/"
-                    className="mt-3 inline-block text-sm font-bold text-gold hover:underline"
-                  >
-                    斎場一覧へ →
-                  </Link>
-                )}
-              </div>
+              <HallCard key={h.slug} hall={h} />
             ))}
           </div>
+          <p className="mt-4 text-xs text-muted">
+            ※ 当サイトは各斎場の公式施設サイトではありません。運営・施行は川口典礼です。
+          </p>
         </Container>
       </section>
 
