@@ -134,6 +134,90 @@ export default async function HallPage({
         </Container>
       </section>
 
+      {/* 祭壇イメージ（全斎場） */}
+      <section className="py-12">
+        <Container>
+          <h2 className="text-xl font-bold text-navy sm:text-2xl">
+            {hall.name}での祭壇イメージ
+          </h2>
+          <p className="mt-3 leading-relaxed text-muted">
+            ご葬儀を施行する際の祭壇の一例です。式の内容やご要望により設えは異なります。
+          </p>
+          <figure className="mt-6 overflow-hidden rounded-xl border border-black/5 shadow-sm">
+            <div className="relative aspect-[16/9] max-h-[420px] w-full bg-cream">
+              <Image
+                src={hall.altar}
+                alt={hall.altarAlt}
+                fill
+                sizes="(max-width: 768px) 100vw, 900px"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="bg-cream px-4 py-2 text-xs text-muted">
+              祭壇の一例です。写真はイメージを含みます。
+            </figcaption>
+          </figure>
+        </Container>
+      </section>
+
+      {/* 画像ギャラリー（戸田斎場など gallery を持つ斎場のみ） */}
+      {hall.gallery && hall.gallery.length > 0 && (
+        <section className="bg-cream py-12">
+          <Container>
+            <h2 className="text-xl font-bold text-navy sm:text-2xl">
+              {hall.name}の館内・設備の様子
+            </h2>
+            <p className="mt-3 leading-relaxed text-muted">
+              外観から式場、火葬場併設の設備、待合・控室まで、ご利用時のイメージをご紹介します。
+              写真はイメージを含み、ご利用区分やご要望により設えは異なります。
+            </p>
+            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {hall.gallery.map((g) => (
+                <figure
+                  key={g.src}
+                  className="overflow-hidden rounded-xl border border-black/5 bg-white shadow-sm"
+                >
+                  <div className="relative aspect-[4/3] w-full bg-cream">
+                    <Image
+                      src={g.src}
+                      alt={g.alt}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <figcaption className="px-4 py-2 text-xs text-muted">
+                    {g.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
+
+      {/* どのような方が検討しやすいか（任意・戸田斎場） */}
+      {hall.whoFor && hall.whoFor.length > 0 && (
+        <section className="py-12">
+          <Container>
+            <h2 className="text-xl font-bold text-navy sm:text-2xl">
+              {hall.name}を検討しやすい方
+            </h2>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              {hall.whoFor.map((w) => (
+                <li
+                  key={w}
+                  className="flex gap-2 rounded-lg border border-black/5 bg-white p-4 shadow-sm"
+                >
+                  <span className="text-gold">●</span>
+                  <span>{w}</span>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+      )}
+
       {/* 利用時の流れ */}
       <section className="py-12">
         <Container>
@@ -227,6 +311,31 @@ export default async function HallPage({
           </div>
         </Container>
       </section>
+
+      {/* まず電話で伝えるとよいこと（任意・戸田斎場） */}
+      {hall.firstCall && hall.firstCall.length > 0 && (
+        <section className="py-12">
+          <Container>
+            <h2 className="text-xl font-bold text-navy sm:text-2xl">
+              まずお電話で、これだけお伝えください
+            </h2>
+            <p className="mt-3 leading-relaxed text-muted">
+              はじめてのご相談でも大丈夫です。一日葬・火葬式・家族葬の違いも含めてご案内します。
+            </p>
+            <ol className="mt-6 space-y-3">
+              {hall.firstCall.map((f, i) => (
+                <li
+                  key={f}
+                  className="flex gap-3 rounded-xl border border-black/5 bg-white p-4 shadow-sm"
+                >
+                  <span className="font-bold text-gold">{i + 1}</span>
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ol>
+          </Container>
+        </section>
+      )}
 
       <CtaSection heading={`${hall.name}の空き確認・ご相談はお電話で`} />
     </>
