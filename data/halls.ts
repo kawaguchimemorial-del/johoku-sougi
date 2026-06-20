@@ -12,6 +12,9 @@ export type Hall = {
   area: string;
   // カード用の短い要約
   summary: string;
+  // カバー画像（public 配下の絶対パス・小文字英数字）
+  image: string;
+  imageAlt: string;
   // 対応しやすい葬儀形式（カードのタグ表示用）
   forms: string[];
   // 詳細ページのリード文
@@ -38,6 +41,8 @@ export const halls: Hall[] = [
     area: "埼玉県戸田市（北区・板橋区からアクセス良好）",
     summary:
       "火葬場が併設された斎場。北区・板橋区から多くの方が利用されています。",
+    image: "/images/hall/toda-saijo/cover.png",
+    imageAlt: "戸田斎場の外観・施設イメージ",
     forms: ["一日葬", "火葬式・直葬", "家族葬", "一般葬"],
     lead: "火葬場併設で移動の負担を抑えやすい斎場。一日葬・火葬式・直葬・家族葬のご相談に対応します。",
     intro: [
@@ -83,6 +88,8 @@ export const halls: Hall[] = [
     area: "東京都板橋区",
     summary:
       "板橋区の式場。家族葬を中心に、落ち着いたお見送りのご相談に対応できます。",
+    image: "/images/hall/renkon-rainbow-hall/cover.webp",
+    imageAlt: "蓮根レインボーホールの外観・施設イメージ",
     forms: ["家族葬", "一日葬", "火葬式・直葬"],
     lead: "板橋区の式場での一日葬・火葬式・直葬・家族葬。地域に根ざした落ち着いたお別れをサポートします。",
     intro: [
@@ -127,6 +134,8 @@ export const halls: Hall[] = [
     area: "東京都北区",
     summary:
       "北区の式場。北区でお見送りをご検討の方の選択肢の一つです。",
+    image: "/images/hall/kita-ceremony-hall/cover.png",
+    imageAlt: "北区セレモニーホールの外観・施設イメージ",
     forms: ["家族葬", "一日葬", "火葬式・直葬"],
     lead: "北区の式場での一日葬・火葬式・直葬・家族葬。住み慣れた地域でのお別れをサポートします。",
     intro: [
@@ -171,6 +180,8 @@ export const halls: Hall[] = [
     area: "東京都板橋区",
     summary:
       "板橋区の式場。家族葬や一日葬など、落ち着いたお見送りのご相談に対応できます。",
+    image: "/images/hall/funado-saijo/cover.png",
+    imageAlt: "舟渡斎場の外観・施設イメージ",
     forms: ["家族葬", "一日葬", "火葬式・直葬"],
     lead: "板橋区の式場での一日葬・火葬式・直葬・家族葬。ご事情に合わせたお別れをサポートします。",
     intro: [

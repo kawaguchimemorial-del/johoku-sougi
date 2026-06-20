@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
@@ -29,6 +30,7 @@ export async function generateMetadata({
     title: `${hall.name}での葬儀｜一日葬・火葬式・直葬・家族葬の相談`,
     description: `${hall.name}での葬儀をご検討の方へ。${hall.summary}一日葬・火葬式・直葬・家族葬のご相談、空き状況の確認を、城北セレモニーサポートセンター（運営・施行：川口典礼）が承ります。`,
     path: hall.href,
+    image: hall.image,
   });
 }
 
@@ -80,7 +82,24 @@ export default async function HallPage({
       {/* リード本文 */}
       <section className="py-12">
         <Container>
-          <p className="text-xs text-muted">{hall.area}</p>
+          {/* 斎場のカバー画像（スマホで大きくなりすぎないよう高さを抑える） */}
+          <figure className="overflow-hidden rounded-xl border border-black/5 shadow-sm">
+            <div className="relative aspect-[16/9] max-h-[420px] w-full bg-cream">
+              <Image
+                src={hall.image}
+                alt={hall.imageAlt}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 900px"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="bg-cream px-4 py-2 text-xs text-muted">
+              写真は斎場のイメージです。
+            </figcaption>
+          </figure>
+
+          <p className="mt-6 text-xs text-muted">{hall.area}</p>
           {hall.intro.map((p) => (
             <p key={p} className="mt-4 leading-relaxed">
               {p}

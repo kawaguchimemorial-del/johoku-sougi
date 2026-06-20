@@ -6,6 +6,7 @@ type PageMetaInput = {
   description: string;
   path: string; // "/area/kita-ku/" のように先頭・末尾スラッシュ付き
   noindex?: boolean;
+  image?: string; // OG画像（public 配下の絶対パス）。未指定なら共通OG画像
 };
 
 // 各ページ共通のメタデータ生成（title / description / canonical / OG / Twitter / robots）
@@ -14,8 +15,10 @@ export function buildMetadata({
   description,
   path,
   noindex,
+  image,
 }: PageMetaInput): Metadata {
   const url = `${siteConfig.url}${path}`;
+  const ogImage = image ?? siteConfig.ogImage;
   const fullTitle =
     path === "/" ? `${siteConfig.name}｜北区・板橋区の葬儀相談窓口` : `${title}｜${siteConfig.name}`;
 
@@ -33,13 +36,13 @@ export function buildMetadata({
       title: fullTitle,
       description,
       locale: siteConfig.locale,
-      images: [{ url: siteConfig.ogImage, width: 1200, height: 630, alt: siteConfig.name }],
+      images: [{ url: ogImage, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description,
-      images: [siteConfig.ogImage],
+      images: [ogImage],
     },
   };
 }
