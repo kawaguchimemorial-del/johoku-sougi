@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Quiet consultation room with floral arrangement</title>
+  <desc id="desc">A calm interior scene with a table, chairs, window light, and flowers.</desc>
+  <rect width="1600" height="1100" fill="#eef4f2"/>
+  <rect x="0" y="0" width="1600" height="1100" fill="#1f2933" opacity=".08"/>
+  <path d="M0 720 C250 650 410 735 650 670 C900 600 1100 665 1600 585 L1600 1100 L0 1100 Z" fill="#dce9e4"/>
+  <rect x="1040" y="120" width="370" height="520" rx="6" fill="#fbfbf8" opacity=".88"/>
+  <rect x="1084" y="166" width="282" height="428" rx="4" fill="#cfe0db"/>
+  <path d="M1224 166 V594" stroke="#fbfbf8" stroke-width="16" opacity=".72"/>
+  <path d="M1084 380 H1366" stroke="#fbfbf8" stroke-width="16" opacity=".72"/>
+  <ellipse cx="735" cy="790" rx="350" ry="62" fill="#1f2933" opacity=".12"/>
+  <rect x="420" y="600" width="650" height="88" rx="8" fill="#7b6a55"/>
+  <rect x="470" y="680" width="44" height="190" rx="10" fill="#5a4d40"/>
+  <rect x="970" y="680" width="44" height="190" rx="10" fill="#5a4d40"/>
+  <path d="M624 580 C590 500 620 410 720 390 C820 372 890 440 870 540 C855 615 665 620 624 580 Z" fill="#165a52"/>
+  <path d="M710 382 C700 310 735 240 795 212 C850 260 858 340 815 398 Z" fill="#2f7d6d"/>
+  <path d="M660 432 C605 375 590 300 625 250 C690 268 725 330 708 402 Z" fill="#8fb9aa"/>
+  <path d="M816 438 C875 388 945 372 995 406 C975 470 918 512 846 503 Z" fill="#b88a44"/>
+  <rect x="690" y="532" width="120" height="112" rx="16" fill="#f7f2e8"/>
+  <path d="M210 690 C260 610 385 610 430 690 L430 842 L210 842 Z" fill="#165a52"/>
+  <rect x="250" y="834" width="140" height="34" rx="12" fill="#1f2933" opacity=".38"/>
+  <path d="M1140 700 C1190 618 1320 618 1370 700 L1370 850 L1140 850 Z" fill="#2f7d6d"/>
+  <rect x="1184" y="842" width="142" height="34" rx="12" fill="#1f2933" opacity=".35"/>
+  <circle cx="564" cy="350" r="42" fill="#b88a44" opacity=".72"/>
+  <circle cx="620" cy="315" r="28" fill="#fbfbf8" opacity=".78"/>
+  <circle cx="888" cy="330" r="36" fill="#fbfbf8" opacity=".72"/>
+  <circle cx="936" cy="380" r="24" fill="#b88a44" opacity=".65"/>
+</svg>
