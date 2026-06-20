@@ -1,17 +1,19 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { CallButton } from "@/components/CallButton";
 import { CtaSection } from "@/components/CtaSection";
-import { PriceNote } from "@/components/PriceNote";
 import { PlanCard } from "@/components/PlanCard";
 import { HallCard } from "@/components/HallCard";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/jsonld";
 import { siteConfig, ctaText, disclaimer } from "@/app/config/site";
-import { plans, formatPrice } from "@/data/plans";
+import { plans, getPlan } from "@/data/plans";
 import { halls } from "@/data/halls";
 import { faqs } from "@/data/faqs";
+
+const oneDayPlan = getPlan("one-day-funeral")!;
 
 export const metadata: Metadata = {
   description: siteConfig.description,
@@ -38,48 +40,66 @@ export default function Home() {
     <>
       <JsonLd data={breadcrumbLd([{ name: "ホーム", path: "/" }])} />
 
-      {/* FV */}
-      <section className="bg-gradient-to-b from-navy-dark to-navy-light text-white">
-        <Container className="py-16 sm:py-20">
-          <span className="inline-block rounded border border-gold/60 px-3 py-1 text-xs tracking-wide text-gold-light">
-            北区・板橋区の葬儀相談窓口
-          </span>
-          <h1 className="mt-5 text-2xl font-bold leading-relaxed sm:text-4xl">
-            戸田斎場での一日葬・ご火葬を、
-            <br className="hidden sm:block" />
-            迷わず進めるために。
-          </h1>
-          <p className="mt-5 max-w-2xl leading-relaxed text-white/85">
-            火葬場併設の戸田斎場は、北区・板橋区から多くの方に利用されています。
-            城北セレモニーサポートセンターは、戸田斎場での一日葬・火葬式・直葬・家族葬のご相談を、
-            わかりやすくサポートする相談窓口です。
-          </p>
-          <p className="mt-4 text-sm text-gold-light">
-            運営・施行：{siteConfig.operator}
-          </p>
-          <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-            <CallButton />
-            <Link
-              href="/contact/"
-              className="inline-flex items-center justify-center rounded-lg border border-white/40 px-7 py-4 font-bold text-white transition hover:bg-white/10"
-            >
-              ご相談・お見積りについて
-            </Link>
-          </div>
-          <p className="mt-4 text-sm text-white/80">{ctaText.primary}</p>
+      {/* FV：戸田斎場の外観を背景にしたHero */}
+      <section className="relative overflow-hidden text-white">
+        {/* 背景画像＋上品な紺グラデーション（文字が埋もれないよう左を濃く） */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hall/toda-saijo/exterior.png"
+            alt="戸田斎場の外観イメージ"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-navy-dark/95 via-navy-dark/80 to-navy/45" />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/70 via-transparent to-transparent" />
+        </div>
 
-          <ul className="mt-6 flex flex-wrap gap-2">
-            {["斎場の空き確認", "病院・施設からの搬送", "安置先のご相談", "お見積り"].map(
-              (c) => (
-                <li
-                  key={c}
-                  className="rounded-full border border-white/20 bg-white/5 px-3 py-1 text-xs text-white/90"
-                >
-                  {c}
-                </li>
-              )
-            )}
-          </ul>
+        <Container className="relative py-16 sm:py-24">
+          <div className="max-w-2xl">
+            <span className="inline-block rounded border border-gold/60 bg-navy-dark/30 px-3 py-1 text-xs tracking-wide text-gold-light backdrop-blur-sm">
+              北区・板橋区の葬儀相談窓口
+            </span>
+            <h1 className="mt-5 text-2xl font-bold leading-relaxed drop-shadow-md sm:text-4xl">
+              北区・板橋区で
+              <br className="hidden sm:block" />
+              戸田斎場の葬儀をご検討の方へ
+            </h1>
+            <p className="mt-5 leading-relaxed text-white/90 drop-shadow">
+              火葬場併設の戸田斎場での、一日葬・火葬式・直葬・家族葬のご相談を承ります。
+              斎場の空き確認から搬送・安置・お見積りまで、わかりやすくサポートする相談窓口です。
+            </p>
+            <p className="mt-4 text-sm font-medium text-gold-light drop-shadow">
+              運営・施行：{siteConfig.operator}
+            </p>
+
+            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+              <CallButton />
+              <Link
+                href="/contact/"
+                className="inline-flex items-center justify-center rounded-lg border border-white/50 bg-white/5 px-7 py-4 font-bold text-white backdrop-blur-sm transition hover:bg-white/15"
+              >
+                相談・見積りについて
+              </Link>
+            </div>
+            <p className="mt-4 text-sm text-white/90 drop-shadow">
+              {ctaText.primary}
+            </p>
+
+            <ul className="mt-6 flex flex-wrap gap-2">
+              {["斎場の空き確認", "病院・施設からの搬送", "安置先のご相談", "お見積り"].map(
+                (c) => (
+                  <li
+                    key={c}
+                    className="rounded-full border border-white/25 bg-navy-dark/30 px-3 py-1 text-xs text-white/95 backdrop-blur-sm"
+                  >
+                    {c}
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
         </Container>
       </section>
 
@@ -120,35 +140,65 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* 一番相談が多いプラン：一日葬 */}
+      {/* 一番相談が多いプラン：一日葬（注目させる左右レイアウト） */}
       <section className="bg-cream py-14">
         <Container>
-          <p className="text-sm font-bold text-gold">一番ご相談が多いプラン</p>
-          <h2 className="mt-1 text-xl font-bold text-navy sm:text-2xl">
-            戸田斎場での一日葬
-          </h2>
-          <div className="mt-6 rounded-xl border border-black/5 bg-white p-6 shadow-sm">
-            <p className="leading-relaxed">
-              通夜を行わず、一日でお見送りする形式です。5〜30名程度のご相談が多く、
-              ご親族中心で負担を抑えながらお別れの時間を持ちたい方に選ばれています。
-            </p>
-            <p className="mt-4 text-2xl font-bold text-navy">
-              目安 {formatPrice(496000)}
-            </p>
-            <PriceNote />
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link
-                href="/plan/one-day-funeral/"
-                className="rounded-lg bg-navy px-5 py-3 text-sm font-bold text-white hover:opacity-90"
-              >
-                一日葬の詳細を見る
-              </Link>
-              <Link
-                href="/hall/toda-saijo/"
-                className="rounded-lg border border-navy px-5 py-3 text-sm font-bold text-navy hover:bg-navy/5"
-              >
-                戸田斎場について
-              </Link>
+          <div className="grid overflow-hidden rounded-2xl border border-gold/25 bg-white shadow-md md:grid-cols-2">
+            {/* 画像（PCは左・スマホは上） */}
+            <div className="relative aspect-[4/3] w-full md:aspect-auto md:min-h-[380px]">
+              <Image
+                src={oneDayPlan.image}
+                alt="戸田斎場での一日葬イメージ"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+              />
+              <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-xs font-bold text-white shadow">
+                一番ご相談が多いプラン
+              </span>
+            </div>
+
+            {/* コンテンツ（見出し→説明→価格→向いている方→CTA の視線の流れ） */}
+            <div className="flex flex-col p-7 sm:p-9">
+              <h2 className="text-xl font-bold text-navy sm:text-2xl">
+                戸田斎場での一日葬
+              </h2>
+              <p className="mt-3 leading-relaxed">
+                通夜を行わず、一日でお見送りする形式です。戸田斎場で一日葬を検討している方から、
+                特にご相談の多いプランです。ご家族中心で、落ち着いてお別れしたい方に選ばれています。
+              </p>
+
+              <div className="mt-5 flex items-end gap-2">
+                <span className="text-sm text-muted">目安（税込）</span>
+                <span className="text-3xl font-bold text-navy">
+                  {oneDayPlan.price.toLocaleString("ja-JP")}
+                  <span className="ml-0.5 text-base font-bold">円</span>
+                </span>
+              </div>
+
+              <div className="mt-4 rounded-lg bg-cream p-4">
+                <p className="text-sm font-bold text-gold">向いている方</p>
+                <p className="mt-1 text-sm text-muted">{oneDayPlan.forWhom}</p>
+              </div>
+
+              <p className="mt-3 text-xs leading-relaxed text-muted">
+                ※ 表示価格は目安です。内容により費用が変わる場合があります。費用や流れ、空き状況も含めてご相談いただけます。詳しくは個別にお見積りします。
+              </p>
+
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <a
+                  href={siteConfig.telLink}
+                  className="rounded-lg bg-gold px-5 py-3 text-center text-sm font-bold text-white transition hover:opacity-90"
+                >
+                  電話で一日葬を相談する
+                </a>
+                <Link
+                  href="/plan/one-day-funeral/"
+                  className="rounded-lg border border-navy px-5 py-3 text-center text-sm font-bold text-navy transition hover:bg-navy/5"
+                >
+                  一日葬の詳細を見る
+                </Link>
+              </div>
             </div>
           </div>
         </Container>
