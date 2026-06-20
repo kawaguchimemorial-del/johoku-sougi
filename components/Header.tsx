@@ -10,6 +10,7 @@ const navItems = [
   { label: "北区", href: "/area/kita-ku/" },
   { label: "板橋区", href: "/area/itabashi-ku/" },
   { label: "斎場一覧", href: "/hall/" },
+  { label: "コラム", href: "/column/" },
   { label: "よくある質問", href: "/faq/" },
 ];
 

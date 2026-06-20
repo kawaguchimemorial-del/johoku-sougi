@@ -49,6 +49,30 @@ export function breadcrumbLd(items: { name: string; path: string }[]) {
   };
 }
 
+export function articleLd(input: {
+  title: string;
+  description: string;
+  path: string;
+  updated: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: input.title,
+    description: input.description,
+    inLanguage: "ja",
+    datePublished: input.updated,
+    dateModified: input.updated,
+    mainEntityOfPage: `${siteConfig.url}${input.path}`,
+    author: { "@type": "Organization", name: siteConfig.operator },
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+  };
+}
+
 export function faqLd(items: Faq[]) {
   return {
     "@context": "https://schema.org",

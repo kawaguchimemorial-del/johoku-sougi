@@ -12,6 +12,9 @@ import { siteConfig, ctaText, disclaimer } from "@/app/config/site";
 import { plans, getPlan } from "@/data/plans";
 import { halls } from "@/data/halls";
 import { faqs } from "@/data/faqs";
+import { columns, getCategoryName } from "@/data/columns";
+import { ColumnIllust } from "@/components/ColumnIllust";
+import { columnCategories } from "@/data/columns";
 
 const oneDayPlan = getPlan("one-day-funeral")!;
 
@@ -291,6 +294,53 @@ export default function Home() {
               </li>
             ))}
           </ol>
+        </Container>
+      </section>
+
+      {/* コラム抜粋 */}
+      <section className="py-14">
+        <Container>
+          <h2 className="text-xl font-bold text-navy sm:text-2xl">
+            葬儀の「知りたい」がわかるコラム
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-muted">
+            費用・流れ・形式・手続き・マナーまで、はじめての方がつまずきやすい点を、やさしく解説しています。
+          </p>
+          <div className="mt-6 grid gap-5 sm:grid-cols-3">
+            {columns.slice(0, 3).map((c) => {
+              const illust =
+                columnCategories.find((cat) => cat.slug === c.category)?.illust ??
+                "flow";
+              return (
+                <Link
+                  key={c.slug}
+                  href={`/column/${c.slug}/`}
+                  className="group flex flex-col overflow-hidden rounded-xl border border-black/5 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                >
+                  <div className="relative h-32 w-full">
+                    <ColumnIllust name={illust} className="h-full w-full" />
+                    <span className="absolute left-3 top-3 rounded-full bg-navy/90 px-3 py-1 text-[11px] font-bold text-white">
+                      {getCategoryName(c.category)}
+                    </span>
+                  </div>
+                  <div className="flex flex-1 flex-col p-4">
+                    <h3 className="text-sm font-bold leading-snug text-navy group-hover:text-navy-light">
+                      {c.title}
+                    </h3>
+                    <span className="mt-3 text-xs font-bold text-gold">
+                      続きを読む →
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+          <Link
+            href="/column/"
+            className="mt-6 inline-block text-sm font-bold text-gold hover:underline"
+          >
+            コラムをすべて見る →
+          </Link>
         </Container>
       </section>
 
