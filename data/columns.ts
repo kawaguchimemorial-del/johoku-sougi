@@ -656,6 +656,7 @@ export const columns: Column[] = [
     keywords: ["戸田斎場", "火葬場", "アクセス", "斎場"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/toda-saijo-guide.png",
     lead: "北区・板橋区からのお見送りで、選択肢にあがりやすいのが戸田斎場です。火葬場が併設されているという特徴が、実際の負担や費用にどう関わるのかを整理しておきましょう。",
     sections: [
       {
@@ -711,6 +712,7 @@ export const columns: Column[] = [
     keywords: ["斎場", "公営", "民営", "違い", "選び方"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/public-vs-private-hall.png",
     lead: "斎場には、自治体などが運営する公営と、民間が運営する民営があります。どちらが良い・悪いではなく、それぞれの性格を知って、状況に合う方を選ぶのが正解です。",
     sections: [
       {
@@ -757,6 +759,7 @@ export const columns: Column[] = [
     keywords: ["火葬", "当日", "収骨", "時間"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/crematory-flow.png",
     lead: "火葬当日は、慣れない流れの中で時間が過ぎていきます。あらかじめ全体の段取りと、どのくらい時間がかかるのかを知っておくだけで、落ち着いて当日を過ごせます。",
     sections: [
       {
@@ -1409,6 +1412,7 @@ export const columns: Column[] = [
     keywords: ["北区", "戸田斎場", "地域", "家族葬"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/kita-ku-funeral.png",
     lead: "北区で大切な方を見送るとき、「どこの斎場を使えばいいのか」で多くの方が迷われます。区内の式場だけでなく、火葬場併設の戸田斎場も含めて、北区からの動きやすさという視点で考えると選びやすくなります。",
     sections: [
       {
@@ -1469,6 +1473,7 @@ export const columns: Column[] = [
     keywords: ["板橋区", "斎場", "地域", "一日葬"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/itabashi-ku-funeral.png",
     lead: "板橋区で葬儀を考えるとき、まず迷うのが斎場選びです。区内の式場に加え、火葬場併設の戸田斎場まで視野に入れると、移動の負担を抑えながら無理のないお見送りができます。",
     sections: [
       {
