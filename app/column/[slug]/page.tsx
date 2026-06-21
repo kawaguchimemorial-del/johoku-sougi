@@ -159,6 +159,53 @@ export default async function ColumnDetailPage({
                     ))}
                   </ul>
                 )}
+                {s.table && (
+                  <figure className="mt-5">
+                    {s.table.caption && (
+                      <figcaption className="mb-2 text-sm font-bold text-navy">
+                        {s.table.caption}
+                      </figcaption>
+                    )}
+                    <div className="overflow-x-auto rounded-xl border border-black/10">
+                      <table className="w-full border-collapse text-sm">
+                        <thead>
+                          <tr className="bg-navy text-white">
+                            {s.table.headers.map((h) => (
+                              <th
+                                key={h}
+                                className="whitespace-nowrap px-4 py-3 text-left font-bold"
+                              >
+                                {h}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {s.table.rows.map((row, ri) => (
+                            <tr
+                              key={row.join("|")}
+                              className={ri % 2 === 0 ? "bg-white" : "bg-cream"}
+                            >
+                              {row.map((cell, ci) => (
+                                <td
+                                  key={ci}
+                                  className="border-t border-black/5 px-4 py-3 align-top leading-relaxed"
+                                >
+                                  {cell}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    {s.table.note && (
+                      <p className="mt-2 text-xs leading-relaxed text-muted">
+                        {s.table.note}
+                      </p>
+                    )}
+                  </figure>
+                )}
 
                 {/* 本文の中ほどに自然な相談導線を挟む */}
                 {i === Math.floor(col.sections.length / 2) && (
