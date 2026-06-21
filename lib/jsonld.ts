@@ -92,8 +92,31 @@ export function articleLd(input: {
   path: string;
   updated: string;
   image?: string;
+  reviewer?: {
+    name: string;
+    title: string;
+    credentials?: string[];
+    sameAs?: string[];
+  } | null;
 }) {
   const image = input.image ?? siteConfig.ogImage;
+  const reviewedBy =
+    input.reviewer && input.reviewer.name
+      ? {
+          reviewedBy: {
+            "@type": "Person",
+            name: input.reviewer.name,
+            jobTitle: input.reviewer.title,
+            ...(input.reviewer.credentials &&
+            input.reviewer.credentials.length > 0
+              ? { hasCredential: input.reviewer.credentials }
+              : {}),
+            ...(input.reviewer.sameAs && input.reviewer.sameAs.length > 0
+              ? { sameAs: input.reviewer.sameAs }
+              : {}),
+          },
+        }
+      : {};
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -114,6 +137,7 @@ export function articleLd(input: {
       name: siteConfig.name,
       url: siteConfig.url,
     },
+    ...reviewedBy,
   };
 }
 

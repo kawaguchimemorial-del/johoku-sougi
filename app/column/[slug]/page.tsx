@@ -17,6 +17,7 @@ import {
   getCategoryName,
   columnImage,
 } from "@/data/columns";
+import { getReviewer, requiresExpertCheck } from "@/data/reviewers";
 
 export function generateStaticParams() {
   return columns.map((c) => ({ slug: c.slug }));
@@ -48,6 +49,8 @@ export default async function ColumnDetailPage({
   if (!col) notFound();
 
   const category = getCategory(col.category);
+  const reviewer = getReviewer({ slug: col.slug, reviewerId: col.reviewerId });
+  const needsExpert = requiresExpertCheck(col.slug);
   const related = (col.related ?? [])
     .map((s) => getColumn(s))
     .filter((c): c is NonNullable<typeof c> => Boolean(c));
@@ -70,6 +73,7 @@ export default async function ColumnDetailPage({
             path,
             updated: col.updated,
             image: columnImage(col) ?? undefined,
+            reviewer,
           }),
           ...(col.faq && col.faq.length > 0 ? [faqLd(col.faq)] : []),
         ]}
@@ -151,6 +155,27 @@ export default async function ColumnDetailPage({
                 <dt className="font-bold text-ink">最終更新：</dt>
                 <dd>{col.updated}</dd>
               </div>
+              {reviewer && (
+                <div className="flex flex-wrap gap-x-2">
+                  <dt className="font-bold text-ink">監修：</dt>
+                  <dd>
+                    {reviewer.name}（{reviewer.title}
+                    {reviewer.credentials.length > 0
+                      ? `／${reviewer.credentials.join("・")}`
+                      : ""}
+                    ）
+                  </dd>
+                </div>
+              )}
+              {!reviewer && needsExpert && (
+                <div className="flex flex-wrap gap-x-2">
+                  <dt className="font-bold text-ink">専門分野：</dt>
+                  <dd>
+                    税・相続・年金など制度に関わる内容を含みます。最新・個別の判断は、
+                    公的窓口や専門家（税理士・司法書士など）にご確認ください。
+                  </dd>
+                </div>
+              )}
               <div className="flex flex-wrap gap-x-2">
                 <dt className="font-bold text-ink">編集方針：</dt>
                 <dd>

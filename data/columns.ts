@@ -33,6 +33,7 @@ export type Column = {
   readMin: number;
   updated: string; // YYYY-MM-DD
   image?: string; // 記事個別のアイキャッチ画像（未指定ならカテゴリ画像→SVGの順でフォールバック）
+  reviewerId?: string; // 監修者ID（未指定ならカテゴリ/分野から自動決定）
   lead: string;
   sections: ColumnSection[];
   takeaways: string[]; // この記事のポイント

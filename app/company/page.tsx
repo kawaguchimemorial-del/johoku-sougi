@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
 import { siteConfig, disclaimer } from "@/app/config/site";
+import { publishedReviewers } from "@/data/reviewers";
 
 export const metadata: Metadata = buildMetadata({
   title: "運営者情報",
@@ -77,6 +78,39 @@ export default function CompanyPage() {
               </div>
             ))}
           </dl>
+
+          {publishedReviewers().length > 0 && (
+            <div className="mt-10">
+              <h2 className="text-xl font-bold text-navy sm:text-2xl">
+                コラムの監修者
+              </h2>
+              <p className="mt-2 text-sm text-muted">
+                葬儀分野のコラムは、次の監修者が内容を確認しています。
+              </p>
+              <div className="mt-5 space-y-4">
+                {publishedReviewers().map((rv) => (
+                  <div
+                    key={rv.id}
+                    id={`reviewer-${rv.id}`}
+                    className="rounded-xl border border-black/5 bg-white p-6 shadow-sm"
+                  >
+                    <p className="font-bold text-navy">
+                      {rv.name}
+                      <span className="ml-2 text-sm font-normal text-muted">
+                        {rv.title}（{rv.role}）
+                      </span>
+                    </p>
+                    {rv.credentials.length > 0 && (
+                      <p className="mt-1 text-sm text-gold">
+                        {rv.credentials.join("・")}
+                      </p>
+                    )}
+                    <p className="mt-2 text-sm leading-relaxed">{rv.bio}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="mt-8 rounded-xl bg-cream p-6 text-sm leading-relaxed text-muted">
             <p>{disclaimer}</p>
