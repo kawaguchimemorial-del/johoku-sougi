@@ -1138,6 +1138,7 @@ export const columns: Column[] = [
     keywords: ["終活", "事前", "エンディングノート", "準備"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/shukatsu-prepare.png",
     lead: "終活は「死の準備」ではなく、「これからを安心して過ごすための整理」です。完璧を目指す必要はありません。できることから少しずつ進めるだけで、自分も家族も気持ちが軽くなります。",
     sections: [
       {
@@ -1191,6 +1192,7 @@ export const columns: Column[] = [
     keywords: ["事前見積り", "生前", "安心", "事前相談"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/mitsumori-prepare.png",
     lead: "「縁起でもない」と感じる方もいますが、生前の事前相談は、実はいちばん落ち着いて準備できるタイミングです。慌ただしさの中で決めるより、ずっと納得のいく選択ができます。",
     sections: [
       {
@@ -1911,6 +1913,7 @@ export const columns: Column[] = [
     keywords: ["遺言", "相続", "終活", "準備"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/igon-basic.png",
     lead: "「遺言なんて大げさ」と感じる方もいますが、財産の分け方を自分の意思で決めておくことは、残された家族の負担やもめごとを減らす大きな備えになります。基本を知っておきましょう。",
     sections: [
       {
@@ -1963,6 +1966,7 @@ export const columns: Column[] = [
     keywords: ["エンディングノート", "終活", "書き方", "準備"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/endingnote-howto.png",
     lead: "エンディングノートは、終活の入り口として始めやすい一冊です。決まった形式はなく、書ける項目から少しずつ埋めていけば大丈夫。何を書くと役立つのか、項目ごとに見ていきましょう。",
     sections: [
       {
@@ -2959,6 +2963,7 @@ export const columns: Column[] = [
     keywords: ["生前整理", "片付け", "終活", "準備"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/seizen-seiri.png",
     lead: "生前整理は「捨てる作業」ではなく、これからを身軽に、心地よく過ごすための整理です。一気に片付けようとすると疲れてしまいます。少しずつ、楽しみながら進めるのがコツです。",
     sections: [
       {
@@ -3006,6 +3011,7 @@ export const columns: Column[] = [
     keywords: ["看取り", "終末期", "介護", "心構え"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/mitori-kokoro.png",
     lead: "大切な人の最期が近づく時間は、つらく、戸惑うことの連続です。「正解」を求めるより、本人とご家族が穏やかに過ごせることを大切に。看取りに向き合うための心構えをお伝えします。",
     sections: [
       {
