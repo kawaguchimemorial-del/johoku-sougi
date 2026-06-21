@@ -233,6 +233,7 @@ export const columns: Column[] = [
     keywords: ["費用", "相場", "内訳", "見積り"],
     readMin: 8,
     updated: "2026-06-21",
+    image: "/images/column/funeral-cost-guide.png",
     lead: "「葬儀って結局いくらかかるの？」という疑問は、内訳を3つに分けて考えると驚くほどスッキリします。総額の数字だけを比べるのではなく、何にいくらかかるのかを見られるようになることが、納得できるお見送りへの近道です。",
     sections: [
       {
@@ -299,6 +300,7 @@ export const columns: Column[] = [
     keywords: ["費用", "抑える", "節約", "補助"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/cost-saving.png",
     lead: "費用を抑えることと、心のこもったお見送りをすることは、両立できます。大切なのは「削れるところ」と「削らない方がよいところ」を見分けること。ここでは、後悔につながりにくい見直しのポイントを紹介します。",
     sections: [
       {
@@ -347,6 +349,7 @@ export const columns: Column[] = [
     keywords: ["補助金", "葬祭費", "給付", "手続き"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/subsidy-funeral.png",
     lead: "葬儀に関しては「払う」だけでなく「受け取れる」お金もあります。申請しなければもらえないものがほとんどなので、知っているかどうかで差が出ます。代表的なものを押さえておきましょう。",
     sections: [
       {
@@ -1541,6 +1544,7 @@ export const columns: Column[] = [
     keywords: ["一日葬", "費用", "内訳", "目安"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/ichinichi-cost.png",
     lead: "一日葬は通夜を行わない分、費用を抑えやすい形式です。ただし「何が安くなるのか」を理解しておかないと、思ったより総額がかさむこともあります。内訳で見ていきましょう。",
     sections: [
       {
@@ -1594,6 +1598,7 @@ export const columns: Column[] = [
     keywords: ["家族葬", "費用", "内訳", "香典"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/kazoku-cost.png",
     lead: "家族葬は「費用を抑えられる」というイメージがありますが、実際の負担は香典との関係で見え方が変わります。内訳と一緒に、実質負担の考え方まで押さえておきましょう。",
     sections: [
       {
@@ -1647,6 +1652,7 @@ export const columns: Column[] = [
     keywords: ["お布施", "相場", "渡し方", "宗教者"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/ofuse-guide.png",
     lead: "「お布施はいくら包めばいいの？」は、葬儀でとても多い悩みのひとつです。お布施は対価ではなく感謝の気持ちを表すものですが、目安や作法を知っておくと迷わずに済みます。",
     sections: [
       {
@@ -2311,6 +2317,7 @@ export const columns: Column[] = [
     keywords: ["一般葬", "費用", "内訳", "目安"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/ippan-cost.png",
     lead: "一般葬は規模が大きい分、費用も大きくなりがちです。ただ、香典収入も増えるため、見た目の総額だけでは負担感が分かりません。内訳と実質負担の両面で押さえておきましょう。",
     sections: [
       {
@@ -2357,6 +2364,7 @@ export const columns: Column[] = [
     keywords: ["戒名", "法名", "費用", "お布施"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/kaimyo-guide.png",
     lead: "戒名は、費用も含めて分かりにくいと感じる方が多いテーマです。そもそも戒名とは何か、なぜ費用に幅があるのかを知っておくと、納得して判断できます。",
     sections: [
       {
@@ -2403,6 +2411,7 @@ export const columns: Column[] = [
     keywords: ["支払い", "後払い", "分割", "タイミング"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/funeral-payment.png",
     lead: "「まとまったお金をすぐに用意できるだろうか」——葬儀費用の支払いは、多くの方が抱える現実的な不安です。支払いのタイミングや方法を知っておくと、見通しが立てやすくなります。",
     sections: [
       {
@@ -2449,6 +2458,7 @@ export const columns: Column[] = [
     keywords: ["生活保護", "葬祭扶助", "費用", "申請"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/seikatsuhogo-sousai.png",
     lead: "経済的な事情で葬儀費用の負担が難しいとき、利用を検討できる制度に「葬祭扶助」があります。要件や手順を知っておくと、いざというとき選択肢を持てます。",
     sections: [
       {
