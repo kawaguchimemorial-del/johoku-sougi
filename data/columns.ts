@@ -816,6 +816,7 @@ export const columns: Column[] = [
     keywords: ["死亡届", "火葬許可", "手続き", "期限"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/death-certificate.png",
     lead: "死亡届と火葬許可証は、葬儀を行ううえで欠かせない手続きです。期限があり、火葬の前提にもなるため、流れを押さえておきましょう。実務の多くは葬儀社が代行できます。",
     sections: [
       {
@@ -864,6 +865,7 @@ export const columns: Column[] = [
     keywords: ["手続き", "年金", "相続", "名義変更"],
     readMin: 7,
     updated: "2026-06-21",
+    image: "/images/column/after-death-tasks.png",
     lead: "葬儀が終わってひと息つくと、今度は役所や金融機関での手続きが待っています。数が多くて圧倒されますが、「期限のあるもの」から順に片づければ大丈夫。全体像と優先順位を示します。",
     sections: [
       {
@@ -923,6 +925,7 @@ export const columns: Column[] = [
     keywords: ["相続", "遺産", "期限", "相談"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/inheritance-basic.png",
     lead: "相続と聞くと身構えてしまいますが、最初にやることはシンプルです。「誰が相続人か」「何があるか」「いつまでにするか」——この3点を確認するところから始めれば、道筋が見えてきます。",
     sections: [
       {
@@ -1707,6 +1710,7 @@ export const columns: Column[] = [
     keywords: ["香典返し", "返礼品", "相場", "マナー"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/henreihin-guide.png",
     lead: "いただいた香典へのお返しは、感謝を伝える大切な機会です。「会葬御礼」と「香典返し」は別物で、時期や金額の目安もあります。混同しやすい点を整理しておきましょう。",
     sections: [
       {
@@ -1760,6 +1764,7 @@ export const columns: Column[] = [
     keywords: ["通夜ぶるまい", "精進落とし", "会食", "マナー"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/tsuya-meal.png",
     lead: "葬儀には会食の場面があり、それぞれに意味があります。「通夜ぶるまい」と「精進落とし」は別のもの。役割を知っておくと、施主側でも参列側でも落ち着いて振る舞えます。",
     sections: [
       {
@@ -1813,6 +1818,7 @@ export const columns: Column[] = [
     keywords: ["年金", "手続き", "期限", "届出"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/nenkin-tetsuzuki.png",
     lead: "年金を受け取っていた方が亡くなったときは、いくつかの手続きが必要です。期限のあるものもあるため、葬儀が一段落したら早めに着手したい分野です。基本を押さえておきましょう。",
     sections: [
       {
@@ -1866,6 +1872,7 @@ export const columns: Column[] = [
     keywords: ["名義変更", "解約", "口座", "手続き"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/meigi-henkou.png",
     lead: "故人の名義になっている契約は、数えてみると意外に多いものです。一度に終わらせる必要はありません。生活への影響が大きいものから、順番に進めていきましょう。",
     sections: [
       {
@@ -2742,6 +2749,7 @@ export const columns: Column[] = [
     keywords: ["期限", "14日", "届出", "チェックリスト"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/after-death-14days.png",
     lead: "葬儀が終わってひと息つく間もなく、期限のある手続きが迫ってきます。なかでも最初の2週間ほどで動きたいものを一覧にしました。全体像があると、落ち着いて取りかかれます。",
     sections: [
       {
@@ -2789,6 +2797,7 @@ export const columns: Column[] = [
     keywords: ["世帯主", "変更", "期限", "届出"],
     readMin: 4,
     updated: "2026-06-21",
+    image: "/images/column/setai-nushi.png",
     lead: "世帯主が亡くなったとき、状況によっては「世帯主変更届」が必要になります。必要かどうかの線引きが分かりにくい手続きなので、ポイントを整理しておきましょう。",
     sections: [
       {
@@ -2835,6 +2844,7 @@ export const columns: Column[] = [
     keywords: ["準確定申告", "税", "期限", "相続"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/junkakutei.png",
     lead: "聞き慣れない「準確定申告」という言葉。これは、亡くなった方の所得税を、相続人が代わりに申告・納付する手続きです。必要になるかどうかと、期限を押さえておきましょう。",
     sections: [
       {
@@ -2881,6 +2891,7 @@ export const columns: Column[] = [
     keywords: ["口座", "凍結", "解除", "相続"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/account-frozen.png",
     lead: "「親の口座が下ろせなくなった」と慌てる方は少なくありません。故人の口座は、金融機関が死亡を知ると凍結されます。なぜ凍結されるのか、どうすれば引き出せるのかを整理しておきましょう。",
     sections: [
       {
@@ -2927,6 +2938,7 @@ export const columns: Column[] = [
     keywords: ["相続放棄", "借金", "期限", "手続き"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/souzoku-houki.png",
     lead: "故人に借金などのマイナス財産があるとき、相続人を守る選択肢が「相続放棄」です。ただし期限があり、注意点もあります。仕組みを正しく知っておきましょう。",
     sections: [
       {
