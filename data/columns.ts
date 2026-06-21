@@ -388,6 +388,7 @@ export const columns: Column[] = [
     keywords: ["一日葬", "日程", "費用", "選び方"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/ichinichi-sou.png",
     lead: "一日葬は、通夜を省略して告別式と火葬を一日で行う形式です。「きちんとお別れはしたいが、二日間は負担が大きい」という方に選ばれています。良い面と気をつけたい面の両方を見ておきましょう。",
     sections: [
       {
@@ -448,6 +449,7 @@ export const columns: Column[] = [
     keywords: ["火葬式", "直葬", "流れ", "費用"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/kasou-shiki.png",
     lead: "火葬式（直葬）は、通夜や告別式を行わず、火葬を中心にお見送りする最もシンプルな形式です。費用や負担を最小限にしたい方に選ばれますが、後から「もう少し時間がほしかった」と感じないために、特徴をよく理解しておきましょう。",
     sections: [
       {
@@ -501,6 +503,7 @@ export const columns: Column[] = [
     keywords: ["家族葬", "参列", "規模", "選び方"],
     readMin: 7,
     updated: "2026-06-21",
+    image: "/images/column/kazoku-sou.png",
     lead: "家族葬は、ここ数年で最も選ばれている形式のひとつです。ただ「家族葬」という言葉に決まった定義はなく、人数も内容も家庭によってさまざま。だからこそ、何を大切にしたいかを言葉にしておくことが、満足できるお見送りにつながります。",
     sections: [
       {
@@ -556,6 +559,7 @@ export const columns: Column[] = [
     keywords: ["一般葬", "違い", "選び方", "比較"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/ippan-sou.png",
     lead: "「一般葬と家族葬、どちらがいいの？」という問いに、唯一の正解はありません。大切なのは、いくつかの軸で比べて、自分たちの状況に合う方を選ぶことです。判断のものさしを用意しました。",
     sections: [
       {
@@ -603,6 +607,7 @@ export const columns: Column[] = [
     keywords: ["選び方", "形式", "比較", "はじめて"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/choose-funeral-type.png",
     lead: "形式選びは、たくさんの情報を前にすると迷子になりがちです。そこで、順番に答えていくだけで方向性が見えてくる4つの質問を用意しました。完璧に決めきれなくても、相談の出発点になります。",
     sections: [
       {
@@ -2066,6 +2071,7 @@ export const columns: Column[] = [
     keywords: ["一般葬", "流れ", "費用", "規模"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/ippan-funeral.png",
     lead: "一般葬は、ご友人や職場、ご近所まで広くお招きする従来型の葬儀です。近年は家族葬が増えていますが、交友関係が広い方には一般葬が合うことも少なくありません。特徴を整理しておきましょう。",
     sections: [
       {
