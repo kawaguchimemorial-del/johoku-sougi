@@ -1347,6 +1347,7 @@ export const columns: Column[] = [
     keywords: ["グリーフ", "心のケア", "喪失", "供養"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/grief-care.png",
     lead: "大切な人を失った悲しみは、手続きのように「終わらせる」ものではありません。時間をかけて、少しずつ付き合っていくものです。ここでは、その向き合い方をやさしく見ていきます。",
     sections: [
       {
@@ -3116,6 +3117,7 @@ export const columns: Column[] = [
     keywords: ["樹木葬", "自然葬", "費用", "供養"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/jumokusou.png",
     lead: "墓石の代わりに樹木や草花を墓標とする樹木葬は、「自然に還りたい」という思いに沿う供養として人気が高まっています。イメージだけで決めず、特徴と注意点を押さえておきましょう。",
     sections: [
       {
@@ -3162,6 +3164,7 @@ export const columns: Column[] = [
     keywords: ["墓じまい", "改葬", "手続き", "費用"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/hakajimai.png",
     lead: "「遠方のお墓を管理しきれない」「継ぐ人がいない」——こうした事情から、墓じまいを考える方が増えています。手続きや費用、進め方のコツを知って、後悔のない形で進めましょう。",
     sections: [
       {
