@@ -2,8 +2,8 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { ColumnIllust } from "./ColumnIllust";
-import type { Column, ColumnCategory } from "@/data/columns";
+import { ColumnVisual } from "./ColumnVisual";
+import { columnImage, type Column, type ColumnCategory } from "@/data/columns";
 
 type Props = {
   columns: Column[];
@@ -147,8 +147,14 @@ export function ColumnExplorer({ columns, categories, keywords }: Props) {
               className="group flex flex-col overflow-hidden rounded-xl border border-black/5 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
             >
               <div className="relative h-36 w-full">
-                <ColumnIllust name={illustOf(c.category)} className="h-full w-full" />
-                <span className="absolute left-3 top-3 rounded-full bg-navy/90 px-3 py-1 text-[11px] font-bold text-white">
+                <ColumnVisual
+                  src={columnImage(c)}
+                  illust={illustOf(c.category)}
+                  alt={c.title}
+                  className="h-full w-full"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <span className="absolute left-3 top-3 z-10 rounded-full bg-navy/90 px-3 py-1 text-[11px] font-bold text-white">
                   {categoryName(c.category)}
                 </span>
               </div>

@@ -6,7 +6,8 @@ export type ColumnCategory = {
   name: string; // 一覧の絞り込みボタンに使う
   short: string; // バッジ等の短縮表記
   description: string;
-  illust: string; // ColumnIllust の name
+  illust: string; // ColumnIllust の name（画像が無いときのフォールバック）
+  image?: string; // カテゴリ共通のヘッダー画像（public 配下の絶対パス）
 };
 
 export type ColumnSection = {
@@ -23,6 +24,7 @@ export type Column = {
   keywords: string[]; // 絞り込みタグ（顧客が知りたいワード）
   readMin: number;
   updated: string; // YYYY-MM-DD
+  image?: string; // 記事個別のアイキャッチ画像（未指定ならカテゴリ画像→SVGの順でフォールバック）
   lead: string;
   sections: ColumnSection[];
   takeaways: string[]; // この記事のポイント
@@ -37,6 +39,7 @@ export const columnCategories: ColumnCategory[] = [
     short: "流れ",
     description: "ご逝去直後にすること、葬儀全体の進み方をやさしく解説します。",
     illust: "flow",
+    image: "/images/column/cat-flow.png",
   },
   {
     slug: "cost",
@@ -44,6 +47,7 @@ export const columnCategories: ColumnCategory[] = [
     short: "費用",
     description: "葬儀費用の内訳、相場の考え方、受け取れるお金についてまとめます。",
     illust: "cost",
+    image: "/images/column/cat-cost.png",
   },
   {
     slug: "types",
@@ -51,6 +55,7 @@ export const columnCategories: ColumnCategory[] = [
     short: "形式",
     description: "一日葬・家族葬・火葬式・一般葬の違いと選び方を整理します。",
     illust: "types",
+    image: "/images/column/cat-types.png",
   },
   {
     slug: "venue",
@@ -58,6 +63,7 @@ export const columnCategories: ColumnCategory[] = [
     short: "斎場",
     description: "戸田斎場をはじめ、斎場の選び方や火葬当日の流れを解説します。",
     illust: "venue",
+    image: "/images/column/cat-venue.png",
   },
   {
     slug: "procedure",
@@ -65,6 +71,7 @@ export const columnCategories: ColumnCategory[] = [
     short: "手続き",
     description: "死亡届、火葬許可、葬儀後の各種手続きの順番と期限をまとめます。",
     illust: "procedure",
+    image: "/images/column/cat-procedure.png",
   },
   {
     slug: "manner",
@@ -72,6 +79,7 @@ export const columnCategories: ColumnCategory[] = [
     short: "マナー",
     description: "香典・服装・宗教ごとの作法など、迷いやすいマナーを解説します。",
     illust: "manner",
+    image: "/images/column/cat-manner.png",
   },
   {
     slug: "prepare",
@@ -79,6 +87,7 @@ export const columnCategories: ColumnCategory[] = [
     short: "準備",
     description: "もしもの時に慌てないための、生前の準備と心構えをご紹介します。",
     illust: "prepare",
+    image: "/images/column/cat-prepare.png",
   },
   {
     slug: "after",
@@ -86,6 +95,7 @@ export const columnCategories: ColumnCategory[] = [
     short: "供養",
     description: "法要・お墓・仏壇・心のケアなど、お見送りの後のことを扱います。",
     illust: "after",
+    image: "/images/column/cat-after.png",
   },
 ];
 
@@ -3203,6 +3213,13 @@ export function getCategory(slug: string): ColumnCategory | undefined {
 
 export function getCategoryName(slug: string): string {
   return getCategory(slug)?.name ?? "コラム";
+}
+
+// 記事の表示画像を解決する。記事個別 → カテゴリ共通 → なし(SVGフォールバック) の順。
+export function columnImage(col: Pick<Column, "image" | "category">): string | null {
+  if (col.image) return col.image;
+  const cat = getCategory(col.category);
+  return cat?.image ?? null;
 }
 
 // すべてのキーワードを重複なく集めて出現数とともに返す（絞り込みボタン用）

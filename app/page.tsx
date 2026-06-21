@@ -12,8 +12,8 @@ import { siteConfig, ctaText, disclaimer } from "@/app/config/site";
 import { plans, getPlan } from "@/data/plans";
 import { halls } from "@/data/halls";
 import { faqs } from "@/data/faqs";
-import { columns, getCategoryName } from "@/data/columns";
-import { ColumnIllust } from "@/components/ColumnIllust";
+import { columns, getCategoryName, columnImage } from "@/data/columns";
+import { ColumnVisual } from "@/components/ColumnVisual";
 import { columnCategories } from "@/data/columns";
 
 const oneDayPlan = getPlan("one-day-funeral")!;
@@ -318,8 +318,14 @@ export default function Home() {
                   className="group flex flex-col overflow-hidden rounded-xl border border-black/5 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
                 >
                   <div className="relative h-32 w-full">
-                    <ColumnIllust name={illust} className="h-full w-full" />
-                    <span className="absolute left-3 top-3 rounded-full bg-navy/90 px-3 py-1 text-[11px] font-bold text-white">
+                    <ColumnVisual
+                      src={columnImage(c)}
+                      illust={illust}
+                      alt={c.title}
+                      className="h-full w-full"
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                    />
+                    <span className="absolute left-3 top-3 z-10 rounded-full bg-navy/90 px-3 py-1 text-[11px] font-bold text-white">
                       {getCategoryName(c.category)}
                     </span>
                   </div>

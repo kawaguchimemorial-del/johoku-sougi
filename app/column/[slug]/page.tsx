@@ -5,7 +5,7 @@ import { Container } from "@/components/Container";
 import { CtaSection } from "@/components/CtaSection";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CallButton } from "@/components/CallButton";
-import { ColumnIllust } from "@/components/ColumnIllust";
+import { ColumnVisual } from "@/components/ColumnVisual";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd, articleLd, faqLd } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
@@ -15,6 +15,7 @@ import {
   getColumn,
   getCategory,
   getCategoryName,
+  columnImage,
 } from "@/data/columns";
 
 export function generateStaticParams() {
@@ -101,11 +102,15 @@ export default async function ColumnDetailPage({
 
       <article className="py-10 sm:py-12">
         <Container className="max-w-3xl">
-          {/* アイキャッチイラスト */}
+          {/* アイキャッチ（画像があれば画像、無ければSVG） */}
           <div className="overflow-hidden rounded-2xl border border-black/5 shadow-sm">
-            <ColumnIllust
-              name={category?.illust ?? "flow"}
+            <ColumnVisual
+              src={columnImage(col)}
+              illust={category?.illust ?? "flow"}
+              alt={col.title}
               className="aspect-[16/7] w-full"
+              sizes="(max-width: 768px) 100vw, 768px"
+              priority
             />
           </div>
 
