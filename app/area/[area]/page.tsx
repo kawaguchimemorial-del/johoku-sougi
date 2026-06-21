@@ -41,6 +41,10 @@ export default async function AreaPage({
   const area = getArea(slug);
   if (!area) notFound();
 
+  const featuredHalls = area.featuredHalls
+    .map((s) => getHall(s))
+    .filter((h): h is NonNullable<typeof h> => Boolean(h));
+
   const localHalls = area.localHalls
     .map((s) => getHall(s))
     .filter((h): h is NonNullable<typeof h> => Boolean(h));
@@ -69,19 +73,26 @@ export default async function AreaPage({
       <section className="bg-cream py-12">
         <Container>
           <h2 className="text-xl font-bold text-navy sm:text-2xl">
-            戸田斎場を利用する場合の考え方
+            {area.name}から利用できる斎場
           </h2>
           <p className="mt-4 leading-relaxed">
             {area.name}からは、火葬場が併設された戸田斎場が利用しやすく、移動の負担を抑えながらお見送りができます。
+            {featuredHalls.some((h) => h.slug === "funado-saijo") &&
+              "あわせて、板橋区内の舟渡斎場もご利用いただけます。"}
             通夜を行わない一日葬、火葬を中心とした火葬式・直葬、ご家族中心の家族葬など、
-            ご希望や参列人数に合わせて形式をお選びいただけます。
+            ご希望や参列人数に合わせて、斎場・形式をお選びいただけます。
           </p>
-          <Link
-            href="/hall/toda-saijo/"
-            className="mt-5 inline-block rounded-lg bg-navy px-5 py-3 text-sm font-bold text-white hover:opacity-90"
-          >
-            戸田斎場について詳しく見る →
-          </Link>
+          <div className="mt-5 flex flex-wrap gap-3">
+            {featuredHalls.map((h) => (
+              <Link
+                key={h.slug}
+                href={h.href}
+                className="inline-block rounded-lg bg-navy px-5 py-3 text-sm font-bold text-white hover:opacity-90"
+              >
+                {h.name}について詳しく見る →
+              </Link>
+            ))}
+          </div>
         </Container>
       </section>
 

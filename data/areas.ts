@@ -6,6 +6,8 @@ export type Area = {
   href: string;
   lead: string;
   intro: string[];
+  // そのエリアから利用できる主な斎場（ページ上部で大きく案内する）slug
+  featuredHalls: string[];
   // そのエリアで選択肢として紹介する式場 slug
   localHalls: string[];
   keywords: string[];
@@ -22,6 +24,7 @@ export const areas: Area[] = [
       "北区からは火葬場併設の戸田斎場が利用しやすく、一日葬・火葬式・直葬・家族葬など、ご希望に合わせた形でお見送りいただけます。",
       "北区セレモニーホールなど、北区内の式場も選択肢としてご案内できます。まずはお電話でご相談ください。",
     ],
+    featuredHalls: ["toda-saijo"],
     localHalls: ["kita-ceremony-hall"],
     keywords: [
       "北区 葬儀",
@@ -39,8 +42,9 @@ export const areas: Area[] = [
     intro: [
       "板橋区で葬儀をお考えの際、斎場選びや進め方に悩まれる方も多くいらっしゃいます。",
       "板橋区からは火葬場併設の戸田斎場が利用しやすく、移動の負担を抑えながら一日葬・火葬式・直葬・家族葬に対応できます。",
-      "舟渡斎場・蓮根レインボーホールなど、板橋区内の式場も選択肢としてご案内できます。まずはお電話でご相談ください。",
+      "板橋区内の舟渡斎場もご利用いただけます。蓮根レインボーホールなどもあわせて選択肢としてご案内できますので、まずはお電話でご相談ください。",
     ],
+    featuredHalls: ["toda-saijo", "funado-saijo"],
     localHalls: ["funado-saijo", "renkon-rainbow-hall"],
     keywords: [
       "板橋区 葬儀",
