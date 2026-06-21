@@ -1239,6 +1239,7 @@ export const columns: Column[] = [
     keywords: ["法要", "四十九日", "一周忌", "供養"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/houyou-guide.png",
     lead: "葬儀が終わると、次は法要が続きます。聞き慣れない言葉も多いですが、それぞれの意味と時期を知っておけば、落ち着いて準備できます。代表的なものを整理しました。",
     sections: [
       {
@@ -1293,6 +1294,7 @@ export const columns: Column[] = [
     keywords: ["位牌", "仏壇", "お墓", "納骨"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/ihai-butsudan.png",
     lead: "お見送りの後、位牌や仏壇、お墓をどうするかは、多くのご家族が悩むところです。「こうしなければならない」という唯一の正解はなく、いまは選択肢も広がっています。基本と選択肢を整理しました。",
     sections: [
       {
@@ -3025,6 +3027,7 @@ export const columns: Column[] = [
     keywords: ["永代供養", "種類", "費用", "お墓"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/eitai-kuyou.png",
     lead: "「お墓を継ぐ人がいない」「子どもに負担をかけたくない」——そんな思いから、永代供養を選ぶ方が増えています。種類や費用の考え方を知り、自分たちに合う形を見つけましょう。",
     sections: [
       {
@@ -3071,6 +3074,7 @@ export const columns: Column[] = [
     keywords: ["納骨堂", "種類", "費用", "供養"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/noukotsudou.png",
     lead: "納骨堂は、屋内に遺骨を納める供養の形です。天候に左右されず、駅近の施設も多く、現代の暮らしに合う選択肢として注目されています。種類と特徴を見ていきましょう。",
     sections: [
       {
