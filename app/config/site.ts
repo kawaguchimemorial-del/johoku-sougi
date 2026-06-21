@@ -14,7 +14,7 @@ export const siteConfig = {
   telNote: "24時間365日受付・ご相談お見積り無料",
   // 川口典礼 本体サイト（控えめにリンク）
   parentSiteName: "川口典礼 公式サイト",
-  parentSiteUrl: "https://www.kawaguchi-tenrei.com/",
+  parentSiteUrl: "https://kawaguchitenrei.com/",
   // 対応エリア
   areas: ["東京都北区", "東京都板橋区", "周辺地域"],
   // OG
