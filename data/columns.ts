@@ -171,6 +171,7 @@ export const columns: Column[] = [
     keywords: ["危篤", "逝去直後", "搬送", "安置", "連絡"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/first-call.png",
     lead: "ご臨終の知らせは、多くの場合、心の準備ができないうちに訪れます。ここでは「まず何をすればよいか」を、迷わず動けるように順番で整理しました。深く考え込む前に、この順で一つずつ進めてみてください。",
     sections: [
       {
@@ -2106,6 +2107,7 @@ export const columns: Column[] = [
     keywords: ["喪主", "役割", "決め方", "挨拶"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/moshu-role.png",
     lead: "「喪主になったけれど、何をすればいいのか分からない」という不安はとても多いものです。喪主の役割は、突き詰めれば「故人を代表して送り出す中心役」。具体的に何をするのかを見ていきましょう。",
     sections: [
       {
@@ -2200,6 +2202,7 @@ export const columns: Column[] = [
     keywords: ["訃報", "連絡", "文例", "範囲"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/fuhou-renraku.png",
     lead: "訃報の連絡は、悲しみの中で行う気の重い作業です。誰に・いつ・どう伝えるかをあらかじめ知っておくと、混乱せずに進められます。基本の考え方を整理しました。",
     sections: [
       {
@@ -2246,6 +2249,7 @@ export const columns: Column[] = [
     keywords: ["危篤", "連絡", "駆けつけ", "準備"],
     readMin: 4,
     updated: "2026-06-21",
+    image: "/images/column/kibou-renraku.png",
     lead: "危篤の知らせは突然訪れ、頭が真っ白になりがちです。まず大切なのは、落ち着いて、会わせたい人に連絡し、駆けつけること。最低限の備えを知っておくと、いざというとき動けます。",
     sections: [
       {
@@ -2618,6 +2622,7 @@ export const columns: Column[] = [
     keywords: ["お悔やみ", "言葉", "忌み言葉", "マナー"],
     readMin: 4,
     updated: "2026-06-21",
+    image: "/images/column/okuyami-kotoba.png",
     lead: "お悔やみの場では、「何と声をかければいいか分からない」と戸惑うものです。長い言葉は要りません。短くても、心のこもった一言で十分に気持ちは伝わります。",
     sections: [
       {
