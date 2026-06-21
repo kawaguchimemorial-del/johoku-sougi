@@ -8,7 +8,7 @@ import { CtaSection } from "@/components/CtaSection";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PriceNote } from "@/components/PriceNote";
 import { JsonLd } from "@/components/JsonLd";
-import { breadcrumbLd } from "@/lib/jsonld";
+import { breadcrumbLd, serviceLd } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
 import { plans, getPlan, formatPrice } from "@/data/plans";
 
@@ -50,7 +50,16 @@ export default async function PlanPage({
 
   return (
     <>
-      <JsonLd data={breadcrumbLd(crumbs)} />
+      <JsonLd
+        data={[
+          breadcrumbLd(crumbs),
+          serviceLd({
+            name: plan.name,
+            description: plan.summary,
+            path: plan.href,
+          }),
+        ]}
+      />
       <Breadcrumbs items={crumbs} />
       <PageHero title={`${plan.name}`} lead={plan.summary} />
 

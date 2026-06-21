@@ -7,21 +7,58 @@ export function organizationLd() {
   return {
     "@context": "https://schema.org",
     "@type": "FuneralHome",
+    "@id": `${siteConfig.url}#organization`,
     name: siteConfig.name,
     description: siteConfig.description,
     url: siteConfig.url,
     telephone: siteConfig.tel,
     image: `${siteConfig.url}${siteConfig.ogImage}`,
+    priceRange: "¥¥",
     areaServed: [
       { "@type": "AdministrativeArea", name: "東京都北区" },
       { "@type": "AdministrativeArea", name: "東京都板橋区" },
     ],
-    openingHours: "Mo-Su 00:00-24:00",
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      opens: "00:00",
+      closes: "23:59",
+    },
+    sameAs: [siteConfig.parentSiteUrl],
     parentOrganization: {
       "@type": "Organization",
       name: siteConfig.operator,
       url: siteConfig.parentSiteUrl,
     },
+  };
+}
+
+// 葬儀プランの Service スキーマ（価格は載せず、提供主体・対応エリアを明示）。
+export function serviceLd(input: {
+  name: string;
+  description: string;
+  path: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: input.name,
+    name: input.name,
+    description: input.description,
+    url: `${siteConfig.url}${input.path}`,
+    provider: { "@id": `${siteConfig.url}#organization` },
+    areaServed: [
+      { "@type": "AdministrativeArea", name: "東京都北区" },
+      { "@type": "AdministrativeArea", name: "東京都板橋区" },
+    ],
   };
 }
 

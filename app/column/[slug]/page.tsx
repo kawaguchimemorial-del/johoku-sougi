@@ -34,6 +34,7 @@ export async function generateMetadata({
     title: col.title,
     description: col.description,
     path: `/column/${col.slug}/`,
+    image: columnImage(col) ?? undefined,
   });
 }
 
