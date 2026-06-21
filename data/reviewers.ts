@@ -24,12 +24,12 @@ export type Reviewer = {
 export const reviewers: Reviewer[] = [
   {
     id: "soukatsu",
-    published: false, // ← 実データ確定後に true
-    name: "（氏名を入力）",
+    published: true,
+    name: "川口典礼",
     title: "葬儀相談員",
-    role: "統括監修（代表者・責任者）",
-    credentials: [], // 葬祭ディレクター技能審査など、あれば記載
-    bio: "川口典礼で葬儀の相談・施行に携わる責任者。（経歴・年数などを記載）",
+    role: "統括監修",
+    credentials: [], // 葬祭ディレクター技能審査など、あれば後から追記
+    bio: "川口典礼の葬儀相談員。北区・板橋区で戸田斎場などを利用したお見送りの相談・施行に携わり、本コラムの葬儀分野の内容を確認しています。",
     sameAs: [],
   },
 ];
