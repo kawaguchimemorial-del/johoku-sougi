@@ -1017,6 +1017,7 @@ export const columns: Column[] = [
     keywords: ["喪服", "服装", "持ち物", "マナー"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/mofuku-manner.png",
     lead: "弔事の服装は、故人とご遺族への敬意を表すものです。細かなルールに不安を感じる方も多いですが、押さえるべき基本はそれほど多くありません。場面ごとに整理しておきましょう。",
     sections: [
       {
@@ -1071,6 +1072,7 @@ export const columns: Column[] = [
     keywords: ["宗教", "仏式", "神式", "無宗教"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/religion-funeral.png",
     lead: "日本の葬儀は仏式が多いものの、神式・キリスト教式・無宗教葬など選択肢はさまざまです。それぞれの考え方と作法の違いを知っておくと、自分たちに合う形を選びやすくなります。",
     sections: [
       {
@@ -2471,6 +2473,7 @@ export const columns: Column[] = [
     keywords: ["焼香", "作法", "回数", "宗派"],
     readMin: 4,
     updated: "2026-06-21",
+    image: "/images/column/shoukou-manner.png",
     lead: "焼香の順番が回ってくると、「回数は何回だっけ」と緊張する方は多いものです。基本の手順を押さえておけば大丈夫。細かな作法より、心を込めて行うことが何より大切です。",
     sections: [
       {
@@ -2517,6 +2520,7 @@ export const columns: Column[] = [
     keywords: ["数珠", "選び方", "宗派", "持ち方"],
     readMin: 4,
     updated: "2026-06-21",
+    image: "/images/column/juzu-erabi.png",
     lead: "数珠は、仏式の葬儀や法要に持参する大切な仏具です。種類があって迷いやすいですが、選び方の基本を知っておけば、一つ用意しておくと長く使えます。",
     sections: [
       {
@@ -2563,6 +2567,7 @@ export const columns: Column[] = [
     keywords: ["弔電", "供花", "送り方", "マナー"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/choden-kuge.png",
     lead: "事情があって葬儀に参列できないとき、弔電や供花でお悔やみの気持ちを伝えることができます。送り方の基本を知っておくと、失礼なく心を届けられます。",
     sections: [
       {
