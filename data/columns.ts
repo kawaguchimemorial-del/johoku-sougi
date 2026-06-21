@@ -109,6 +109,7 @@ export const columns: Column[] = [
     keywords: ["流れ", "はじめて", "日数", "スケジュール"],
     readMin: 7,
     updated: "2026-06-21",
+    image: "/images/column/funeral-flow.png",
     lead: "「何から手をつければいいのか分からない」——大切な方を亡くした直後に、多くの方が同じ不安を抱えます。ここでは全体の流れをひとつながりで見渡せるように整理しました。先に地図を持っておくだけで、ぐっと落ち着いて動けます。",
     sections: [
       {
@@ -963,6 +964,7 @@ export const columns: Column[] = [
     keywords: ["香典", "相場", "表書き", "マナー"],
     readMin: 6,
     updated: "2026-06-21",
+    image: "/images/column/koden-manner.png",
     lead: "香典は、故人を悼み、ご遺族を支える気持ちを形にしたものです。金額や書き方には目安があり、知っておくと当日に迷いません。基本を押さえておきましょう。",
     sections: [
       {
@@ -2151,6 +2153,7 @@ export const columns: Column[] = [
     keywords: ["喪主", "挨拶", "文例", "スピーチ"],
     readMin: 5,
     updated: "2026-06-21",
+    image: "/images/column/moshu-aisatsu.png",
     lead: "喪主の挨拶は、うまく話すことよりも、感謝の気持ちを誠実に伝えることが大切です。長く話す必要はありません。組み立ての型を知っておけば、当日も落ち着いて言葉にできます。",
     sections: [
       {
@@ -2661,6 +2664,7 @@ export const columns: Column[] = [
     keywords: ["弔問", "後日", "手土産", "服装"],
     readMin: 4,
     updated: "2026-06-21",
+    image: "/images/column/kouji-koubun.png",
     lead: "家族葬が増え、葬儀に参列せず後日お悔やみに伺う機会も増えました。後日の弔問には、当日とは少し違った配慮が必要です。失礼なく伺うための基本を押さえておきましょう。",
     sections: [
       {
