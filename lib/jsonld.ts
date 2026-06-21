@@ -54,7 +54,9 @@ export function articleLd(input: {
   description: string;
   path: string;
   updated: string;
+  image?: string;
 }) {
+  const image = input.image ?? siteConfig.ogImage;
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -64,7 +66,12 @@ export function articleLd(input: {
     datePublished: input.updated,
     dateModified: input.updated,
     mainEntityOfPage: `${siteConfig.url}${input.path}`,
-    author: { "@type": "Organization", name: siteConfig.operator },
+    image: `${siteConfig.url}${image}`,
+    author: {
+      "@type": "Organization",
+      name: siteConfig.operator,
+      url: siteConfig.parentSiteUrl,
+    },
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,

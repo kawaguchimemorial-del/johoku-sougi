@@ -68,6 +68,7 @@ export default async function ColumnDetailPage({
             description: col.description,
             path,
             updated: col.updated,
+            image: columnImage(col) ?? undefined,
           }),
           ...(col.faq && col.faq.length > 0 ? [faqLd(col.faq)] : []),
         ]}
@@ -133,6 +134,38 @@ export default async function ColumnDetailPage({
                 </li>
               ))}
             </ul>
+          </div>
+
+          {/* この記事について（E-E-A-T：運営者・更新日・編集方針） */}
+          <div className="mt-6 rounded-xl border border-black/10 bg-white p-5 text-sm shadow-sm">
+            <p className="font-bold text-navy">この記事について</p>
+            <dl className="mt-3 space-y-1.5 text-muted">
+              <div className="flex flex-wrap gap-x-2">
+                <dt className="font-bold text-ink">運営・編集：</dt>
+                <dd>
+                  {siteConfig.name}（運営・施行：{siteConfig.operator}）
+                </dd>
+              </div>
+              <div className="flex flex-wrap gap-x-2">
+                <dt className="font-bold text-ink">最終更新：</dt>
+                <dd>{col.updated}</dd>
+              </div>
+              <div className="flex flex-wrap gap-x-2">
+                <dt className="font-bold text-ink">編集方針：</dt>
+                <dd>
+                  戸田斎場などを利用したお見送りの相談・施行で得た知見をもとに、
+                  正確さと分かりやすさを重視して作成しています。
+                </dd>
+              </div>
+            </dl>
+            <p className="mt-3">
+              <Link
+                href="/company/"
+                className="font-bold text-gold hover:underline"
+              >
+                運営者情報（川口典礼）を見る →
+              </Link>
+            </p>
           </div>
 
           {/* 本文 */}
@@ -252,11 +285,35 @@ export default async function ColumnDetailPage({
             </div>
           </div>
 
-          <p className="mt-6 text-xs leading-relaxed text-muted">
-            ※ 本記事は一般的な情報をまとめたものです。制度・手続き・費用の詳細や最新の取り扱いは、
-            各公的窓口・専門家にご確認ください。価格に触れる場合も表示は目安（税込）で、
-            内容により費用が変わることがあります。{disclaimer}
-          </p>
+          {/* 出典・免責（E-E-A-T） */}
+          <div className="mt-6 rounded-xl border border-black/10 bg-cream p-5 text-xs leading-relaxed text-muted">
+            <p className="font-bold text-navy">出典・ご利用にあたって</p>
+            <ul className="mt-2 space-y-1.5">
+              <li>
+                ・本記事は、{siteConfig.operator}（{siteConfig.name}）が、
+                葬儀の相談・施行で得た知見をもとに作成した一般的な情報です。
+              </li>
+              <li>
+                ・制度・手続き・費用・税・相続などの詳細や最新の取り扱いは、
+                市区町村・年金事務所・税務署などの公的窓口、または専門家（税理士・司法書士・弁護士など）に
+                必ずご確認ください。
+              </li>
+              <li>
+                ・価格に触れる場合も、表示は目安（税込）で、内容・人数・地域により費用が変わることがあります。
+              </li>
+              <li>・{disclaimer}</li>
+            </ul>
+            <p className="mt-3">
+              <a
+                href={siteConfig.parentSiteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-gold hover:underline"
+              >
+                {siteConfig.parentSiteName} →
+              </a>
+            </p>
+          </div>
 
           {/* 関連記事 */}
           {related.length > 0 && (
