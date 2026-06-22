@@ -52,9 +52,13 @@ export default function SeoDashboardPage() {
     r.issues.some((i) => i.level === "warn"),
   ).length;
 
-  // キーワード→ページ対応（カニバリ検出：同じKWを複数ページの keywords が持つ）
+  // キーワード→ページ対応（カニバリ検出）。
+  // コラムの keywords は「絞り込みタグ（費用・マナー等）」でSEOの狙いKWではないため除外し、
+  // 斎場・プラン・エリアの狙いKWだけで重複を見る。
+  const targetTypes = new Set(["斎場", "プラン", "エリア"]);
   const kwToPages = new Map<string, string[]>();
   for (const p of pages) {
+    if (!targetTypes.has(p.type)) continue;
     for (const kw of p.keywords) {
       const arr = kwToPages.get(kw) ?? [];
       arr.push(p.path);
@@ -181,8 +185,8 @@ export default function SeoDashboardPage() {
           3. キーワード→ページ対応表（カニバリ検出）
         </h2>
         <p className="mb-2 text-xs text-slate-500">
-          各ページの <code>keywords</code>{" "}
-          を集計。同じキーワードを複数ページが狙っている場合は、検索意図が割れる（カニバリ）可能性があります。
+          斎場・プラン・エリアの狙いキーワードを集計。同じキーワードを複数ページが狙っている場合は、検索意図が割れる（カニバリ）可能性があります。
+          （コラムの <code>keywords</code> は絞り込みタグのため対象外）
         </p>
         {cannibals.length === 0 ? (
           <p className="text-sm text-green-700">

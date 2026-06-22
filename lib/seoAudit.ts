@@ -17,11 +17,11 @@ export type PageSeo = {
   keywords: string[];
 };
 
-// buildMetadata と同じ最終 title を組み立てる
+// buildMetadata と同じ <title> を組み立てる（非トップは社名を付けない）
 function fullTitle(title: string, path: string): string {
   return path === "/"
     ? `${siteConfig.name}｜北区・板橋区の葬儀相談窓口`
-    : `${title}｜${siteConfig.name}`;
+    : title;
 }
 
 // 固定ページ（title は buildMetadata に渡している「サイト名前の部分」）
