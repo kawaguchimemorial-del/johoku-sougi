@@ -48,4 +48,31 @@
 
 ---
 
+## 2026-06-22 — 裏ページ（SEOチェック・非公開）を新設＋title二重バグ修正
+
+### 裏ページ（社内SEOチェック・本人のみ閲覧）
+- **URL**: `/seo-x7k2q`（推測しにくいパス。サイトマップ・ナビ・robotsに載せない）
+- **保護**: `proxy.ts`（旧middleware）で Basic 認証。パスワードは環境変数 **`SEO_PASS`**。
+  - env未設定なら常に401（誤公開防止）。ページ自体も `noindex`。
+- **中身**（`app/seo-x7k2q/page.tsx`）:
+  1. 社内SEOチェック一覧 … 全ページの title/description 字数・重複・keywords欠落を自動判定（`lib/seoAudit.ts`）
+  2. 主要KWの順位記録表 … `data/seoKeywords.ts` に Search Console の平均掲載順位を手入力→表示
+  3. キーワード→ページ対応表 … 各ページ keywords を集計しカニバリ（複数ページで同一KW）を検出
+  4. Search Console 自動連携 … 未接続。APIサービスアカウント準備後に実装予定（画面に手順表示）
+- **あなた側の作業**:
+  - Vercel の環境変数に `SEO_PASS`（好きなパスワード）を追加 → 再デプロイ。
+  - ローカルで見るなら `.env.local` に `SEO_PASS=...` を記載。
+  - 閲覧時はブラウザのBasic認証ダイアログで、ユーザー名は任意・パスワードに `SEO_PASS` の値を入力。
+  - 順位は `data/seoKeywords.ts` を編集して記録（commitで反映）。
+
+### ついでに発見・修正したバグ
+- 全ページ（トップ以外）で `<title>` のサイト名が**二重**になっていた（例:「…の相談｜城北セレモニーサポートセンター｜城北セレモニーサポートセンター」）。
+- 原因: `lib/seo.ts` の `buildMetadata` がサイト名込みの文字列を返し、`layout.tsx` の `title.template` が再度サイト名を付与していた。
+- 修正: `buildMetadata` を `title: { absolute: fullTitle }` に変更（template の二重付与を回避）。ビルド済みHTMLで単一表示を確認済み。
+
+### その他
+- Next 16 の警告対応で `middleware.ts` を `proxy.ts` にリネーム（関数も `export default function proxy`）。
+
+---
+
 ## （ここから上に新しい作業を追記）

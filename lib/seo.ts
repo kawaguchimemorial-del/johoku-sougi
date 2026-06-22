@@ -23,7 +23,8 @@ export function buildMetadata({
     path === "/" ? `${siteConfig.name}｜北区・板橋区の葬儀相談窓口` : `${title}｜${siteConfig.name}`;
 
   return {
-    title: fullTitle,
+    // absolute にして layout の title.template（%s｜サイト名）の二重付与を防ぐ
+    title: { absolute: fullTitle },
     description,
     alternates: { canonical: url },
     robots: noindex
