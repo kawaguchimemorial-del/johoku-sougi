@@ -25,7 +25,7 @@ export const areas: Area[] = [
       "北区セレモニーホールなど、北区内の式場も選択肢としてご案内できます。まずはお電話でご相談ください。",
     ],
     featuredHalls: ["toda-saijo"],
-    localHalls: ["kita-ceremony-hall"],
+    localHalls: ["toda-saijo", "funado-saijo", "kita-ceremony-hall"],
     keywords: [
       "北区 葬儀",
       "北区 家族葬",
@@ -45,7 +45,7 @@ export const areas: Area[] = [
       "板橋区内の舟渡斎場もご利用いただけます。蓮根レインボーホールなどもあわせて選択肢としてご案内できますので、まずはお電話でご相談ください。",
     ],
     featuredHalls: ["toda-saijo", "funado-saijo"],
-    localHalls: ["funado-saijo", "renkon-rainbow-hall"],
+    localHalls: ["toda-saijo", "funado-saijo", "renkon-rainbow-hall"],
     keywords: [
       "板橋区 葬儀",
       "板橋区 家族葬",

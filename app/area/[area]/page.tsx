@@ -116,7 +116,7 @@ export default async function AreaPage({
         <section className="bg-cream py-12">
           <Container>
             <h2 className="text-xl font-bold text-navy sm:text-2xl">
-              {area.name}内の式場（選択肢の一例）
+              {area.name}から利用しやすい式場（選択肢の一例）
             </h2>
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
               {localHalls.map((h) => (
