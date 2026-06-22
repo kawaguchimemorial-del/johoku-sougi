@@ -123,4 +123,27 @@
 
 ---
 
+## 2026-06-22 — Search Console 自動連携を実装（裏ページ）
+
+裏ページ `/seo-x7k2q` のセクション4を「実測の自動取得」に。順位記録表（セクション2）にも実測を自動マージ。
+
+### 実装
+- `lib/searchConsole.ts`（新規）… 依存ライブラリなし。Node標準 `crypto` でサービスアカウントの JWT を署名→アクセストークン取得→Search Console API（searchAnalytics.query）を直接呼ぶ。直近28日・クエリ別（平均掲載順位/表示回数/クリック/CTR）を取得。終端は反映遅延を考慮し3日前。
+- `app/seo-x7k2q/page.tsx` … `force-dynamic` + `runtime=nodejs` に変更。実測を取得し、
+  - セクション2：キーワードが実測にあれば「SC実測」を優先表示（緑）、無ければ手入力を表示。
+  - セクション4：未接続=手順表示／エラー=メッセージ表示／接続=上位クエリ表を表示。
+
+### 必要な環境変数（Vercel）
+- `GOOGLE_SERVICE_ACCOUNT_EMAIL` … サービスアカウントのメール
+- `GOOGLE_PRIVATE_KEY` … サービスアカウントJSONの private_key（`\n` のままで可。コード側で復元）
+- `SC_SITE_URL` … 既定 `sc-domain:johoku-sougi.jp`（DNS認証のドメインプロパティ）
+
+### あなた側の作業
+1. Google Cloud でプロジェクト作成 →「Search Console API」を有効化。
+2. サービスアカウント作成 → JSONキー発行。
+3. Search Console の「設定 → ユーザーと権限」でサービスアカウントのメールを「制限付き」で追加。
+4. 上記3つの環境変数を Vercel に設定 → 再デプロイ。`/seo-x7k2q` を開くと自動表示。
+
+---
+
 ## （ここから上に新しい作業を追記）
