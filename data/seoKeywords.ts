@@ -19,18 +19,18 @@ export const keywordRanks: KeywordRank[] = [
   // エリア軸
   { keyword: "北区 葬儀", targetPath: "/area/kita-ku/", note: "主要KW・地域軸" },
   { keyword: "板橋区 葬儀", targetPath: "/area/itabashi-ku/", note: "主要KW・地域軸" },
-  { keyword: "北区 家族葬", targetPath: "/area/kita-ku/" },
-  { keyword: "板橋区 家族葬", targetPath: "/area/itabashi-ku/" },
-  // 斎場軸
+  { keyword: "北区 家族葬", targetPath: "/plan/family-funeral/" },
+  { keyword: "板橋区 家族葬", targetPath: "/plan/family-funeral/" },
+  // 斎場軸（「戸田斎場 ◯◯」は斎場ページが専有）
   { keyword: "戸田斎場 葬儀", targetPath: "/hall/toda-saijo/", note: "最重要ページ" },
+  { keyword: "戸田斎場 一日葬", targetPath: "/hall/toda-saijo/" },
   { keyword: "戸田斎場 家族葬", targetPath: "/hall/toda-saijo/" },
   { keyword: "舟渡斎場", targetPath: "/hall/funado-saijo/" },
   { keyword: "北区セレモニーホール", targetPath: "/hall/kita-ceremony-hall/" },
   { keyword: "蓮根レインボーホール", targetPath: "/hall/renkon-rainbow-hall/" },
-  // プラン軸
+  // プラン軸（「地域 形式」はプランページが専有）
   { keyword: "北区 一日葬", targetPath: "/plan/one-day-funeral/" },
-  { keyword: "戸田斎場 一日葬", targetPath: "/plan/one-day-funeral/" },
+  { keyword: "板橋区 一日葬", targetPath: "/plan/one-day-funeral/" },
   { keyword: "北区 火葬式", targetPath: "/plan/direct-funeral/" },
   { keyword: "板橋区 直葬", targetPath: "/plan/direct-funeral/" },
-  { keyword: "戸田斎場 家族葬", targetPath: "/plan/family-funeral/", note: "斎場ページと狙いが重複（カニバリ注意）" },
 ];

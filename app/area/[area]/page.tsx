@@ -58,7 +58,10 @@ export default async function AreaPage({
     <>
       <JsonLd data={breadcrumbLd(crumbs)} />
       <Breadcrumbs items={crumbs} />
-      <PageHero title={area.lead} lead={area.keywords.join("・")} />
+      <PageHero
+        title={area.lead}
+        lead="戸田斎場を利用した一日葬・火葬式・直葬・家族葬のご相談を承ります。"
+      />
 
       <section className="py-12">
         <Container>

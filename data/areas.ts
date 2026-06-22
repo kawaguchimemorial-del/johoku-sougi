@@ -26,13 +26,7 @@ export const areas: Area[] = [
     ],
     featuredHalls: ["toda-saijo"],
     localHalls: ["toda-saijo", "funado-saijo", "kita-ceremony-hall"],
-    keywords: [
-      "北区 葬儀",
-      "北区 家族葬",
-      "北区 一日葬",
-      "北区 火葬式",
-      "北区 直葬",
-    ],
+    keywords: ["北区 葬儀"],
   },
   {
     slug: "itabashi-ku",
@@ -46,13 +40,7 @@ export const areas: Area[] = [
     ],
     featuredHalls: ["toda-saijo", "funado-saijo"],
     localHalls: ["toda-saijo", "funado-saijo", "renkon-rainbow-hall"],
-    keywords: [
-      "板橋区 葬儀",
-      "板橋区 家族葬",
-      "板橋区 一日葬",
-      "板橋区 火葬式",
-      "板橋区 直葬",
-    ],
+    keywords: ["板橋区 葬儀"],
   },
 ];
 
