@@ -10,6 +10,7 @@ import {
   GoogleTagManagerNoScript,
 } from "@/components/GoogleTagManager";
 import { organizationLd, websiteLd } from "@/lib/jsonld";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -52,6 +53,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <MobileFixedCTA />
+        <Analytics />
       </body>
     </html>
   );
