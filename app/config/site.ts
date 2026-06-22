@@ -20,6 +20,8 @@ export const siteConfig = {
   // OG
   ogImage: "/images/hero/og.png",
   locale: "ja_JP",
+  // Google Tag Manager コンテナID（未設定なら空文字。空のときは出力しない）
+  gtmId: "GTM-N4G6QFDS",
 } as const;
 
 // 価格・料金を表示する際に必ず添える注記文
