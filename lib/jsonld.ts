@@ -12,7 +12,7 @@ export function organizationLd() {
     description: siteConfig.description,
     url: siteConfig.url,
     telephone: siteConfig.tel,
-    image: `${siteConfig.url}${siteConfig.ogImage}`,
+    image: `${siteConfig.url}${siteConfig.defaultImage}`,
     priceRange: "¥¥",
     areaServed: [
       { "@type": "AdministrativeArea", name: "東京都北区" },
@@ -99,7 +99,7 @@ export function articleLd(input: {
     sameAs?: string[];
   } | null;
 }) {
-  const image = input.image ?? siteConfig.ogImage;
+  const image = input.image ?? siteConfig.defaultImage;
   const reviewedBy =
     input.reviewer && input.reviewer.name
       ? {

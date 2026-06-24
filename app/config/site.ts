@@ -7,7 +7,9 @@ export const siteConfig = {
   operator: "川口典礼",
   description:
     "東京都北区・板橋区で、戸田斎場を利用した一日葬・火葬式・直葬・家族葬をご検討の方の相談窓口です。運営・施行は川口典礼。24時間365日受付、ご相談・お見積り無料。",
-  url: "https://johoku-sougi.jp",
+  // 正規ドメインは www に統一（apex は Vercel 側で www へ 308 リダイレクト）。
+  // canonical / og:url / sitemap / robots(host) はすべてこの値から生成される。
+  url: "https://www.johoku-sougi.jp",
   // 主CTA
   tel: "0120-963-765",
   telLink: "tel:0120963765",
@@ -17,8 +19,10 @@ export const siteConfig = {
   parentSiteUrl: "https://kawaguchitenrei.com/",
   // 対応エリア
   areas: ["東京都北区", "東京都板橋区", "周辺地域"],
-  // OG
-  ogImage: "/images/hero/og.png",
+  // OG 画像は app/opengraph-image.tsx で動的生成（既定）。
+  // ページ個別の OG 画像は buildMetadata の image 引数で上書きする。
+  // JSON-LD（FuneralHome / Article）の画像が未指定のときの既定（実在する写真）。
+  defaultImage: "/images/hall/toda-saijo/exterior.png",
   locale: "ja_JP",
   // Google Tag Manager コンテナID（未設定なら空文字。空のときは出力しない）
   gtmId: "GTM-N4G6QFDS",

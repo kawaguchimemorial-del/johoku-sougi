@@ -12,6 +12,21 @@
 
 ---
 
+## 2026-06-24 — SEO監査（/seo audit）と指摘の修正
+
+**何を**: サイト全79ページのSEO監査を実施（健全性スコア 85/100）。検出した3点を修正。
+1. **正規ドメインの不一致を解消（Critical）**: apex は Vercel で www へ308リダイレクトされるのに、canonical / og:url / sitemap / robots(host) はすべて非www を宣言していた。`siteConfig.url` を `https://www.johoku-sougi.jp` に変更し www に統一（この1値から canonical・OG・sitemap・robots がすべて生成される）。
+2. **OG画像の不備を修正（High）**: 既定 `/images/hero/og.png` が実在せず404。トップを含む9ページのOG画像が壊れていた。`app/opengraph-image.tsx` で紺基調のブランドOG画像を動的生成（Noto Sans JP をサブセット取得して日本語描画）。`lib/seo.ts` は画像未指定時に images を出力せずファイル規約のOG画像へフォールバック。JSON-LD（FuneralHome/Article）の画像は `siteConfig.defaultImage`（戸田斎場外観の実写）に変更。`siteConfig.ogImage` は廃止。
+3. **llms.txt を新設（Medium / GEO）**: `app/llms.txt/route.ts` でサイト概要・主要ページ・プラン・斎場・エリア・全コラムをデータから自動生成して `/llms.txt` で配信。
+
+**なぜ**: 正規URLの矛盾シグナル解消で評価の取りこぼしを防ぐ。SNS/AIプレビューの画像を正常化。AI検索（ChatGPT/Perplexity/AI Overviews）での引用性を高める。
+
+**関連ファイル**: `app/config/site.ts` / `lib/seo.ts` / `lib/jsonld.ts` / `app/opengraph-image.tsx`（新規）/ `app/llms.txt/route.ts`（新規）
+
+**確認**: `npm run build` / `npm run lint` 成功。OG画像は有効なPNG（約45KB、日本語描画OK）、`/llms.txt` は www URL で出力されることを確認。
+
+**あなた側の作業**: なし（Vercelのドメイン設定は現状の www 主・apex→www のままでOK）。デプロイ後、Search Console の登録プロパティが www 側になっているか確認推奨。
+
 ## 2026-06-22 — 計測・アクセス解析の導入（Search Console / GTM / GA4 / Vercel Analytics）
 
 この日、サイトの計測環境を一通り構築した。コードに無い ID も含めて以下に記録する。
