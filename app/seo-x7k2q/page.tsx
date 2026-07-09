@@ -14,6 +14,7 @@ import {
   fetchSearchConsole,
   isSearchConsoleConfigured,
   type ScResult,
+  type ScRow,
 } from "@/lib/searchConsole";
 
 // 裏ページ：検索エンジンに出さない（Basic認証は proxy.ts で保護）
@@ -62,8 +63,17 @@ export default async function SeoDashboardPage() {
       scError = e instanceof Error ? e.message : String(e);
     }
   }
-  // クエリ→実測の対応（順位記録表へのマージ用）
-  const scByQuery = new Map(sc?.rows.map((r) => [r.query, r]) ?? []);
+  // クエリ→実測の対応（順位記録表へのマージ用）。
+  // Search Console のクエリは半角/全角スペースの揺れがあるため、空白を除去した
+  // 正規化キーで突合する（例「戸田斎場 葬儀」⇔「戸田斎場　葬儀」）。
+  // 正規化後に衝突した場合は表示回数の多い行を採用（決定的マージ・黙って上書きしない）。
+  const normKw = (s: string) => s.replace(/[\s　]/g, "");
+  const scByQuery = new Map<string, ScRow>();
+  for (const r of sc?.rows ?? []) {
+    const key = normKw(r.query);
+    const prev = scByQuery.get(key);
+    if (!prev || r.impressions > prev.impressions) scByQuery.set(key, r);
+  }
 
   // 各ページのチェック
   const rows = pages.map((p) => ({
@@ -158,8 +168,8 @@ export default async function SeoDashboardPage() {
         <h2 className="mb-2 text-base font-bold">2. 主要キーワードの順位記録表</h2>
         <p className="mb-2 text-xs text-slate-500">
           {sc
-            ? "Search Console 実測（直近28日）が取得できたキーワードは「実測」列に自動表示します。実測がないものは手入力（data/seoKeywords.ts）を表示します。"
-            : "Search Console 未接続のため手入力（data/seoKeywords.ts）を表示中。接続するとここに実測値が自動表示されます。"}
+            ? "Search Console 実測（直近28日）が取得できたキーワードは「実測」列に自動表示（緑）します。半角/全角スペースの揺れは吸収して突合します。手入力も実測も無く、実測クエリにも存在しないものは、直近28日で表示ゼロ＝「圏外」と表示します（バグではなく、そのキーワードでまだ検索表示されていない状態）。"
+            : "Search Console 未接続のため手入力（data/seoKeywords.ts）を表示中。接続するとここに実測値が自動表示されます（下の「4. Search Console 実測」を参照）。"}
         </p>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
@@ -176,11 +186,22 @@ export default async function SeoDashboardPage() {
             </thead>
             <tbody>
               {keywordRanks.map((k, i) => {
-                const live = scByQuery.get(k.keyword);
+                const live = scByQuery.get(normKw(k.keyword));
                 const pos = live?.position ?? k.position;
                 const imp = live?.impressions ?? k.impressions;
                 const clk = live?.clicks ?? k.clicks;
-                const src = live ? "SC実測" : k.updated ? `手入力(${k.updated})` : "—";
+                // 実測にも手入力にも無い場合の理由を区別して表示する。
+                //  ・SC接続済みで該当クエリが無い → 直近28日は表示ゼロ＝「圏外」
+                //  ・SC未接続 → まだ取得できていない＝「—」
+                const offRange = sc != null && !live && k.position == null;
+                const src = live
+                  ? "SC実測"
+                  : k.updated
+                    ? `手入力(${k.updated})`
+                    : offRange
+                      ? "圏外"
+                      : "—";
+                const dash = offRange ? "圏外" : "—";
                 return (
                   <tr key={i} className={live ? "bg-green-50" : undefined}>
                     <td className={td}>{k.keyword}</td>
@@ -194,11 +215,13 @@ export default async function SeoDashboardPage() {
                         {k.targetPath}
                       </a>
                     </td>
-                    <td className={td}>{pos != null ? pos.toFixed(1) : "—"}</td>
-                    <td className={td}>{imp ?? "—"}</td>
-                    <td className={td}>{clk ?? "—"}</td>
+                    <td className={td}>{pos != null ? pos.toFixed(1) : dash}</td>
+                    <td className={td}>{imp ?? dash}</td>
+                    <td className={td}>{clk ?? dash}</td>
                     <td className={td}>
-                      <span className={live ? "text-green-700" : "text-slate-400"}>
+                      <span
+                        className={live ? "text-green-700" : "text-slate-400"}
+                      >
                         {src}
                       </span>
                     </td>
@@ -312,7 +335,32 @@ export default async function SeoDashboardPage() {
           </div>
         ) : (
           <div className="rounded border border-amber-300 bg-amber-50 p-3 text-xs text-slate-700">
-            <p className="mb-2 font-semibold">未接続です。接続手順（あなた側）:</p>
+            <p className="mb-1 font-semibold text-amber-800">
+              診断（本番envの有無・値は表示しません）:
+            </p>
+            <ul className="mb-2 ml-4 list-disc text-slate-600">
+              <li>
+                GOOGLE_SERVICE_ACCOUNT_EMAIL:{" "}
+                {process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ? "設定済" : "未設定"}
+              </li>
+              <li>
+                GOOGLE_PRIVATE_KEY:{" "}
+                {process.env.GOOGLE_PRIVATE_KEY
+                  ? process.env.GOOGLE_PRIVATE_KEY.includes("BEGIN")
+                    ? "設定済（PEM形式OK）"
+                    : "設定済（※BEGIN行なし・貼り方要確認）"
+                  : "未設定"}
+              </li>
+              <li>
+                SC_SITE_URL:{" "}
+                {process.env.SC_SITE_URL
+                  ? process.env.SC_SITE_URL
+                  : "未設定（既定 sc-domain:johoku-sougi.jp を使用）"}
+              </li>
+            </ul>
+            <p className="mb-2 font-semibold">
+              上記が「未設定」なら、Vercel に登録して再デプロイすれば直ります。手順（あなた側）:
+            </p>
             <ol className="ml-4 list-decimal space-y-0.5">
               <li>Google Cloud でプロジェクト作成 → 「Search Console API」を有効化</li>
               <li>サービスアカウントを作成し、JSON キー（鍵）を発行</li>

@@ -12,6 +12,31 @@
 
 ---
 
+## 2026-07-09 — 裏ページ 平均掲載順位が「—」になる原因の解析と修正
+
+**何を**: `/seo-x7k2q` セクション2（主要KW順位記録表）で平均掲載順位・表示回数などが「—」になる件を、2観点で解析し修正。
+
+原因は2層だった（2専門家レビューで確認）:
+1. **本番env未設定（最有力・あなた側作業）**: SC自体はサービスアカウント（`sc-reader@johoku-sougi-seo.iam.gserviceaccount.com` / プロパティ `sc-domain:johoku-sougi.jp`）で正常にデータを返す（ローカル検証で全体 imp902・平均順位54.7）。しかし Next.js は `process.env` を読むため、`~/.config/claude-seo`（Python用）ではなく **Vercel本番の環境変数**に `GOOGLE_SERVICE_ACCOUNT_EMAIL` / `GOOGLE_PRIVATE_KEY` が必要。未登録だとセクション4は「未接続ボックス」、セクション2は全「—」になる。
+2. **結合ロジック（コード修正済み）**: セクション2は手入力KWとSC実測を **完全一致** で突合していた。手入力14件は position 未入力のため、未ヒット＝「—」。SCクエリは半角/全角スペースの揺れがある。
+
+**修正（コード）**:
+- 突合を **空白正規化**（半角/全角スペース除去）に変更。衝突時は表示回数最大の行を採用（決定的マージ）。→「蓮根レインボーホール」等を回収。
+- 実測にも手入力にも無く、実測クエリにも存在しないKWは「—」ではなく **「圏外」**（直近28日 表示ゼロ）と明示。バグと圏外（＝そのKWでまだ未露出）を区別。※「戸田斎場 葬儀/一日葬/家族葬」「板橋区 葬儀」「北区 火葬式」は実測に無く圏外＝重要KWの露出が取れていないSEO課題として可視化される。
+- 未接続ボックスに **診断行**（EMAIL/KEY/SC_SITE_URL の有無・値は非表示、KEYはBEGIN行の有無だけ判定）を追加し、原因を即断できるようにした。
+
+**関連ファイル**: `app/seo-x7k2q/page.tsx`（結合・表示ロジック）。データ源 `data/seoKeywords.ts` / `lib/searchConsole.ts` は変更なし。
+
+**確認**: `npm run build` 成功。Python でSC実測を取得し、正規化突合で期待どおり約10KWがHIT・5KWが圏外になることを確認。
+
+**あなた側の作業（本番を直す最重要手順）**: Vercel → プロジェクト → Settings → Environment Variables（Production）に以下を登録し再デプロイ。
+- `GOOGLE_SERVICE_ACCOUNT_EMAIL` = `sc-reader@johoku-sougi-seo.iam.gserviceaccount.com`
+- `GOOGLE_PRIVATE_KEY` = `C:\Users\kawag\.config\claude-seo\service-account.json` の `private_key` の値（`-----BEGIN PRIVATE KEY-----`〜`-----END PRIVATE KEY-----` を**複数行そのまま**貼る。クオートで囲まない）
+- `SC_SITE_URL` = `sc-domain:johoku-sougi.jp`（任意・未設定でも既定でこの値を使用）
+登録後、`/seo-x7k2q` を開くと診断行が「設定済」になり、実測が自動表示される。
+
+---
+
 ## 2026-06-24 — SEO監査（/seo audit）と指摘の修正
 
 **何を**: サイト全79ページのSEO監査を実施（健全性スコア 85/100）。検出した3点を修正。
