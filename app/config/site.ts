@@ -18,7 +18,7 @@ export const siteConfig = {
   parentSiteName: "川口典礼 公式サイト",
   parentSiteUrl: "https://kawaguchitenrei.com/",
   // 対応エリア
-  areas: ["東京都北区", "東京都板橋区", "周辺地域"],
+  areas: ["東京都北区", "東京都板橋区", "東京都足立区", "周辺地域"],
   // OG 画像は app/opengraph-image.tsx で動的生成（既定）。
   // ページ個別の OG 画像は buildMetadata の image 引数で上書きする。
   // JSON-LD（FuneralHome / Article）の画像が未指定のときの既定（実在する写真）。
@@ -37,7 +37,7 @@ export const priceNotes = [
 
 // 公式施設サイトではない旨（必要箇所で明記）
 export const disclaimer =
-  "城北セレモニーサポートセンターは、戸田斎場および各公共施設の公式サイトではありません。運営・施行は川口典礼です。";
+  "城北セレモニーサポートセンターは、戸田斎場・町屋斎場および各公共施設の公式サイトではありません。運営・施行は川口典礼です。";
 
 export const ctaText = {
   primary: "まずは「戸田斎場で考えている」とお電話ください",

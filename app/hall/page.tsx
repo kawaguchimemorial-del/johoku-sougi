@@ -10,9 +10,9 @@ import { buildMetadata } from "@/lib/seo";
 import { halls } from "@/data/halls";
 
 export const metadata: Metadata = buildMetadata({
-  title: "対応斎場一覧｜戸田斎場・舟渡斎場・北区セレモニーホールほか",
+  title: "対応斎場一覧｜戸田斎場・町屋斎場・舟渡斎場ほか",
   description:
-    "城北セレモニーサポートセンターが対応する斎場の一覧です。戸田斎場、舟渡斎場、北区セレモニーホール、蓮根レインボーホールなど、北区・板橋区周辺の式場のご相談を承ります。",
+    "城北セレモニーサポートセンターが対応する斎場の一覧です。戸田斎場、町屋斎場、舟渡斎場、北区セレモニーホール、蓮根レインボーホールなど、北区・板橋区・足立区周辺の式場のご相談を承ります。",
   path: "/hall/",
 });
 
@@ -28,7 +28,7 @@ export default function HallListPage() {
       <Breadcrumbs items={crumbs} />
       <PageHero
         title="対応斎場一覧"
-        lead="北区・板橋区周辺で、ご葬儀にご利用いただける主な斎場をご案内します。"
+        lead="北区・板橋区・足立区周辺で、ご葬儀にご利用いただける主な斎場をご案内します。"
       />
 
       <section className="py-12">

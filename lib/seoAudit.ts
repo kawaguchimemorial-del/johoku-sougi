@@ -4,7 +4,7 @@
 import { siteConfig } from "@/app/config/site";
 import { halls } from "@/data/halls";
 import { plans, formatPrice } from "@/data/plans";
-import { areas } from "@/data/areas";
+import { areas, areaTitle, areaDescription } from "@/data/areas";
 import { columns } from "@/data/columns";
 
 export type PageType = "トップ" | "斎場" | "プラン" | "エリア" | "コラム" | "固定";
@@ -34,9 +34,9 @@ const staticPages: { path: string; title: string; description: string; type: Pag
   },
   {
     path: "/hall/",
-    title: "対応斎場一覧｜戸田斎場・舟渡斎場・北区セレモニーホールほか",
+    title: "対応斎場一覧｜戸田斎場・町屋斎場・舟渡斎場ほか",
     description:
-      "城北セレモニーサポートセンターが対応する斎場の一覧です。戸田斎場、舟渡斎場、北区セレモニーホール、蓮根レインボーホールなど、北区・板橋区周辺の式場のご相談を承ります。",
+      "城北セレモニーサポートセンターが対応する斎場の一覧です。戸田斎場、町屋斎場、舟渡斎場、北区セレモニーホール、蓮根レインボーホールなど、北区・板橋区・足立区周辺の式場のご相談を承ります。",
     type: "固定",
   },
   {
@@ -113,12 +113,12 @@ export function getAllPageSeo(): PageSeo[] {
   }
 
   for (const a of areas) {
-    const title = `${a.name}の葬儀相談｜戸田斎場・一日葬・火葬式・家族葬`;
+    const title = areaTitle(a);
     list.push({
       path: a.href,
       type: "エリア",
       title: fullTitle(title, a.href),
-      description: `${a.name}で葬儀をご検討の方へ。戸田斎場を利用した一日葬・火葬式・直葬・家族葬のご相談を、城北セレモニーサポートセンター（運営・施行：川口典礼）が承ります。24時間365日受付。`,
+      description: areaDescription(a),
       keywords: a.keywords,
     });
   }

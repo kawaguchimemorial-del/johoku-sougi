@@ -12,6 +12,32 @@
 
 ---
 
+## 2026-07-27 — 足立区エリア＋町屋斎場ページを新設（施設料金つき）
+
+**何を**:
+- `data/halls.ts` に **町屋斎場**（`/hall/machiya-saijo/`）を追加。所在地・アクセス・施設構成に加え、**公表されている施設料金（火葬料金／式場使用料／休憩室／保棺）を表で掲載**。
+- `data/areas.ts` に **足立区**（`/area/adachi-ku/`）を追加。町屋斎場を主軸にした内容。
+- 型を拡張：Hall に `address` / `access` / `parking` / `facilities` / `fees` / `feeSource` / `serviceAreaNote` / `relatedAreas` を追加。`image` / `altar` を**任意**にし、写真が無い斎場でも他斎場の写真を流用せずレイアウトが崩れないようにした（カードは施設名プレースホルダ表示）。
+- Area に `metaTitle` / `metaDescription` / `heroLead` / `featuredNote` を追加。エリアページの title/description/リード文が「戸田斎場」固定だったのを**データ駆動**に変更（既定は従来どおり戸田斎場軸）。`lib/seoAudit.ts` も同じ関数（`areaTitle` / `areaDescription`）を参照するようにして裏ページの監査値とページ実体のズレを防止。
+- ヘッダー／フッターに足立区（＋フッターに町屋斎場）を追加。`siteConfig.areas` に東京都足立区を追加。`disclaimer` に町屋斎場を明記（公式施設サイトではない旨）。
+- 斎場一覧ページの title/description を更新（戸田斎場・町屋斎場・舟渡斎場ほか／北区・板橋区・足立区）。
+- `data/seoKeywords.ts` に足立区・町屋斎場の追跡KWを5件追加（実測はこれから）。
+- sitemap / llms.txt はデータ駆動のため自動反映（88ページ生成を確認）。
+
+**なぜ**: 足立区を対応エリアに追加するため。足立区は町屋斎場をメインとする方針のため、斎場ページを新設し、エリアページの主斎場を戸田斎場から町屋斎場へ切り替えられる構造にした。「町屋斎場 料金」は検索需要が見込めるため、公表料金を出典・確認日つきで掲載した。
+
+**料金の出典**: 東京博善「町屋斎場 施設利用料金」 https://www.tokyohakuzen.co.jp/guide/ryokin/?hall=machiya （2026-07-27 時点の公表値）。火葬：普通炉 大人87,000／小人50,000、減額・公費 大人39,000／小人21,000、特別室 大人123,000／小人63,500、特別殯館 大人160,000／小人88,000、火葬証明書550円。式場：一体型「旅」242,000／専用控室有り「雪」275,000。休憩室：鶴74,800／星40,700／月34,100／梅19,800。保棺：冷蔵13,200・一般8,800（各1日、減額・公費は5,830／2,750）。**料金改定時はここと `data/halls.ts` の `fees` を更新すること。**
+
+**注意（地理）**: 町屋斎場の所在地は**荒川区**であり足立区内ではない。足立区から利用しやすい斎場として案内する書き方に統一している（足立区内に施設があるように書かない）。
+
+**関連ファイル**: `data/halls.ts`, `data/areas.ts`, `data/seoKeywords.ts`, `app/hall/[hall]/page.tsx`, `app/area/[area]/page.tsx`, `app/hall/page.tsx`, `app/config/site.ts`, `components/HallCard.tsx`, `components/Header.tsx`, `components/Footer.tsx`, `lib/seoAudit.ts`。
+
+**確認**: `npm run build` 成功（/area/adachi-ku・/hall/machiya-saijo 生成）、`npm run lint` エラーなし。
+
+**あなた側の作業**:
+- 町屋斎場の**外観写真・祭壇写真**があれば `public/images/hall/machiya-saijo/` に置いてください（`exterior.*` / `altar.*`）。追加後にデータ側へパスを設定します。現状は写真なしでも表示されます。
+- Search Console で `/area/adachi-ku/` `/hall/machiya-saijo/` のインデックス登録をリクエストすると露出が早まります。
+
 ## 2026-07-10 — 追跡キーワードを実クエリベースに刷新＋SC健全性の確認
 
 **何を**: `data/seoKeywords.ts` を、Search Console で実際に検索されているクエリに合わせて全面更新（14→22件）。各KWに直近28日（6/09〜7/07）のSC実測スナップショット（position/impressions/updated）を付与。

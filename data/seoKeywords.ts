@@ -46,4 +46,10 @@ export const keywordRanks: KeywordRank[] = [
   { keyword: "北区セレモニーホール", targetPath: "/hall/kita-ceremony-hall/", position: 82.0, impressions: 3, clicks: 0, updated: "2026-07-10" },
   { keyword: "蓮根レインボーホール", targetPath: "/hall/renkon-rainbow-hall/", position: 83.0, impressions: 3, clicks: 0, updated: "2026-07-10", note: "実クエリは「蓮根 レインボー ホール」。空白正規化で突合" },
   { keyword: "北区 斎場", targetPath: "/hall/", position: 67.5, impressions: 2, clicks: 0, updated: "2026-07-10" },
+  // 足立区・町屋斎場（2026-07-27 新規追加。実測はこれから）
+  { keyword: "足立区 葬儀", targetPath: "/area/adachi-ku/", note: "新規ページ・計測開始前" },
+  { keyword: "足立区 家族葬", targetPath: "/area/adachi-ku/", note: "新規ページ・計測開始前" },
+  { keyword: "足立区 一日葬", targetPath: "/plan/one-day-funeral/", note: "新規エリア・計測開始前" },
+  { keyword: "町屋斎場", targetPath: "/hall/machiya-saijo/", note: "新規ページ・計測開始前" },
+  { keyword: "町屋斎場 料金", targetPath: "/hall/machiya-saijo/", note: "施設料金セクションで対応" },
 ];

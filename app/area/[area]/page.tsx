@@ -9,7 +9,7 @@ import { PlanCard } from "@/components/PlanCard";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
-import { areas, getArea } from "@/data/areas";
+import { areas, getArea, areaTitle, areaDescription, areaHeroLead, areaFeaturedNote } from "@/data/areas";
 import { getHall } from "@/data/halls";
 import { plans } from "@/data/plans";
 
@@ -26,8 +26,8 @@ export async function generateMetadata({
   const area = getArea(slug);
   if (!area) return {};
   return buildMetadata({
-    title: `${area.name}の葬儀相談｜戸田斎場・一日葬・火葬式・家族葬`,
-    description: `${area.name}で葬儀をご検討の方へ。戸田斎場を利用した一日葬・火葬式・直葬・家族葬のご相談を、城北セレモニーサポートセンター（運営・施行：川口典礼）が承ります。24時間365日受付。`,
+    title: areaTitle(area),
+    description: areaDescription(area),
     path: area.href,
   });
 }
@@ -60,7 +60,7 @@ export default async function AreaPage({
       <Breadcrumbs items={crumbs} />
       <PageHero
         title={area.lead}
-        lead="戸田斎場を利用した一日葬・火葬式・直葬・家族葬のご相談を承ります。"
+        lead={areaHeroLead(area)}
       />
 
       <section className="py-12">
@@ -78,13 +78,7 @@ export default async function AreaPage({
           <h2 className="text-xl font-bold text-navy sm:text-2xl">
             {area.name}から利用できる斎場
           </h2>
-          <p className="mt-4 leading-relaxed">
-            {area.name}からは、火葬場が併設された戸田斎場が利用しやすく、移動の負担を抑えながらお見送りができます。
-            {featuredHalls.some((h) => h.slug === "funado-saijo") &&
-              "あわせて、板橋区内の舟渡斎場もご利用いただけます。"}
-            通夜を行わない一日葬、火葬を中心とした火葬式・直葬、ご家族中心の家族葬など、
-            ご希望や参列人数に合わせて、斎場・形式をお選びいただけます。
-          </p>
+          <p className="mt-4 leading-relaxed">{areaFeaturedNote(area)}</p>
           <div className="mt-5 flex flex-wrap gap-3">
             {featuredHalls.map((h) => (
               <Link

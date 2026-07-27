@@ -8,15 +8,21 @@ export function HallCard({ hall }: { hall: Hall }) {
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border border-black/5 bg-white shadow-sm">
       {/* カバー画像：横長・角丸・object-cover。画像が無くてもレイアウトは崩れない */}
-      <div className="relative aspect-[16/9] w-full bg-cream">
-        <Image
-          src={hall.image}
-          alt={hall.imageAlt}
-          fill
-          sizes="(max-width: 640px) 100vw, 50vw"
-          className="object-cover"
-        />
-      </div>
+      {hall.image ? (
+        <div className="relative aspect-[16/9] w-full bg-cream">
+          <Image
+            src={hall.image}
+            alt={hall.imageAlt ?? `${hall.name}の外観・施設イメージ`}
+            fill
+            sizes="(max-width: 640px) 100vw, 50vw"
+            className="object-cover"
+          />
+        </div>
+      ) : (
+        <div className="flex aspect-[16/9] w-full items-center justify-center bg-cream px-4 text-center">
+          <span className="text-sm font-bold text-navy/60">{hall.name}</span>
+        </div>
+      )}
 
       <div className="flex flex-1 flex-col p-6">
         <h3 className="text-lg font-bold text-navy">{hall.name}</h3>
@@ -35,7 +41,7 @@ export function HallCard({ hall }: { hall: Hall }) {
         </ul>
 
         <p className="mt-3 text-xs text-muted">
-          北区・板橋区からのご相談に対応します。
+          {hall.serviceAreaNote ?? "北区・板橋区からのご相談に対応します。"}
         </p>
 
         <div className="mt-4 flex flex-col gap-2 border-t border-black/5 pt-4 sm:flex-row">

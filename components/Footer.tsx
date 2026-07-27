@@ -11,6 +11,8 @@ const footerLinks = [
   { label: "家族葬", href: "/plan/family-funeral/" },
   { label: "北区", href: "/area/kita-ku/" },
   { label: "板橋区", href: "/area/itabashi-ku/" },
+  { label: "足立区", href: "/area/adachi-ku/" },
+  { label: "町屋斎場", href: "/hall/machiya-saijo/" },
   { label: "よくある質問", href: "/faq/" },
   { label: "ご相談・お見積り", href: "/contact/" },
   { label: "運営者情報", href: "/company/" },

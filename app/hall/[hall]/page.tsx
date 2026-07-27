@@ -12,6 +12,7 @@ import { breadcrumbLd, faqLd } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
 import { disclaimer } from "@/app/config/site";
 import { halls, getHall } from "@/data/halls";
+import { areas } from "@/data/areas";
 import { plans } from "@/data/plans";
 
 export function generateStaticParams() {
@@ -30,7 +31,7 @@ export async function generateMetadata({
     title: `${hall.name}での葬儀｜一日葬・火葬式・直葬・家族葬の相談`,
     description: `${hall.name}での葬儀をご検討の方へ。${hall.summary}一日葬・火葬式・直葬・家族葬のご相談、空き状況の確認を、城北セレモニーサポートセンター（運営・施行：川口典礼）が承ります。`,
     path: hall.href,
-    image: hall.image,
+    ...(hall.image ? { image: hall.image } : {}),
   });
 }
 
@@ -67,6 +68,12 @@ export default async function HallPage({
   const hall = getHall(slug);
   if (!hall) notFound();
 
+  // 関連エリアリンク（斎場ごとに指定。未指定なら北区・板橋区）
+  const relatedAreaSlugs = hall.relatedAreas ?? ["kita-ku", "itabashi-ku"];
+  const relatedAreas = relatedAreaSlugs
+    .map((slug) => areas.find((a) => a.slug === slug))
+    .filter((a): a is NonNullable<typeof a> => Boolean(a));
+
   const crumbs = [
     { name: "ホーム", path: "/" },
     { name: "斎場一覧", path: "/hall/" },
@@ -83,21 +90,23 @@ export default async function HallPage({
       <section className="py-12">
         <Container>
           {/* 斎場のカバー画像（スマホで大きくなりすぎないよう高さを抑える） */}
-          <figure className="overflow-hidden rounded-xl border border-black/5 shadow-sm">
-            <div className="relative aspect-[16/9] max-h-[420px] w-full bg-cream">
-              <Image
-                src={hall.image}
-                alt={hall.imageAlt}
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 900px"
-                className="object-cover"
-              />
-            </div>
-            <figcaption className="bg-cream px-4 py-2 text-xs text-muted">
-              写真は斎場のイメージです。
-            </figcaption>
-          </figure>
+          {hall.image && (
+            <figure className="overflow-hidden rounded-xl border border-black/5 shadow-sm">
+              <div className="relative aspect-[16/9] max-h-[420px] w-full bg-cream">
+                <Image
+                  src={hall.image}
+                  alt={hall.imageAlt ?? `${hall.name}の外観・施設イメージ`}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 900px"
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="bg-cream px-4 py-2 text-xs text-muted">
+                写真は斎場のイメージです。
+              </figcaption>
+            </figure>
+          )}
 
           <p className="mt-6 text-xs text-muted">{hall.area}</p>
           {hall.intro.map((p) => (
@@ -115,6 +124,52 @@ export default async function HallPage({
           </ul>
         </Container>
       </section>
+
+      {/* 所在地・アクセス・施設（データがある斎場のみ） */}
+      {(hall.address || (hall.access && hall.access.length > 0)) && (
+        <section className="bg-cream py-12">
+          <Container>
+            <h2 className="text-xl font-bold text-navy sm:text-2xl">
+              {hall.name}の所在地・アクセス
+            </h2>
+            {hall.address && (
+              <p className="mt-4 leading-relaxed">所在地：{hall.address}</p>
+            )}
+            {hall.access && hall.access.length > 0 && (
+              <ul className="mt-4 space-y-2">
+                {hall.access.map((a) => (
+                  <li key={a} className="flex gap-2 text-sm">
+                    <span className="text-gold">・</span>
+                    <span>{a}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {hall.parking && (
+              <p className="mt-4 text-sm leading-relaxed text-muted">
+                {hall.parking}
+              </p>
+            )}
+            {hall.facilities && hall.facilities.length > 0 && (
+              <>
+                <h3 className="mt-8 text-lg font-bold text-navy">施設の構成</h3>
+                <ul className="mt-3 space-y-2">
+                  {hall.facilities.map((f) => (
+                    <li key={f} className="flex gap-2 text-sm">
+                      <span className="text-gold">・</span>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            <p className="mt-6 rounded-md bg-white p-4 text-xs leading-relaxed text-muted">
+              施設の情報は変更される場合があります。最新の内容はお電話でご確認ください。
+              {disclaimer}
+            </p>
+          </Container>
+        </section>
+      )}
 
       {/* 相談が多い形式 */}
       <section className="bg-cream py-12">
@@ -134,7 +189,8 @@ export default async function HallPage({
         </Container>
       </section>
 
-      {/* 祭壇イメージ（全斎場） */}
+      {/* 祭壇イメージ（画像を用意している斎場のみ） */}
+      {hall.altar && (
       <section className="py-12">
         <Container>
           <h2 className="text-xl font-bold text-navy sm:text-2xl">
@@ -147,7 +203,7 @@ export default async function HallPage({
             <div className="relative aspect-[16/9] max-h-[420px] w-full bg-cream">
               <Image
                 src={hall.altar}
-                alt={hall.altarAlt}
+                alt={hall.altarAlt ?? `${hall.name}での祭壇イメージ`}
                 fill
                 sizes="(max-width: 768px) 100vw, 900px"
                 className="object-cover"
@@ -159,6 +215,7 @@ export default async function HallPage({
           </figure>
         </Container>
       </section>
+      )}
 
       {/* 画像ギャラリー（戸田斎場など gallery を持つ斎場のみ） */}
       {hall.gallery && hall.gallery.length > 0 && (
@@ -241,6 +298,77 @@ export default async function HallPage({
         </Container>
       </section>
 
+      {/* 施設料金の目安（公表料金がある斎場のみ） */}
+      {hall.fees && hall.fees.length > 0 && (
+        <section className="py-12">
+          <Container>
+            <h2 className="text-xl font-bold text-navy sm:text-2xl">
+              {hall.name}の施設料金の目安
+            </h2>
+            <p className="mt-3 leading-relaxed text-muted">
+              {hall.name}をご利用の際にかかる、施設側の料金の目安です（税込）。
+              このほかにご葬儀プランの費用がかかります。
+            </p>
+            <div className="mt-6 space-y-6">
+              {hall.fees.map((table) => (
+                <div
+                  key={table.heading}
+                  className="overflow-hidden rounded-xl border border-black/5 bg-white shadow-sm"
+                >
+                  <h3 className="bg-cream px-5 py-3 font-bold text-navy">
+                    {table.heading}
+                  </h3>
+                  <dl className="divide-y divide-black/5">
+                    {table.rows.map((row) => (
+                      <div
+                        key={row.label}
+                        className="flex flex-col gap-1 px-5 py-3 sm:flex-row sm:items-baseline sm:justify-between"
+                      >
+                        <dt className="text-sm font-medium text-navy">
+                          {row.label}
+                        </dt>
+                        <dd className="text-sm">
+                          {row.price}
+                          {row.note && (
+                            <span className="ml-2 text-xs text-muted">
+                              {row.note}
+                            </span>
+                          )}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                  {table.note && (
+                    <p className="px-5 py-3 text-xs text-muted">※ {table.note}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+            <ul className="mt-6 space-y-1 rounded-md bg-cream p-4 text-xs leading-relaxed text-muted">
+              <li>※ 金額はすべて税込の目安です。内容や利用区分により変動します。</li>
+              <li>
+                ※ 上記は施設側の料金です。ご葬儀プランの費用、宗教者へのお礼・返礼品・飲食費などは別途かかり、内容により変動します。
+              </li>
+              <li>※ 正確な費用は個別にお見積りします。詳しくはお問い合わせください。</li>
+              {hall.feeSource && (
+                <li>
+                  ※ 施設料金は{hall.feeSource.checked}時点で
+                  <a
+                    href={hall.feeSource.url}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="underline hover:text-navy"
+                  >
+                    {hall.feeSource.label}
+                  </a>
+                  に公表されていた内容をもとにしています。最新の料金は施設の公表内容をご確認ください。
+                </li>
+              )}
+            </ul>
+          </Container>
+        </section>
+      )}
+
       {/* 費用の考え方 */}
       <section className="bg-cream py-12">
         <Container>
@@ -284,18 +412,15 @@ export default async function HallPage({
         <Container>
           <h2 className="text-xl font-bold text-navy sm:text-2xl">関連ページ</h2>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <Link
-              href="/area/kita-ku/"
-              className="rounded-lg border border-black/5 bg-white p-4 font-bold text-navy shadow-sm hover:border-gold/40"
-            >
-              北区で葬儀をお考えの方 →
-            </Link>
-            <Link
-              href="/area/itabashi-ku/"
-              className="rounded-lg border border-black/5 bg-white p-4 font-bold text-navy shadow-sm hover:border-gold/40"
-            >
-              板橋区で葬儀をお考えの方 →
-            </Link>
+            {relatedAreas.map((a) => (
+              <Link
+                key={a.slug}
+                href={a.href}
+                className="rounded-lg border border-black/5 bg-white p-4 font-bold text-navy shadow-sm hover:border-gold/40"
+              >
+                {a.name}で葬儀をお考えの方 →
+              </Link>
+            ))}
             <Link
               href="/hall/"
               className="rounded-lg border border-black/5 bg-white p-4 font-bold text-navy shadow-sm hover:border-gold/40"
