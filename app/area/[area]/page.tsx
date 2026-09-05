@@ -7,9 +7,20 @@ import { CtaSection } from "@/components/CtaSection";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PlanCard } from "@/components/PlanCard";
 import { JsonLd } from "@/components/JsonLd";
-import { breadcrumbLd } from "@/lib/jsonld";
+import { ContentSections } from "@/components/ContentSections";
+import { FaqBlock } from "@/components/FaqBlock";
+import { RelatedColumns } from "@/components/RelatedColumns";
+import { breadcrumbLd, faqLd } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
-import { areas, getArea, areaTitle, areaDescription, areaHeroLead, areaFeaturedNote } from "@/data/areas";
+import { disclaimer } from "@/app/config/site";
+import {
+  areas,
+  getArea,
+  areaTitle,
+  areaDescription,
+  areaHeroLead,
+  areaFeaturedNote,
+} from "@/data/areas";
 import { getHall } from "@/data/halls";
 import { plans } from "@/data/plans";
 
@@ -56,12 +67,9 @@ export default async function AreaPage({
 
   return (
     <>
-      <JsonLd data={breadcrumbLd(crumbs)} />
+      <JsonLd data={[breadcrumbLd(crumbs), faqLd(area.faq)]} />
       <Breadcrumbs items={crumbs} />
-      <PageHero
-        title={area.lead}
-        lead={areaHeroLead(area)}
-      />
+      <PageHero title={area.lead} lead={areaHeroLead(area)} />
 
       <section className="py-12">
         <Container>
@@ -90,10 +98,20 @@ export default async function AreaPage({
               </Link>
             ))}
           </div>
+          <p className="mt-5 text-xs leading-relaxed text-muted">
+            {disclaimer}
+          </p>
         </Container>
       </section>
 
+      {/* 本文セクション（全体像・通夜と告別式・斎場と火葬場・費用・形式の選び方 など） */}
       <section className="py-12">
+        <Container>
+          <ContentSections sections={area.sections} />
+        </Container>
+      </section>
+
+      <section className="bg-cream py-12">
         <Container>
           <h2 className="text-xl font-bold text-navy sm:text-2xl">
             {area.name}でのご葬儀の形式
@@ -110,7 +128,7 @@ export default async function AreaPage({
       </section>
 
       {localHalls.length > 0 && (
-        <section className="bg-cream py-12">
+        <section className="py-12">
           <Container>
             <h2 className="text-xl font-bold text-navy sm:text-2xl">
               {area.name}から利用しやすい式場（選択肢の一例）
@@ -136,6 +154,23 @@ export default async function AreaPage({
           </Container>
         </section>
       )}
+
+      {/* ページ内FAQ */}
+      <section className="bg-cream py-12">
+        <Container>
+          <FaqBlock
+            items={area.faq}
+            title={`${area.name}の葬儀に関するよくあるご質問`}
+          />
+        </Container>
+      </section>
+
+      {/* 関連コラム */}
+      <section className="py-12">
+        <Container>
+          <RelatedColumns slugs={area.relatedColumns} />
+        </Container>
+      </section>
 
       <CtaSection />
     </>

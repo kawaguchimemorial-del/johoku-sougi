@@ -10,6 +10,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/jsonld";
 import { siteConfig, ctaText, disclaimer } from "@/app/config/site";
 import { plans, getPlan } from "@/data/plans";
+import { areas, areaHeroLead } from "@/data/areas";
 import { halls } from "@/data/halls";
 import { faqs } from "@/data/faqs";
 import { columns, getCategoryName, columnImage } from "@/data/columns";
@@ -250,28 +251,18 @@ export default function Home() {
         <Container>
           <h2 className="text-xl font-bold text-navy sm:text-2xl">対応エリア</h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
-            <Link
-              href="/area/kita-ku/"
-              className="rounded-xl border border-black/5 bg-white p-6 shadow-sm transition hover:border-gold/40 hover:shadow-md"
-            >
-              <h3 className="text-lg font-bold text-navy">
-                北区で葬儀をお考えの方
-              </h3>
-              <p className="mt-2 text-sm text-muted">
-                北区から戸田斎場を利用する場合の考え方や、各プランへの導線をご案内します。
-              </p>
-            </Link>
-            <Link
-              href="/area/itabashi-ku/"
-              className="rounded-xl border border-black/5 bg-white p-6 shadow-sm transition hover:border-gold/40 hover:shadow-md"
-            >
-              <h3 className="text-lg font-bold text-navy">
-                板橋区で葬儀をお考えの方
-              </h3>
-              <p className="mt-2 text-sm text-muted">
-                板橋区から戸田斎場を利用する場合の考え方や、各プランへの導線をご案内します。
-              </p>
-            </Link>
+            {areas.map((a) => (
+              <Link
+                key={a.slug}
+                href={a.href}
+                className="rounded-xl border border-black/5 bg-white p-6 shadow-sm transition hover:border-gold/40 hover:shadow-md"
+              >
+                <h3 className="text-lg font-bold text-navy">
+                  {a.name}の葬儀・葬式のご相談
+                </h3>
+                <p className="mt-2 text-sm text-muted">{areaHeroLead(a)}</p>
+              </Link>
+            ))}
           </div>
         </Container>
       </section>

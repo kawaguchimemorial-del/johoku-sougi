@@ -3,7 +3,7 @@
 
 import { siteConfig } from "@/app/config/site";
 import { halls } from "@/data/halls";
-import { plans, formatPrice } from "@/data/plans";
+import { plans, planTitle, planDescription } from "@/data/plans";
 import { areas, areaTitle, areaDescription } from "@/data/areas";
 import { columns } from "@/data/columns";
 
@@ -102,12 +102,13 @@ export function getAllPageSeo(): PageSeo[] {
   }
 
   for (const p of plans) {
-    const title = `${p.name}｜北区・板橋区・戸田斎場での${p.name}相談`;
+    // ページ実体と同じ関数を参照し、裏ページの監査値とのズレを防ぐ
+    const title = planTitle(p);
     list.push({
       path: p.href,
       type: "プラン",
       title: fullTitle(title, p.href),
-      description: `${p.name}は${p.summary}北区・板橋区で戸田斎場を利用した${p.name}のご相談を、城北セレモニーサポートセンター（運営・施行：川口典礼）が承ります。目安${formatPrice(p.price)}。`,
+      description: planDescription(p),
       keywords: p.keywords,
     });
   }

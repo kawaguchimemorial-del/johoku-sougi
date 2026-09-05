@@ -18,6 +18,7 @@ import {
   columnImage,
 } from "@/data/columns";
 import { getReviewer, requiresExpertCheck } from "@/data/reviewers";
+import { getArea } from "@/data/areas";
 
 export function generateStaticParams() {
   return columns.map((c) => ({ slug: c.slug }));
@@ -54,6 +55,9 @@ export default async function ColumnDetailPage({
   const related = (col.related ?? [])
     .map((s) => getColumn(s))
     .filter((c): c is NonNullable<typeof c> => Boolean(c));
+  const relatedAreas = (col.relatedAreas ?? [])
+    .map((s) => getArea(s))
+    .filter((a): a is NonNullable<typeof a> => Boolean(a));
 
   const path = `/column/${col.slug}/`;
   const crumbs = [
@@ -293,6 +297,26 @@ export default async function ColumnDetailPage({
                   </div>
                 ))}
               </dl>
+            </div>
+          )}
+
+          {/* 関連するエリアページ（クエリ語入りのアンカーで内部リンク） */}
+          {relatedAreas.length > 0 && (
+            <div className="mt-10">
+              <h2 className="border-l-4 border-gold pl-3 text-xl font-bold text-navy sm:text-2xl">
+                お住まいの地域から探す
+              </h2>
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold">
+                {relatedAreas.map((a) => (
+                  <Link
+                    key={a.slug}
+                    href={a.href}
+                    className="text-gold hover:underline"
+                  >
+                    {a.name}の葬儀・葬式のご相談 →
+                  </Link>
+                ))}
+              </div>
             </div>
           )}
 

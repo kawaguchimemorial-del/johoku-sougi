@@ -8,9 +8,22 @@ import { CtaSection } from "@/components/CtaSection";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PriceNote } from "@/components/PriceNote";
 import { JsonLd } from "@/components/JsonLd";
-import { breadcrumbLd, serviceLd } from "@/lib/jsonld";
+import { ContentSections } from "@/components/ContentSections";
+import { FaqBlock } from "@/components/FaqBlock";
+import { RelatedColumns } from "@/components/RelatedColumns";
+import { breadcrumbLd, serviceLd, faqLd } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
-import { plans, getPlan, formatPrice } from "@/data/plans";
+import { disclaimer } from "@/app/config/site";
+import {
+  plans,
+  getPlan,
+  formatPrice,
+  planTitle,
+  planDescription,
+  planHeading,
+} from "@/data/plans";
+import { getArea } from "@/data/areas";
+import { getHall } from "@/data/halls";
 
 export function generateStaticParams() {
   return plans.map((p) => ({ plan: p.slug }));
@@ -25,8 +38,8 @@ export async function generateMetadata({
   const plan = getPlan(slug);
   if (!plan) return {};
   return buildMetadata({
-    title: `${plan.name}｜北区・板橋区・戸田斎場での${plan.name}相談`,
-    description: `${plan.name}は${plan.summary}北区・板橋区で戸田斎場を利用した${plan.name}のご相談を、城北セレモニーサポートセンター（運営・施行：川口典礼）が承ります。目安${formatPrice(plan.price)}。`,
+    title: planTitle(plan),
+    description: planDescription(plan),
     path: plan.href,
     image: plan.image,
   });
@@ -48,6 +61,12 @@ export default async function PlanPage({
     { name: plan.name, path: plan.href },
   ];
 
+  // areaNotes に登場する区を Service の areaServed に反映する
+  const servedAreas = plan.areaNotes
+    .map((n) => getArea(n.areaSlug))
+    .filter((a): a is NonNullable<typeof a> => Boolean(a))
+    .map((a) => `東京都${a.name}`);
+
   return (
     <>
       <JsonLd
@@ -57,11 +76,13 @@ export default async function PlanPage({
             name: plan.name,
             description: plan.summary,
             path: plan.href,
+            areaServed: servedAreas,
           }),
+          faqLd(plan.faq),
         ]}
       />
       <Breadcrumbs items={crumbs} />
-      <PageHero title={`${plan.name}`} lead={plan.summary} />
+      <PageHero title={planHeading(plan)} lead={plan.summary} />
 
       <section className="py-12">
         <Container>
@@ -110,6 +131,79 @@ export default async function PlanPage({
         </Container>
       </section>
 
+      {/* 本文セクション（流れ・費用の内訳・注意点・他形式との比較） */}
+      <section className="bg-cream py-12">
+        <Container>
+          <ContentSections sections={plan.sections} />
+          <p className="mt-8 text-xs leading-relaxed text-muted">
+            {disclaimer}
+          </p>
+        </Container>
+      </section>
+
+      {/* 区ごとの案内 */}
+      <section className="py-12">
+        <Container>
+          <h2 className="text-xl font-bold text-navy sm:text-2xl">
+            エリア別の{plan.name}のご案内
+          </h2>
+          <div className="mt-6 space-y-10">
+            {plan.areaNotes.map((note) => {
+              const area = getArea(note.areaSlug);
+              const halls = note.halls
+                .map((s) => getHall(s))
+                .filter((h): h is NonNullable<typeof h> => Boolean(h));
+
+              return (
+                <div key={note.areaSlug}>
+                  <h3 className="border-l-4 border-gold pl-3 text-lg font-bold text-navy sm:text-xl">
+                    {note.heading}
+                  </h3>
+                  {note.paragraphs.map((p) => (
+                    <p key={p} className="mt-4 leading-relaxed">
+                      {p}
+                    </p>
+                  ))}
+                  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold">
+                    {area && (
+                      <Link
+                        href={area.href}
+                        className="text-gold hover:underline"
+                      >
+                        {area.name}の葬儀のご相談について →
+                      </Link>
+                    )}
+                    {halls.map((h) => (
+                      <Link
+                        key={h.slug}
+                        href={h.href}
+                        className="text-gold hover:underline"
+                      >
+                        {h.name}について →
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </Container>
+      </section>
+
+      {/* ページ内FAQ */}
+      <section className="bg-cream py-12">
+        <Container>
+          <FaqBlock items={plan.faq} title={`${plan.name}のよくあるご質問`} />
+        </Container>
+      </section>
+
+      {/* 関連コラム */}
+      <section className="py-12">
+        <Container>
+          <RelatedColumns slugs={plan.relatedColumns} />
+        </Container>
+      </section>
+
       {/* 関連導線 */}
       <section className="bg-cream py-12">
         <Container>
@@ -130,18 +224,20 @@ export default async function PlanPage({
               href="/area/kita-ku/"
               className="rounded-xl border border-black/5 bg-white p-5 shadow-sm transition hover:border-gold/40"
             >
-              <h3 className="font-bold text-navy">北区で葬儀をお考えの方</h3>
+              <h3 className="font-bold text-navy">北区の葬儀・葬式のご相談</h3>
               <p className="mt-1 text-sm text-muted">
-                北区から戸田斎場を利用する場合の考え方。
+                北区での斎場の選び方と、通夜から火葬までの流れ。
               </p>
             </Link>
             <Link
               href="/area/itabashi-ku/"
               className="rounded-xl border border-black/5 bg-white p-5 shadow-sm transition hover:border-gold/40"
             >
-              <h3 className="font-bold text-navy">板橋区で葬儀をお考えの方</h3>
+              <h3 className="font-bold text-navy">
+                板橋区の葬儀・葬式のご相談
+              </h3>
               <p className="mt-1 text-sm text-muted">
-                板橋区から戸田斎場を利用する場合の考え方。
+                舟渡斎場・戸田斎場の使い方と費用の考え方。
               </p>
             </Link>
             {others.map((p) => (
@@ -150,7 +246,9 @@ export default async function PlanPage({
                 href={p.href}
                 className="rounded-xl border border-black/5 bg-white p-5 shadow-sm transition hover:border-gold/40"
               >
-                <h3 className="font-bold text-navy">{p.name}</h3>
+                <h3 className="font-bold text-navy">
+                  {p.name}（北区・板橋区）
+                </h3>
                 <p className="mt-1 text-sm text-muted">{p.summary}</p>
               </Link>
             ))}

@@ -12,6 +12,36 @@
 
 ---
 
+## 2026-09-06 — 順位押し上げ仕様書を実装（プラン・エリアページ強化／カニバリ解消／市民葬対応）
+
+**何を**: `docs/SEO_RANKING_SPEC_2026-09.md` の §2 の順序で実装。
+
+1. **データモデル拡張**: `data/content.ts` を新設（`ContentSection` / `ContentTable` / `ContentLink`）。`Plan` に `sections` / `areaNotes` / `faq` / `relatedColumns` / `metaTitle` / `metaDescription` / `h1` を、`Area` に `sections` / `faq` / `relatedColumns` を追加。本文はデータ側、page.tsx は描画のみという既存方針を維持。描画は `components/ContentSections.tsx` / `FaqBlock.tsx` / `RelatedColumns.tsx` を新設して共通化。
+2. **一日葬（P1）**: title を「北区・板橋区の一日葬｜流れ・費用目安・戸田斎場での進め方」、H1 を「北区・板橋区の一日葬」に変更。本文6セクション（とは／当日の流れ表／費用の内訳表／向き不向き／注意点／他形式比較表）＋区別セクション3（北区・板橋区・足立区）＋FAQ6問を追加。
+3. **火葬式・直葬（P2）**: title/H1 を地域語つきに変更。本文6セクション（直葬・火葬式・密葬の違い／流れ／費用／後悔しやすい点／利用しやすい火葬場／比較表）＋区別3＋FAQ6問。
+4. **エリアページ（P3）**: 北区・板橋区に `metaTitle` を個別設定（従来は戸田斎場固定の既定文）。H1 を「◯区の葬儀・葬式のご相談」に変更。本文7セクション（全体像表／通夜・告別式の流れ／斎場・火葬場比較表／費用の4区分表／形式の選び方＋クエリ語アンカー／区民葬・葬祭費／相談が多い地域）＋FAQ6問。足立区も4セクション＋FAQ5問を追加。
+5. **区民葬コラム（P4）**: title を「区民葬（市民葬）とは…」に変更。lead に呼称（23区=区民葬／市部=市民葬、板橋区は区民葬儀）の説明を追加。「北区の区民葬・板橋区の区民葬儀（市民葬）」セクションとFAQ2問（市民葬との違い／板橋区の対象）を追加。`keywords` に市民葬・区民葬儀を追加。
+6. **家族葬（P5）**: 同じ型で本文6セクション＋区別3＋FAQ6問。
+7. **横断**: `organizationLd` / `serviceLd` の `areaServed` を `siteConfig.areas` 由来に変更し**足立区を追加**（従来は北区・板橋区のみで設定と不一致）。`serviceLd` は `areaServed` を上書き可能にし、プランページは `areaNotes` から生成。プラン・エリアページに FAQPage 構造化データを追加。`Column` に `relatedAreas` を追加し、コラム→エリアページの導線を新設。トップの対応エリアを `areas` 駆動にして足立区を追加（従来はハードコードで2区のみ）。`lib/seoAudit.ts` のプラン title/description をページ実体と同じ `planTitle` / `planDescription` 参照に変更（裏ページの監査値とのズレ防止）。
+8. **計測**: `data/seoKeywords.ts` を直近28日（2026-08-05〜09-02）の実測に更新し、担当ページを整理（33KW）。
+
+**なぜ**: 表示回数は伸びている（2,992／前期2,146）のにクリックが1件で、関連KWの10位以内が0件だった。原因はプラン・エリアページが薄く（本文3段落）、Googleが当てている「北区 通夜」「北区 火葬場」等に答えるセクションが無かったこと、および1つのKWに複数ページが出るカニバリ（「北区 直葬」で担当外の /area/kita-ku/ が担当 /plan/direct-funeral/ に勝っていた）。エリアページは「その区の全体像」、プランページは「形式の詳細」と役割を分け、クエリ語入りアンカーで評価を担当ページへ寄せた。
+
+**カニバリ解消の考え方**: エリアページでは形式の詳細を書かず、比較表＋「◯区の一日葬について」「◯区の火葬式・直葬について」というクエリ語アンカーでプランページへ送る。逆にプランページは区別セクションで「◯区から一日葬を行う場合」を持ち、地域KWに直接答える。
+
+**書かなかったこと（意図的）**: 新規ページの量産（sitemap は 81URL のまま）、自由葬の専用ページ、戸田斎場の施設料金の数値（出典が確認できないため。町屋斎場のみ公表値を掲載済み）、`offers` スキーマ、他社斎場名クエリ（ノイズ）への対応。所要時間・距離は断定せず「目安」表記とお電話でのご案内に留めた。
+
+**関連ファイル**: `data/content.ts`（新規）, `components/ContentSections.tsx`（新規）, `components/FaqBlock.tsx`（新規）, `components/RelatedColumns.tsx`（新規）, `data/plans.ts`, `data/areas.ts`, `data/columns.ts`, `data/seoKeywords.ts`, `lib/jsonld.ts`, `lib/seoAudit.ts`, `app/plan/[plan]/page.tsx`, `app/area/[area]/page.tsx`, `app/column/[slug]/page.tsx`, `app/page.tsx`。
+
+**確認**: `npx tsc --noEmit` エラーなし。`npm run build` 成功（83ページ生成）、`npm run lint` エラーなし。**title 重複0件**。sitemap は 81URL のまま（新規ページなし）。本番ビルドをローカル起動して検証：対象7ページで H2 が10〜13、FAQPage 構造化データあり、本文字数が約1,000〜1,500字→4,500〜6,200字。禁止語（最安・激安・必ず・絶対・追加費用なし・No.1・どこよりも安い・公式・公認・区民のみ）の新規混入なし。価格表示箇所には `PriceNote`／表の注記を併記、斎場セクション直下に `disclaimer` を表示。
+
+**あなた側の作業**: Search Console で以下のインデックス再登録（URL検査→インデックス登録をリクエスト）をすると反映が早まります。
+- `/plan/one-day-funeral/` `/plan/direct-funeral/` `/plan/family-funeral/`
+- `/area/kita-ku/` `/area/itabashi-ku/` `/area/adachi-ku/`
+- `/column/kumin-sou/`
+
+**次の判定**: 2週間後・4週間後に「北区 一日葬」「板橋区 一日葬」が10位以内に入るかを確認（仕様書 §10.3）。入らない場合は区別セクションの独立記事化を検討。
+
 ## 2026-09-06 — SEO現状チェック＋順位押し上げ仕様書を作成（コード変更なし）
 
 **何を**: Search Console 実測（直近28日 8/05〜9/02）と本番サイトの実地確認で現状を診断し、`docs/SEO_RANKING_SPEC_2026-09.md` に実装仕様書を作成。実装は別セッション（Opus）が本仕様書を読んで行う。

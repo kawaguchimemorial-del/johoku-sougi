@@ -3,6 +3,10 @@ import type { Faq } from "@/data/faqs";
 
 // 注意: 存在しない住所・営業所は作らない。areaServed のみで地域性を示す。
 
+// 対応エリア名の配列を schema.org の AdministrativeArea 配列にする。
+const adminAreas = (names: readonly string[]) =>
+  names.map((name) => ({ "@type": "AdministrativeArea", name }));
+
 export function organizationLd() {
   return {
     "@context": "https://schema.org",
@@ -14,10 +18,7 @@ export function organizationLd() {
     telephone: siteConfig.tel,
     image: `${siteConfig.url}${siteConfig.defaultImage}`,
     priceRange: "¥¥",
-    areaServed: [
-      { "@type": "AdministrativeArea", name: "東京都北区" },
-      { "@type": "AdministrativeArea", name: "東京都板橋区" },
-    ],
+    areaServed: adminAreas(siteConfig.areas.filter((a) => a.startsWith("東京都"))),
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: [
@@ -46,7 +47,13 @@ export function serviceLd(input: {
   name: string;
   description: string;
   path: string;
+  // 未指定なら siteConfig の対応エリア（東京都内）を使う
+  areaServed?: string[];
 }) {
+  const served =
+    input.areaServed && input.areaServed.length > 0
+      ? input.areaServed
+      : siteConfig.areas.filter((a) => a.startsWith("東京都"));
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -55,10 +62,7 @@ export function serviceLd(input: {
     description: input.description,
     url: `${siteConfig.url}${input.path}`,
     provider: { "@id": `${siteConfig.url}#organization` },
-    areaServed: [
-      { "@type": "AdministrativeArea", name: "東京都北区" },
-      { "@type": "AdministrativeArea", name: "東京都板橋区" },
-    ],
+    areaServed: adminAreas(served),
   };
 }
 
