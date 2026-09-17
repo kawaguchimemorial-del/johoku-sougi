@@ -12,6 +12,33 @@
 
 ---
 
+## 2026-09-17 — SEO監査（/seo audit）の指摘を一括修正
+
+**何を**: 技術／コンテンツ／構造化データ／GSC実測／AI検索／ローカルの6観点で監査（総合 78/100。ローカル42点が主因）。コードで直せる指摘をすべて修正。
+1. **内部リンク漏れ（High）**: `app/plan/[plan]/page.tsx` の「あわせてご覧ください」がハードコードで北区・板橋区・戸田斎場のみだった。`areas` と `plan.areaNotes[].halls` から自動生成に変更し、足立区・町屋斎場・舟渡斎場・北区セレモニーホール・蓮根レインボーホールへのリンクが全プランページに出るようにした。
+2. **斎場データ補完（High）**: `data/halls.ts` の戸田斎場・舟渡斎場・北区セレモニーホール・蓮根レインボーホールに `address` / `access` / `parking` / `facilities` を追加（各施設の公表情報・板橋区/北区の案内ページで確認済み）。**施設料金は出典未確認のため未掲載のまま**（町屋斎場のみ従来どおり）。
+3. **JSON-LD**: `articleLd` の `publisher` に `logo`（`/opengraph-image` のPNG）を追加（Article リッチリザルト必須項目）。`breadcrumbLd` は1件以下なら `null` を返し、`JsonLd` コンポーネントで null を除外。トップの「ホーム」1件パンくずは出力しない。
+4. **セキュリティヘッダー**: `next.config.ts` に `X-Content-Type-Options: nosniff` / `X-Frame-Options: SAMEORIGIN` / `Referrer-Policy: strict-origin-when-cross-origin` を追加。
+5. **robots.txt**: 非標準の `Host:` 行を削除。
+6. **AI検索（GEO）**: プラン3ページの「〜とは」「費用の内訳と目安」見出しを疑問形（「〜とはどのような葬儀ですか」「費用はいくらかかりますか」）に変更。
+7. **板橋区×一日葬の強化**: 「板橋区 一日葬」16.7位／「板橋 一日葬」11.7位（GSC）を1ページ目へ押し上げるため、`/plan/one-day-funeral/` の板橋区セクションに当日の流れ・区民料金の可能性・費用の考え方の2段落を追加。
+8. **順位トラッキング**: `data/seoKeywords.ts` に「戸田斎場 葬儀」「戸田斎場」「足立区 直葬」「板橋区 通夜」を追加。
+
+**監査で分かったが今回対応しなかったこと**: PSI/CrUX API が403（APIキー制限、要ユーザー操作）。GBP連携・レビュー・サイテーション（実データがないため作らない）。コンテンツ監査が「非公式表記が7ページで欠落」と報告したが、実ページ検証で全ページに出力済みと確認（誤検知）。
+
+**GSC実測（8/18〜9/14）**: 表示 2,738（前期2,629）／クリック 0（前期4）／平均順位 39.6（前期42.0）。表示ゼロ34URL（コラム中心）だがインデックス自体は済み。
+
+**関連ファイル**: `app/plan/[plan]/page.tsx`, `data/halls.ts`, `data/plans.ts`, `data/seoKeywords.ts`, `lib/jsonld.ts`, `components/JsonLd.tsx`, `app/page.tsx`, `app/robots.ts`, `next.config.ts`
+
+**確認**: `tsc` / `npm run build` / `npm run lint` エラーなし。ローカル本番起動で、ヘッダー3種・トップのパンくず非出力・プランページの関連リンク8件・Article の logo・斎場の所在地表示を確認。
+
+**あなた側の作業**:
+- Google Cloud Console → APIキーの「APIの制限」に *PageSpeed Insights API* と *Chrome UX Report API* を追加（CWV計測の復旧）。
+- 川口典礼の Googleビジネスプロフィールの有無と、実在する顧客レビューがあれば共有（`sameAs`・レビュー構造化データに使う）。
+- Search Console で `/plan/one-day-funeral/` と斎場4ページのインデックス再登録をリクエストすると反映が早まります。
+
+---
+
 ## 2026-09-17 — Search Console「リダイレクト エラー」通知の調査（コード変更なし）
 
 **何を**: SCメール（WNC-20237597）「ページがインデックスに登録されない新しい要因：リダイレクト エラー」を受けて調査。

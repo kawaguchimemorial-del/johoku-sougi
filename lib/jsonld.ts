@@ -78,6 +78,8 @@ export function websiteLd() {
 }
 
 export function breadcrumbLd(items: { name: string; path: string }[]) {
+  // 「ホーム」1件だけのパンくずは意味を持たないため出力しない
+  if (items.length < 2) return null;
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -140,6 +142,13 @@ export function articleLd(input: {
       "@type": "Organization",
       name: siteConfig.name,
       url: siteConfig.url,
+      // Article リッチリザルトの必須プロパティ（PNG のブランド画像を動的生成）
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/opengraph-image`,
+        width: 1200,
+        height: 630,
+      },
     },
     ...reviewedBy,
   };

@@ -22,8 +22,8 @@ import {
   planDescription,
   planHeading,
 } from "@/data/plans";
-import { getArea } from "@/data/areas";
-import { getHall } from "@/data/halls";
+import { areas, getArea } from "@/data/areas";
+import { halls, getHall } from "@/data/halls";
 
 export function generateStaticParams() {
   return plans.map((p) => ({ plan: p.slug }));
@@ -55,6 +55,10 @@ export default async function PlanPage({
   if (!plan) notFound();
 
   const others = plans.filter((p) => p.slug !== plan.slug);
+  // このプランの区別セクションで案内している斎場（重複なし・登場順）
+  const relatedHalls = halls.filter((h) =>
+    plan.areaNotes.some((n) => n.halls.includes(h.slug)),
+  );
 
   const crumbs = [
     { name: "ホーム", path: "/" },
@@ -211,35 +215,30 @@ export default async function PlanPage({
             あわせてご覧ください
           </h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            <Link
-              href="/hall/toda-saijo/"
-              className="rounded-xl border border-black/5 bg-white p-5 shadow-sm transition hover:border-gold/40"
-            >
-              <h3 className="font-bold text-navy">戸田斎場について</h3>
-              <p className="mt-1 text-sm text-muted">
-                火葬場併設で移動の負担を抑えやすい斎場での進め方。
-              </p>
-            </Link>
-            <Link
-              href="/area/kita-ku/"
-              className="rounded-xl border border-black/5 bg-white p-5 shadow-sm transition hover:border-gold/40"
-            >
-              <h3 className="font-bold text-navy">北区の葬儀・葬式のご相談</h3>
-              <p className="mt-1 text-sm text-muted">
-                北区での斎場の選び方と、通夜から火葬までの流れ。
-              </p>
-            </Link>
-            <Link
-              href="/area/itabashi-ku/"
-              className="rounded-xl border border-black/5 bg-white p-5 shadow-sm transition hover:border-gold/40"
-            >
-              <h3 className="font-bold text-navy">
-                板橋区の葬儀・葬式のご相談
-              </h3>
-              <p className="mt-1 text-sm text-muted">
-                舟渡斎場・戸田斎場の使い方と費用の考え方。
-              </p>
-            </Link>
+            {relatedHalls.map((h) => (
+              <Link
+                key={h.slug}
+                href={h.href}
+                className="rounded-xl border border-black/5 bg-white p-5 shadow-sm transition hover:border-gold/40"
+              >
+                <h3 className="font-bold text-navy">{h.name}について</h3>
+                <p className="mt-1 text-sm text-muted">{h.summary}</p>
+              </Link>
+            ))}
+            {areas.map((a) => (
+              <Link
+                key={a.slug}
+                href={`/area/${a.slug}/`}
+                className="rounded-xl border border-black/5 bg-white p-5 shadow-sm transition hover:border-gold/40"
+              >
+                <h3 className="font-bold text-navy">
+                  {a.name}の葬儀・葬式のご相談
+                </h3>
+                <p className="mt-1 text-sm text-muted">
+                  {a.name}での斎場の選び方と、通夜から火葬までの流れ。
+                </p>
+              </Link>
+            ))}
             {others.map((p) => (
               <Link
                 key={p.slug}
@@ -247,7 +246,7 @@ export default async function PlanPage({
                 className="rounded-xl border border-black/5 bg-white p-5 shadow-sm transition hover:border-gold/40"
               >
                 <h3 className="font-bold text-navy">
-                  {p.name}（北区・板橋区）
+                  {p.name}（北区・板橋区・足立区）
                 </h3>
                 <p className="mt-1 text-sm text-muted">{p.summary}</p>
               </Link>

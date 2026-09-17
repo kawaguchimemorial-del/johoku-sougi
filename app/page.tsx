@@ -6,8 +6,6 @@ import { CallButton } from "@/components/CallButton";
 import { CtaSection } from "@/components/CtaSection";
 import { PlanCard } from "@/components/PlanCard";
 import { HallCard } from "@/components/HallCard";
-import { JsonLd } from "@/components/JsonLd";
-import { breadcrumbLd } from "@/lib/jsonld";
 import { siteConfig, ctaText, disclaimer } from "@/app/config/site";
 import { plans, getPlan } from "@/data/plans";
 import { areas, areaHeroLead } from "@/data/areas";
@@ -42,8 +40,6 @@ const flow = [
 export default function Home() {
   return (
     <>
-      <JsonLd data={breadcrumbLd([{ name: "ホーム", path: "/" }])} />
-
       {/* FV：戸田斎場の外観を背景にしたHero */}
       <section className="relative overflow-hidden text-white">
         {/* 背景画像＋上品な紺グラデーション（文字が埋もれないよう左を濃く） */}

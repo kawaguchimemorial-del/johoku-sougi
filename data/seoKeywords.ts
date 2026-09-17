@@ -52,6 +52,8 @@ export const keywordRanks: KeywordRank[] = [
   // 斎場軸（低露出＝伸びしろ。次フェーズで強化）
   { keyword: "お別れホール蓮根", targetPath: "/hall/renkon-rainbow-hall/", position: 48.3, impressions: 33, clicks: 0, updated: "2026-09-06", note: "蓮根レインボーホールの別名で検索されている" },
   { keyword: "舟渡斎場", targetPath: "/hall/funado-saijo/", position: 60.3, impressions: 18, clicks: 0, updated: "2026-09-06" },
+  { keyword: "戸田斎場 葬儀", targetPath: "/hall/toda-saijo/", note: "斎場軸の主要KW（2026-09-17 追加）" },
+  { keyword: "戸田斎場", targetPath: "/hall/toda-saijo/", note: "施設名の指名検索（2026-09-17 追加）" },
   { keyword: "町屋斎場", targetPath: "/hall/machiya-saijo/", note: "新規ページ・計測開始前" },
   { keyword: "町屋斎場 料金", targetPath: "/hall/machiya-saijo/", note: "施設料金セクションで対応" },
   // 指名（ブランド）・足立区
@@ -60,4 +62,6 @@ export const keywordRanks: KeywordRank[] = [
   { keyword: "足立区 葬儀", targetPath: "/area/adachi-ku/", note: "新規ページ・計測開始前" },
   { keyword: "足立区 家族葬", targetPath: "/area/adachi-ku/", note: "新規ページ・計測開始前" },
   { keyword: "足立区 一日葬", targetPath: "/plan/one-day-funeral/", note: "新規エリア・計測開始前" },
+  { keyword: "足立区 直葬", targetPath: "/plan/direct-funeral/", note: "新規エリア（2026-09-17 追加）" },
+  { keyword: "板橋区 通夜", targetPath: "/area/itabashi-ku/", position: 19.8, impressions: 21, clicks: 0, updated: "2026-09-17", note: "8〜20位圏。区ページの通夜セクションで対応" },
 ];
