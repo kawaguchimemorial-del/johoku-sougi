@@ -40,3 +40,18 @@ export const contactOptions: Option[] = [
 export function labelOf(options: Option[], value: string): string {
   return options.find((o) => o.value === value)?.label ?? "";
 }
+
+// ページ slug → フォームの選択肢の値（下層ページからフォームへ遷移するときの事前選択用）
+export const planFormValue: Record<string, string> = {
+  "one-day-funeral": "one-day",
+  "direct-funeral": "direct",
+  "family-funeral": "family",
+};
+
+export const hallFormValue: Record<string, string> = {
+  "toda-saijo": "toda",
+  "funado-saijo": "funado",
+  "kita-ceremony-hall": "kita",
+  "renkon-rainbow-hall": "renkon",
+  "machiya-saijo": "machiya",
+};

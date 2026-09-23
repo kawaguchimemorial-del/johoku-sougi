@@ -19,9 +19,7 @@ export function HallCard({ hall }: { hall: Hall }) {
           />
         </div>
       ) : (
-        <div className="flex aspect-[16/9] w-full items-center justify-center bg-cream px-4 text-center">
-          <span className="text-sm font-bold text-navy/60">{hall.name}</span>
-        </div>
+        <div aria-hidden className="h-1.5 w-full bg-gradient-to-r from-navy via-gold-deep to-navy" />
       )}
 
       <div className="flex flex-1 flex-col p-6">

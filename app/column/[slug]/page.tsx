@@ -204,7 +204,7 @@ export default async function ColumnDetailPage({
           <div className="mt-9 space-y-9">
             {col.sections.map((s, i) => (
               <section key={s.heading}>
-                <h2 className="border-l-4 border-gold pl-3 text-xl font-bold leading-snug text-navy sm:text-2xl">
+                <h2 className="relative pt-4 before:absolute before:left-0 before:top-0 before:h-px before:w-8 before:bg-gold-deep text-xl font-bold leading-snug text-navy sm:text-2xl">
                   {s.heading}
                 </h2>
                 <div className="mt-4 space-y-4 leading-relaxed">
@@ -283,7 +283,7 @@ export default async function ColumnDetailPage({
           {/* 記事内FAQ */}
           {col.faq && col.faq.length > 0 && (
             <div className="mt-10">
-              <h2 className="border-l-4 border-gold pl-3 text-xl font-bold text-navy sm:text-2xl">
+              <h2 className="relative pt-4 before:absolute before:left-0 before:top-0 before:h-px before:w-8 before:bg-gold-deep font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
                 よくあるご質問
               </h2>
               <dl className="mt-4 space-y-4">
@@ -305,7 +305,7 @@ export default async function ColumnDetailPage({
           {/* 関連するエリアページ（クエリ語入りのアンカーで内部リンク） */}
           {relatedAreas.length > 0 && (
             <div className="mt-10">
-              <h2 className="border-l-4 border-gold pl-3 text-xl font-bold text-navy sm:text-2xl">
+              <h2 className="relative pt-4 before:absolute before:left-0 before:top-0 before:h-px before:w-8 before:bg-gold-deep font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
                 お住まいの地域から探す
               </h2>
               <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold">

@@ -234,15 +234,29 @@ export function ContactForm() {
         </div>
       )}
 
-      <ChoiceGroup name="plan" legend="ご希望の形式" options={planOptions} defaultValue={values.plan} cols="grid-cols-2" />
-      <ChoiceGroup name="hall" legend="ご希望の斎場" options={hallOptions} defaultValue={values.hall} cols="grid-cols-2" />
-      <ChoiceGroup
-        name="area"
-        legend="お住まいの地域（故人様・ご家族）"
-        options={areaOptions}
-        defaultValue={values.area}
-        cols="grid-cols-2 sm:grid-cols-4"
-      />
+      <details
+        className="group rounded-xl border border-black/10 bg-cream/60 p-4 sm:p-5"
+        open={Boolean(values.plan || values.hall || values.area)}
+      >
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between font-bold text-navy">
+          <span>
+            形式・斎場・地域も伝える
+            <span className="ml-2 text-xs font-normal text-muted">任意・わかる範囲で</span>
+          </span>
+          <span aria-hidden className="text-gold-deep transition group-open:rotate-45">＋</span>
+        </summary>
+        <div className="mt-4 space-y-7">
+        <ChoiceGroup name="plan" legend="ご希望の形式" options={planOptions} defaultValue={values.plan} cols="grid-cols-2" />
+        <ChoiceGroup name="hall" legend="ご希望の斎場" options={hallOptions} defaultValue={values.hall} cols="grid-cols-2" />
+        <ChoiceGroup
+          name="area"
+          legend="お住まいの地域（故人様・ご家族）"
+          options={areaOptions}
+          defaultValue={values.area}
+          cols="grid-cols-2 sm:grid-cols-4"
+        />
+        </div>
+      </details>
 
       <div className="grid gap-6 sm:grid-cols-2">
         <div>

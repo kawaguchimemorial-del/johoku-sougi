@@ -19,7 +19,7 @@ export function CtaSection({
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-sm leading-[1.9] text-white/80">
           病院・施設からのお迎え、ご安置先、斎場の空き確認、お見積りまで。
-          {ctaText.primary.replace("まずは", "")}
+          {ctaText.primary.replace("まずは", "")}。
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <CallButton variant="light" />
@@ -32,7 +32,7 @@ export function CtaSection({
           </Link>
         </div>
         <ul className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-white/85">
-          {ctaText.appeals.map((a) => (
+          {["24時間365日受付", "ご相談・お見積り無料", "病院・施設からのお迎え"].map((a) => (
             <li key={a} className="flex items-center gap-1.5">
               <span aria-hidden className="text-gold-light">●</span>
               {a}

@@ -40,6 +40,9 @@ export type Hall = {
   keywords: string[];
   // 以下は任意（主に戸田斎場の強化用）
   gallery?: { src: string; alt: string; caption: string }[];
+  // 式場ごとの席数・利用時間（施設の公表情報を要約。変更があり得るため確認日を添える）
+  rooms?: HallRoom[];
+  roomsSource?: string;
   whoFor?: string[]; // どのような方が検討しやすいか
   firstCall?: string[]; // まず電話で伝えるとよいこと
   // 所在地・アクセス（公表情報。実店舗の表現には使わない）
@@ -56,6 +59,18 @@ export type Hall = {
   serviceAreaNote?: string;
   // 詳細ページ下部の関連エリアリンク（未設定なら北区・板橋区）
   relatedAreas?: string[];
+};
+
+export type HallRoom = {
+  name: string;
+  floor: string;
+  count: number; // 同じ規模の式場の数
+  seats: string; // 式場の席数
+  familyRoom: string; // 控室の席数
+  hours: string; // 式場の利用時間
+  departure: string; // 出棺時間
+  note: string; // 特徴・設備（要約）
+  image: string;
 };
 
 export const halls: Hall[] = [
@@ -113,6 +128,43 @@ export const halls: Hall[] = [
       "おおよそのご参列人数と、ご希望の形式（一日葬・火葬式・家族葬など）",
       "ご希望の日程があれば、空き状況をあわせて確認します",
     ],
+    rooms: [
+      {
+        name: "光の間",
+        floor: "本館3階",
+        count: 1,
+        seats: "最大90席（基本60席）",
+        familyRoom: "最大58席",
+        hours: "15:00〜翌14:30",
+        departure: "11:00",
+        note: "館内でもっとも広い式場。マイク・プロジェクターがあり、映像や音楽の再生ができます（音楽葬は不可）。",
+        image: "/images/hall/toda-saijo/rooms/hikari-ceremony-room.webp",
+      },
+      {
+        name: "せせらぎの間",
+        floor: "本館4階",
+        count: 2,
+        seats: "最大70席（基本50席）",
+        familyRoom: "最大44席",
+        hours: "14:00〜翌13:30",
+        departure: "10:00",
+        note: "一般的な規模の通夜・葬儀に向く式場が2室。BGMは可（音楽葬は不可）。",
+        image: "/images/hall/toda-saijo/rooms/seseragi-ceremony-room.webp",
+      },
+      {
+        name: "思食（しじき）の間",
+        floor: "別館",
+        count: 2,
+        seats: "最大60席（基本50席）",
+        familyRoom: "最大48席",
+        hours: "15:00〜翌14:30",
+        departure: "11:00（Ⅰ）／12:00（Ⅱ）",
+        note: "落ち着いた別館の式場が2室。BGMは可、2室を続けて使う場合は音楽葬も可能です。",
+        image: "/images/hall/toda-saijo/rooms/shijiki-ceremony-room.webp",
+      },
+    ],
+    roomsSource:
+      "戸田葬祭場の公表している式場案内をもとに要約（2026年9月確認）。いずれの式場も控室にシャワー室があります。空き状況・最新の条件はお電話でご確認ください。",
     gallery: [
       {
         src: "/images/hall/toda-saijo/exterior.png",

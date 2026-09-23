@@ -52,7 +52,7 @@ export default function ColumnIndexPage() {
 
       <section className="bg-cream py-12">
         <Container className="text-center">
-          <h2 className="text-xl font-bold text-navy sm:text-2xl">
+          <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
             記事を読んでも迷うときは、お電話でご相談ください
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-muted">

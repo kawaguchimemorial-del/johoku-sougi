@@ -6,7 +6,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
-import { siteConfig, disclaimer } from "@/app/config/site";
+import { siteConfig, disclaimer, operatorFacts } from "@/app/config/site";
 import { publishedReviewers } from "@/data/reviewers";
 
 export const metadata: Metadata = buildMetadata({
@@ -24,7 +24,30 @@ export default function CompanyPage() {
 
   const rows: { label: string; value: React.ReactNode }[] = [
     { label: "サイト名", value: siteConfig.name },
-    { label: "運営・施行", value: siteConfig.operator },
+    { label: "運営・施行", value: `${siteConfig.operator}（${operatorFacts.legalName}）` },
+    { label: "創業", value: `${operatorFacts.foundedYear}年` },
+    {
+      label: "所在地",
+      value: `〒${operatorFacts.postal} ${operatorFacts.address}（自社式場：${operatorFacts.hallName}）`,
+    },
+    {
+      label: "施行実績",
+      value: `累計${operatorFacts.cumulativeCases}・年間${operatorFacts.annualCases}（川口典礼全体）`,
+    },
+    {
+      label: "口コミ",
+      value: (
+        <a
+          href={operatorFacts.googleReviewsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-navy underline hover:text-gold-deep"
+        >
+          Google口コミ ★{operatorFacts.googleRating.toFixed(1)}（{operatorFacts.googleReviewCount}件・{operatorFacts.hallName}）
+        </a>
+      ),
+    },
+    { label: "北区・板橋区・足立区", value: operatorFacts.visitNote },
     { label: "対応エリア", value: siteConfig.areas.join("・") },
     {
       label: "主な対応",
@@ -43,7 +66,7 @@ export default function CompanyPage() {
       ),
     },
     {
-      label: "公式サイト",
+      label: "ホームページ",
       value: (
         <a
           href={siteConfig.parentSiteUrl}
@@ -61,7 +84,7 @@ export default function CompanyPage() {
     <>
       <JsonLd data={breadcrumbLd(crumbs)} />
       <Breadcrumbs items={crumbs} />
-      <PageHero title="運営者情報" />
+      <PageHero title="運営者情報" lead={`城北セレモニーサポートセンターは、創業${operatorFacts.foundedYear}年の${siteConfig.operator}が運営・施行する、北区・板橋区・足立区の葬儀相談窓口です。`} />
 
       <section className="py-12">
         <Container>
@@ -81,7 +104,7 @@ export default function CompanyPage() {
 
           {publishedReviewers().length > 0 && (
             <div className="mt-10">
-              <h2 className="text-xl font-bold text-navy sm:text-2xl">
+              <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
                 コラムの監修者
               </h2>
               <p className="mt-2 text-sm text-muted">

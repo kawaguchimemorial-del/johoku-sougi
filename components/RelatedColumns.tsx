@@ -17,7 +17,7 @@ export function RelatedColumns({
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-navy sm:text-2xl">{title}</h2>
+      <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">{title}</h2>
       <ul className="mt-5 grid gap-4 sm:grid-cols-2">
         {items.map((c) => (
           <li key={c.slug}>

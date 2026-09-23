@@ -88,6 +88,13 @@ export default function Home() {
               <br className="sm:hidden" />
               ご相談
             </h1>
+            <p className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-[13px] font-bold text-gold-light">
+              <span>創業{operatorFacts.foundedYear}年</span>
+              <span aria-hidden>｜</span>
+              <span>累計{operatorFacts.cumulativeCases}</span>
+              <span aria-hidden>｜</span>
+              <span>Google口コミ★{operatorFacts.googleRating.toFixed(1)}（{operatorFacts.googleReviewCount}件）</span>
+            </p>
             <p className="mt-5 text-[15px] leading-[1.95] text-white/90 sm:text-base">
               戸田斎場・舟渡斎場・北区セレモニーホールなどでのご葬儀を、
               創業{operatorFacts.foundedYear}年・累計{operatorFacts.cumulativeCases}の

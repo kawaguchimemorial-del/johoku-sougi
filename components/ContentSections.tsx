@@ -16,7 +16,7 @@ export function ContentSections({
     <div className="space-y-10">
       {sections.map((s) => (
         <section key={s.heading}>
-          <Heading className="border-l-4 border-gold pl-3 text-xl font-bold text-navy sm:text-2xl">
+          <Heading className="relative pt-4 before:absolute before:left-0 before:top-0 before:h-px before:w-8 before:bg-gold-deep font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
             {s.heading}
           </Heading>
 

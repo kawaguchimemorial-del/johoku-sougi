@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { PageHero } from "@/components/PageHero";
+import { PageCta } from "@/components/PageCta";
+import { VoiceList } from "@/components/VoiceList";
 import { CtaSection } from "@/components/CtaSection";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PlanCard } from "@/components/PlanCard";
@@ -69,7 +71,13 @@ export default async function AreaPage({
     <>
       <JsonLd data={[breadcrumbLd(crumbs), faqLd(area.faq)]} />
       <Breadcrumbs items={crumbs} />
-      <PageHero title={area.lead} lead={areaHeroLead(area)} />
+      <PageHero
+        title={area.lead}
+        lead={areaHeroLead(area)}
+        cta
+        ctaLocation="area_hero"
+        ctaQuery={`area=${area.slug.replace("-ku", "")}`}
+      />
 
       <section className="py-12">
         <Container>
@@ -83,7 +91,7 @@ export default async function AreaPage({
 
       <section className="bg-cream py-12">
         <Container>
-          <h2 className="text-xl font-bold text-navy sm:text-2xl">
+          <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
             {area.name}から利用できる斎場
           </h2>
           <p className="mt-4 leading-relaxed">{areaFeaturedNote(area)}</p>
@@ -108,12 +116,26 @@ export default async function AreaPage({
       <section className="py-12">
         <Container>
           <ContentSections sections={area.sections} />
+          <div className="mt-10 rounded-2xl bg-navy p-6 text-white sm:p-8">
+            <p className="font-serif text-xl font-bold">
+              {area.name}からのご葬儀、斎場の空き確認・お見積りはお気軽に
+            </p>
+            <p className="mt-2 text-sm leading-[1.85] text-white/80">
+              ご希望の斎場・形式・人数をうかがい、プラン料金・斎場の料金・変動する費用を分けて総額の目安をお伝えします。
+            </p>
+            <PageCta
+              location="area_mid"
+              query={`area=${area.slug.replace("-ku", "")}&type=estimate`}
+              invert
+              className="mt-5"
+            />
+          </div>
         </Container>
       </section>
 
       <section className="bg-cream py-12">
         <Container>
-          <h2 className="text-xl font-bold text-navy sm:text-2xl">
+          <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
             {area.name}でのご葬儀の形式
           </h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-3">
@@ -130,7 +152,7 @@ export default async function AreaPage({
       {localHalls.length > 0 && (
         <section className="py-12">
           <Container>
-            <h2 className="text-xl font-bold text-navy sm:text-2xl">
+            <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
               {area.name}から利用しやすい式場（選択肢の一例）
             </h2>
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
@@ -169,6 +191,17 @@ export default async function AreaPage({
       <section className="py-12">
         <Container>
           <RelatedColumns slugs={area.relatedColumns} />
+        </Container>
+      </section>
+
+      <section className="bg-cream py-12">
+        <Container>
+          <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
+            ご葬儀を終えたご家族の声
+          </h2>
+          <div className="mt-6">
+            <VoiceList />
+          </div>
         </Container>
       </section>
 

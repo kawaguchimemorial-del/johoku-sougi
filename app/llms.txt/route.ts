@@ -35,6 +35,9 @@ export function GET() {
   lines.push(`- ${operatorFacts.visitNote}`);
   lines.push("- 主に利用する斎場：戸田斎場（東京都板橋区舟渡4-15-1・火葬場併設）、舟渡斎場、北区セレモニーホール、蓮根レインボーホール、町屋斎場（荒川区・火葬場併設）。");
   lines.push("- 区民葬儀（北区・板橋区の区民葬）の指定葬儀社ではない。区民葬儀との違いは比較してご説明する。");
+  for (const h of halls)
+    if (h.rooms)
+      lines.push(`- ${h.name}の式場：${h.rooms.map((r) => `${r.name}（${r.floor}${r.count > 1 ? `・${r.count}室` : ""}、${r.seats}）`).join("、")}。${h.roomsSource ?? ""}`);
   for (const p of plans)
     lines.push(`- ${p.name}のプラン料金の目安：${p.price.toLocaleString("ja-JP")}円（税込）。式場使用料・火葬料金・宗教者へのお礼・返礼品・飲食費などは別途。`);
   for (const n of priceNotes) lines.push(`- ${n}`);

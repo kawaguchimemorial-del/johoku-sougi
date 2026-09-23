@@ -10,6 +10,7 @@ import { PlanCard } from "@/components/PlanCard";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbLd, faqLd } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
+import { hallFormValue } from "@/app/contact/options";
 import { disclaimer } from "@/app/config/site";
 import { halls, getHall } from "@/data/halls";
 import { areas } from "@/data/areas";
@@ -84,7 +85,14 @@ export default async function HallPage({
     <>
       <JsonLd data={[breadcrumbLd(crumbs), faqLd(hall.faqs)]} />
       <Breadcrumbs items={crumbs} />
-      <PageHero title={`${hall.name}での葬儀`} lead={hall.lead} />
+      <PageHero
+        title={`${hall.name}での葬儀`}
+        lead={hall.lead}
+        cta
+        ctaLocation="hall_hero"
+        formLabel="空き確認・見積りを依頼する"
+        ctaQuery={`hall=${hallFormValue[hall.slug] ?? "undecided"}&type=hall`}
+      />
 
       {/* リード本文 */}
       <section className="py-12">
@@ -129,7 +137,7 @@ export default async function HallPage({
       {(hall.address || (hall.access && hall.access.length > 0)) && (
         <section className="bg-cream py-12">
           <Container>
-            <h2 className="text-xl font-bold text-navy sm:text-2xl">
+            <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
               {hall.name}の所在地・アクセス
             </h2>
             {hall.address && (
@@ -174,7 +182,7 @@ export default async function HallPage({
       {/* 相談が多い形式 */}
       <section className="bg-cream py-12">
         <Container>
-          <h2 className="text-xl font-bold text-navy sm:text-2xl">
+          <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
             {hall.name}でご相談が多い葬儀形式
           </h2>
           <p className="mt-3 leading-relaxed text-muted">{hall.popularNote}</p>
@@ -193,7 +201,7 @@ export default async function HallPage({
       {hall.altar && (
       <section className="py-12">
         <Container>
-          <h2 className="text-xl font-bold text-navy sm:text-2xl">
+          <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
             {hall.name}での祭壇イメージ
           </h2>
           <p className="mt-3 leading-relaxed text-muted">
@@ -217,11 +225,67 @@ export default async function HallPage({
       </section>
       )}
 
+      {/* 式場ごとの席数・利用時間（公表情報の要約） */}
+      {hall.rooms && hall.rooms.length > 0 && (
+        <section className="py-12">
+          <Container>
+            <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
+              {hall.name}の式場と席数（{hall.rooms.map((r) => r.name).join("・")}）
+            </h2>
+            <p className="mt-3 leading-relaxed text-muted">
+              {hall.name}には規模の異なる式場が{hall.rooms.reduce((n, r) => n + r.count, 0)}室あります。
+              ご参列の人数と、通夜・葬儀の時間帯にあわせて式場を選びます。
+            </p>
+            <div className="mt-6 grid gap-5 md:grid-cols-3">
+              {hall.rooms.map((r) => (
+                <article
+                  key={r.name}
+                  className="overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm"
+                >
+                  <div className="relative aspect-[4/3] bg-cream">
+                    <Image
+                      src={r.image}
+                      alt={`${hall.name} ${r.name}の式場`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-serif text-lg font-bold text-navy">
+                      {r.name}
+                      <span className="ml-2 text-xs font-normal text-muted">
+                        {r.floor}
+                        {r.count > 1 ? `・${r.count}室` : ""}
+                      </span>
+                    </h3>
+                    <dl className="mt-3 grid grid-cols-[5.5em_1fr] gap-y-1 text-sm">
+                      <dt className="text-muted">式場</dt>
+                      <dd className="font-bold text-navy">{r.seats}</dd>
+                      <dt className="text-muted">控室</dt>
+                      <dd>{r.familyRoom}</dd>
+                      <dt className="text-muted">利用時間</dt>
+                      <dd>{r.hours}</dd>
+                      <dt className="text-muted">出棺</dt>
+                      <dd>{r.departure}</dd>
+                    </dl>
+                    <p className="mt-3 text-sm leading-[1.8] text-muted">{r.note}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+            {hall.roomsSource && (
+              <p className="mt-4 text-xs leading-relaxed text-muted">※ {hall.roomsSource}</p>
+            )}
+          </Container>
+        </section>
+      )}
+
       {/* 画像ギャラリー（戸田斎場など gallery を持つ斎場のみ） */}
       {hall.gallery && hall.gallery.length > 0 && (
         <section className="bg-cream py-12">
           <Container>
-            <h2 className="text-xl font-bold text-navy sm:text-2xl">
+            <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
               {hall.name}の館内・設備の様子
             </h2>
             <p className="mt-3 leading-relaxed text-muted">
@@ -257,7 +321,7 @@ export default async function HallPage({
       {hall.whoFor && hall.whoFor.length > 0 && (
         <section className="py-12">
           <Container>
-            <h2 className="text-xl font-bold text-navy sm:text-2xl">
+            <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
               {hall.name}を検討しやすい方
             </h2>
             <ul className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -278,7 +342,7 @@ export default async function HallPage({
       {/* 利用時の流れ */}
       <section className="py-12">
         <Container>
-          <h2 className="text-xl font-bold text-navy sm:text-2xl">
+          <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
             {hall.name}を利用する場合の流れ
           </h2>
           <ol className="mt-6 space-y-3">
@@ -302,7 +366,7 @@ export default async function HallPage({
       {hall.fees && hall.fees.length > 0 && (
         <section className="py-12">
           <Container>
-            <h2 className="text-xl font-bold text-navy sm:text-2xl">
+            <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
               {hall.name}の施設料金の目安
             </h2>
             <p className="mt-3 leading-relaxed text-muted">
@@ -372,7 +436,7 @@ export default async function HallPage({
       {/* 費用の考え方 */}
       <section className="bg-cream py-12">
         <Container>
-          <h2 className="text-xl font-bold text-navy sm:text-2xl">費用の考え方</h2>
+          <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">費用の考え方</h2>
           <p className="mt-3 leading-relaxed">{hall.costNote}</p>
           <ul className="mt-4 space-y-1 rounded-md bg-white p-4 text-xs leading-relaxed text-muted">
             <li>※ 表示価格は目安です。内容により費用が変わる場合があります。</li>
@@ -387,7 +451,7 @@ export default async function HallPage({
       {/* 斎場固有FAQ */}
       <section className="py-12">
         <Container>
-          <h2 className="text-xl font-bold text-navy sm:text-2xl">
+          <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
             {hall.name}についてよくある質問
           </h2>
           <dl className="mt-6 space-y-4">
@@ -410,7 +474,7 @@ export default async function HallPage({
       {/* 関連リンク */}
       <section className="bg-cream py-12">
         <Container>
-          <h2 className="text-xl font-bold text-navy sm:text-2xl">関連ページ</h2>
+          <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">関連ページ</h2>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {relatedAreas.map((a) => (
               <Link
@@ -441,7 +505,7 @@ export default async function HallPage({
       {hall.firstCall && hall.firstCall.length > 0 && (
         <section className="py-12">
           <Container>
-            <h2 className="text-xl font-bold text-navy sm:text-2xl">
+            <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
               まずお電話で、これだけお伝えください
             </h2>
             <p className="mt-3 leading-relaxed text-muted">

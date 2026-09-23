@@ -13,11 +13,14 @@ import { FaqBlock } from "@/components/FaqBlock";
 import { RelatedColumns } from "@/components/RelatedColumns";
 import { breadcrumbLd, serviceLd, faqLd } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
+import { planFormValue } from "@/app/contact/options";
+import { PageCta } from "@/components/PageCta";
+import { VoiceList } from "@/components/VoiceList";
+import { voices } from "@/data/voices";
 import { disclaimer } from "@/app/config/site";
 import {
   plans,
   getPlan,
-  formatPrice,
   planTitle,
   planDescription,
   planHeading,
@@ -65,6 +68,18 @@ export default async function PlanPage({
     { name: plan.name, path: plan.href },
   ];
 
+  // このプランに近い形式の声を優先して3件（足りなければ他の声で補う）
+  const planWords: Record<string, string[]> = {
+    "one-day-funeral": ["一日葬"],
+    "direct-funeral": ["直葬", "火葬式"],
+    "family-funeral": ["家族葬"],
+  };
+  const words = planWords[plan.slug] ?? [];
+  const planVoices = [
+    ...voices.filter((v) => words.includes(v.plan)),
+    ...voices.filter((v) => !words.includes(v.plan)),
+  ].slice(0, 3);
+
   // areaNotes に登場する区を Service の areaServed に反映する
   const servedAreas = plan.areaNotes
     .map((n) => getArea(n.areaSlug))
@@ -87,7 +102,14 @@ export default async function PlanPage({
         ]}
       />
       <Breadcrumbs items={crumbs} />
-      <PageHero title={planHeading(plan)} lead={plan.summary} />
+      <PageHero
+        title={planHeading(plan)}
+        lead={plan.summary}
+        cta
+        ctaLocation="plan_hero"
+        ctaQuery={`plan=${planFormValue[plan.slug] ?? "undecided"}`}
+        formLabel={`${plan.name}の見積りを依頼する`}
+      />
 
       <section className="py-12">
         <Container>
@@ -114,15 +136,26 @@ export default async function PlanPage({
             </p>
           ))}
 
-          <div className="mt-6 rounded-xl border border-black/5 bg-cream p-6">
+          <div className="mt-6 rounded-2xl border border-gold/30 bg-cream p-6 sm:p-8">
             <p className="text-sm font-bold text-gold-deep">{plan.scale}</p>
-            <p className="mt-2 text-2xl font-bold text-navy">
-              目安 {formatPrice(plan.price)}
+            <p className="mt-3 text-xs text-muted">プラン料金の目安（税込）</p>
+            <p className="font-serif text-[34px] font-bold leading-tight text-navy tabular-nums">
+              {plan.price.toLocaleString("ja-JP")}
+              <span className="ml-0.5 text-base">円</span>
+            </p>
+            <p className="mt-2 text-sm font-bold text-navy">
+              式場使用料・火葬料金、宗教者へのお礼・返礼品・飲食費などは別途。総額の目安は、斎場・人数をうかがって個別にお見積りします。
             </p>
             <PriceNote />
+            <PageCta
+              location="plan_price"
+              query={`plan=${planFormValue[plan.slug] ?? "undecided"}&type=estimate`}
+              formLabel={`${plan.name}の見積りを依頼する`}
+              className="mt-6"
+            />
           </div>
 
-          <h2 className="mt-10 text-xl font-bold text-navy sm:text-2xl">
+          <h2 className="mt-10 font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
             {plan.name}の特長
           </h2>
           <ul className="mt-4 space-y-2">
@@ -146,10 +179,23 @@ export default async function PlanPage({
         </Container>
       </section>
 
+      {planVoices.length > 0 && (
+        <section className="py-12">
+          <Container>
+            <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
+              ご葬儀を終えたご家族の声
+            </h2>
+            <div className="mt-6">
+              <VoiceList items={planVoices} />
+            </div>
+          </Container>
+        </section>
+      )}
+
       {/* 区ごとの案内 */}
       <section className="py-12">
         <Container>
-          <h2 className="text-xl font-bold text-navy sm:text-2xl">
+          <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
             エリア別の{plan.name}のご案内
           </h2>
           <div className="mt-6 space-y-10">
@@ -161,7 +207,7 @@ export default async function PlanPage({
 
               return (
                 <div key={note.areaSlug}>
-                  <h3 className="border-l-4 border-gold pl-3 text-lg font-bold text-navy sm:text-xl">
+                  <h3 className="relative pt-4 before:absolute before:left-0 before:top-0 before:h-px before:w-8 before:bg-gold-deep text-lg font-bold text-navy sm:text-xl">
                     {note.heading}
                   </h3>
                   {note.paragraphs.map((p) => (
@@ -212,7 +258,7 @@ export default async function PlanPage({
       {/* 関連導線 */}
       <section className="bg-cream py-12">
         <Container>
-          <h2 className="text-xl font-bold text-navy sm:text-2xl">
+          <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
             あわせてご覧ください
           </h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
