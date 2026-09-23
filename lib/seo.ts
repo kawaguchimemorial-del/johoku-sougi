@@ -18,9 +18,10 @@ export function buildMetadata({
   image,
 }: PageMetaInput): Metadata {
   const url = `${siteConfig.url}${path}`;
-  // image 未指定のページは app/opengraph-image.tsx の動的OG画像が自動適用される。
-  // そのため images は image があるときだけ指定する（既定の404画像を参照しない）。
-  const ogImages = image ? [{ url: image, alt: title }] : undefined;
+  // 子ページで openGraph を指定すると、ルートの app/opengraph-image.tsx は継承されない
+  // （実測で og:image が欠落していた）。image 未指定時は動的OG画像のURLを明示する。
+  const ogImage = image ?? "/opengraph-image/";
+  const ogImages = [{ url: ogImage, alt: title }];
   // <title> は社名を付けない（社名が長く SERP で末尾が切れるため）。トップのみ社名入り。
   // 社名は OG/Twitter・H1・ヘッダーに残すのでブランドは保持される。
   const pageTitle =
@@ -44,13 +45,13 @@ export function buildMetadata({
       title: socialTitle,
       description,
       locale: siteConfig.locale,
-      ...(ogImages ? { images: ogImages } : {}),
+      images: ogImages,
     },
     twitter: {
       card: "summary_large_image",
       title: socialTitle,
       description,
-      ...(image ? { images: [image] } : {}),
+      images: [ogImage],
     },
   };
 }

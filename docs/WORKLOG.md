@@ -12,6 +12,25 @@
 
 ---
 
+## 2026-09-23 — SEOチェック（本番81URL全件クロール＋GSC実測）と軽微修正
+
+**何を**: 本番 sitemap 全81URLを Googlebot UA で取得し、title/description/canonical/robots/H1/OG/Twitter/JSON-LD/非公式表記/川口典礼表記/禁止語/alt/内部リンクを検査。
+- 問題なし: 全URL 200、title・description・H1 の重複0、canonical 全件一致、noindex 0、JSON-LD 解析エラー0、非公式表記・川口典礼表記は全ページあり、内部リンク切れ0、robots.txt / llms.txt 正常。
+- **修正1（禁止語）**: 「必ず」がコラム全63ページに出ていた（コラム共通の出典・免責欄「必ずご確認ください」＋本文14か所）。CLAUDE.md の表現禁止ルールに合わせ「ご確認ください」「事前に確認」「やがて」等に言い換え。
+- **修正2（og:image 欠落）**: `/hall/` `/column/` `/contact/` `/faq/` `/company/` `/privacy/` `/hall/machiya-saijo/` `/area/*`（3区）の10ページで og:image / twitter:image が出ていなかった。子ページで `openGraph` を指定するとルートの `app/opengraph-image.tsx` が継承されないため。`buildMetadata` で image 未指定時に `/opengraph-image/` を明示。`trailingSlash: true` のためスラッシュなしは308になるので、JSON-LD の publisher.logo も `/opengraph-image/` に修正。
+
+**GSC実測（8/26〜9/20）**: 表示 2,181（前期2,629）／クリック1／10位以内0件・20位以内5件。順位は改善傾向（週次加重平均 40.3→35.7）だが、直近週の表示回数が減少。主要KW：板橋 一日葬 11.6位、板橋区 一日葬 17.3位、板橋区 通夜 19.8位（新規）、北区 一日葬 21.6位、板橋区 市民葬 29.7位（前37.3）、舟渡斎場 43.1位（前74.3）。北区 家族葬 46.5位・北区 葬儀 56.1位は低迷。`/hall/` の表示472の多くは他社斎場名クエリ（ノイズ）。
+
+**未対応（提案のみ）**: 被リンク1〜2本の孤立ぎみコラム（ippan-cost / kaimyo-guide / account-frozen / seizen-seiri ほか計24本）への関連リンク追加。`/contact/` `/company/` 等の本文が薄い（ただし性格上問題小）。トップの og:image はファイル規約のハッシュ付きURLで308を経由（クローラーは追従するため実害小）。
+
+**関連ファイル**: `lib/seo.ts`, `lib/jsonld.ts`, `data/columns.ts`, `app/column/[slug]/page.tsx`
+
+**確認**: `npm run build` / `npm run lint` エラーなし。ビルド出力で `/faq/` `/area/kita-ku/` に og:image・twitter:image が出ることを確認。
+
+**あなた側の作業**: PSI / CrUX API は依然 403。Google Cloud Console → 認証情報 → APIキー →「APIの制限」に *PageSpeed Insights API* と *Chrome UX Report API* を追加してください（CWV計測の復旧）。
+
+---
+
 ## 2026-09-17 — SEO監査（/seo audit）の指摘を一括修正
 
 **何を**: 技術／コンテンツ／構造化データ／GSC実測／AI検索／ローカルの6観点で監査（総合 78/100。ローカル42点が主因）。コードで直せる指摘をすべて修正。

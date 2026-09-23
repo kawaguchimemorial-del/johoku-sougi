@@ -145,7 +145,7 @@ export function articleLd(input: {
       // Article リッチリザルトの必須プロパティ（PNG のブランド画像を動的生成）
       logo: {
         "@type": "ImageObject",
-        url: `${siteConfig.url}/opengraph-image`,
+        url: `${siteConfig.url}/opengraph-image/`,
         width: 1200,
         height: 630,
       },
