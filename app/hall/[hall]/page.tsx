@@ -117,7 +117,7 @@ export default async function HallPage({
           <ul className="mt-6 space-y-2">
             {hall.points.map((pt) => (
               <li key={pt} className="flex gap-2">
-                <span className="text-gold">✓</span>
+                <span className="text-gold-deep">✓</span>
                 <span>{pt}</span>
               </li>
             ))}
@@ -139,7 +139,7 @@ export default async function HallPage({
               <ul className="mt-4 space-y-2">
                 {hall.access.map((a) => (
                   <li key={a} className="flex gap-2 text-sm">
-                    <span className="text-gold">・</span>
+                    <span className="text-gold-deep">・</span>
                     <span>{a}</span>
                   </li>
                 ))}
@@ -156,7 +156,7 @@ export default async function HallPage({
                 <ul className="mt-3 space-y-2">
                   {hall.facilities.map((f) => (
                     <li key={f} className="flex gap-2 text-sm">
-                      <span className="text-gold">・</span>
+                      <span className="text-gold-deep">・</span>
                       <span>{f}</span>
                     </li>
                   ))}
@@ -266,7 +266,7 @@ export default async function HallPage({
                   key={w}
                   className="flex gap-2 rounded-lg border border-black/5 bg-white p-4 shadow-sm"
                 >
-                  <span className="text-gold">●</span>
+                  <span className="text-gold-deep">●</span>
                   <span>{w}</span>
                 </li>
               ))}
@@ -287,7 +287,7 @@ export default async function HallPage({
                 key={f.title}
                 className="flex gap-3 rounded-xl border border-black/5 bg-white p-4 shadow-sm"
               >
-                <span className="font-bold text-gold">{i + 1}</span>
+                <span className="font-bold text-gold-deep">{i + 1}</span>
                 <div>
                   <p className="font-bold text-navy">{f.title}</p>
                   <p className="text-sm text-muted">{f.body}</p>
@@ -453,7 +453,7 @@ export default async function HallPage({
                   key={f}
                   className="flex gap-3 rounded-xl border border-black/5 bg-white p-4 shadow-sm"
                 >
-                  <span className="font-bold text-gold">{i + 1}</span>
+                  <span className="font-bold text-gold-deep">{i + 1}</span>
                   <span>{f}</span>
                 </li>
               ))}

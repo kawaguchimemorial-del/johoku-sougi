@@ -81,6 +81,7 @@ export default async function PlanPage({
             description: plan.summary,
             path: plan.href,
             areaServed: servedAreas,
+            price: plan.price,
           }),
           faqLd(plan.faq),
         ]}
@@ -114,7 +115,7 @@ export default async function PlanPage({
           ))}
 
           <div className="mt-6 rounded-xl border border-black/5 bg-cream p-6">
-            <p className="text-sm font-bold text-gold">{plan.scale}</p>
+            <p className="text-sm font-bold text-gold-deep">{plan.scale}</p>
             <p className="mt-2 text-2xl font-bold text-navy">
               目安 {formatPrice(plan.price)}
             </p>
@@ -127,7 +128,7 @@ export default async function PlanPage({
           <ul className="mt-4 space-y-2">
             {plan.features.map((f) => (
               <li key={f} className="flex gap-2">
-                <span className="text-gold">✓</span>
+                <span className="text-gold-deep">✓</span>
                 <span>{f}</span>
               </li>
             ))}
@@ -172,7 +173,7 @@ export default async function PlanPage({
                     {area && (
                       <Link
                         href={area.href}
-                        className="text-gold hover:underline"
+                        className="text-gold-deep hover:underline"
                       >
                         {area.name}の葬儀のご相談について →
                       </Link>
@@ -181,7 +182,7 @@ export default async function PlanPage({
                       <Link
                         key={h.slug}
                         href={h.href}
-                        className="text-gold hover:underline"
+                        className="text-gold-deep hover:underline"
                       >
                         {h.name}について →
                       </Link>

@@ -17,6 +17,7 @@ import {
   getCategoryName,
   columnImage,
 } from "@/data/columns";
+import { sameCategoryColumns } from "@/lib/links";
 import { getReviewer, requiresExpertCheck } from "@/data/reviewers";
 import { getArea } from "@/data/areas";
 
@@ -55,6 +56,7 @@ export default async function ColumnDetailPage({
   const related = (col.related ?? [])
     .map((s) => getColumn(s))
     .filter((c): c is NonNullable<typeof c> => Boolean(c));
+  const sameCategory = sameCategoryColumns(col);
   const relatedAreas = (col.relatedAreas ?? [])
     .map((s) => getArea(s))
     .filter((a): a is NonNullable<typeof a> => Boolean(a));
@@ -88,7 +90,7 @@ export default async function ColumnDetailPage({
       <section className="bg-gradient-to-b from-navy to-navy-light py-10 text-white sm:py-12">
         <Container>
           <div className="flex flex-wrap items-center gap-3 text-xs text-white/80">
-            <span className="rounded-full bg-gold px-3 py-1 font-bold text-white">
+            <span className="rounded-full bg-gold-deep px-3 py-1 font-bold text-white">
               {getCategoryName(col.category)}
             </span>
             <span>約{col.readMin}分で読めます</span>
@@ -136,7 +138,7 @@ export default async function ColumnDetailPage({
             <ul className="mt-3 space-y-2 text-sm leading-relaxed">
               {col.takeaways.map((t) => (
                 <li key={t} className="flex gap-2">
-                  <span aria-hidden className="mt-1 text-gold">
+                  <span aria-hidden className="mt-1 text-gold-deep">
                     ✓
                   </span>
                   <span>{t}</span>
@@ -191,7 +193,7 @@ export default async function ColumnDetailPage({
             <p className="mt-3">
               <Link
                 href="/company/"
-                className="font-bold text-gold hover:underline"
+                className="font-bold text-gold-deep hover:underline"
               >
                 運営者情報（川口典礼）を見る →
               </Link>
@@ -214,7 +216,7 @@ export default async function ColumnDetailPage({
                   <ul className="mt-4 space-y-2 rounded-xl bg-cream p-5 text-sm leading-relaxed">
                     {s.list.map((li) => (
                       <li key={li} className="flex gap-2">
-                        <span aria-hidden className="mt-1 text-gold">
+                        <span aria-hidden className="mt-1 text-gold-deep">
                           ●
                         </span>
                         <span>{li}</span>
@@ -311,7 +313,7 @@ export default async function ColumnDetailPage({
                   <Link
                     key={a.slug}
                     href={a.href}
-                    className="text-gold hover:underline"
+                    className="text-gold-deep hover:underline"
                   >
                     {a.name}の葬儀・葬式のご相談 →
                   </Link>
@@ -358,7 +360,7 @@ export default async function ColumnDetailPage({
                 href={siteConfig.parentSiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-bold text-gold hover:underline"
+                className="font-bold text-gold-deep hover:underline"
               >
                 {siteConfig.parentSiteName} →
               </a>
@@ -376,7 +378,7 @@ export default async function ColumnDetailPage({
                     href={`/column/${r.slug}/`}
                     className="group rounded-xl border border-black/5 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
                   >
-                    <span className="text-[11px] font-bold text-gold">
+                    <span className="text-[11px] font-bold text-gold-deep">
                       {getCategoryName(r.category)}
                     </span>
                     <h3 className="mt-1 text-sm font-bold leading-snug text-navy group-hover:text-navy-light">
@@ -388,10 +390,31 @@ export default async function ColumnDetailPage({
             </div>
           )}
 
+          {sameCategory.length > 0 && (
+            <div className="mt-10">
+              <h2 className="text-lg font-bold text-navy">
+                「{getCategoryName(col.category)}」のほかの記事
+              </h2>
+              <ul className="mt-4 divide-y divide-black/5 rounded-xl border border-black/5 bg-white">
+                {sameCategory.map((r) => (
+                  <li key={r.slug}>
+                    <Link
+                      href={`/column/${r.slug}/`}
+                      className="flex min-h-12 items-center justify-between gap-3 px-5 py-3 text-sm font-bold text-navy hover:bg-cream"
+                    >
+                      {r.title}
+                      <span aria-hidden className="text-gold-deep">→</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           <div className="mt-10 text-center">
             <Link
               href="/column/"
-              className="text-sm font-bold text-gold hover:underline"
+              className="text-sm font-bold text-gold-deep hover:underline"
             >
               ← 葬儀コラム一覧に戻る
             </Link>

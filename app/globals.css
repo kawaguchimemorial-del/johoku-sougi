@@ -7,12 +7,17 @@
   --color-navy-light: #2c4170;
   --color-gold: #b08d4f;
   --color-gold-light: #c9a96a;
+  /* 白文字を載せるボタン用の濃い金（白文字とのコントラスト 4.5:1 以上） */
+  --color-gold-deep: #8a6a33;
   --color-cream: #f7f4ee;
   --color-ink: #232323;
   --color-muted: #5d6470;
 
   --font-sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP",
     Meiryo, "メイリオ", system-ui, sans-serif;
+  /* 見出し用の明朝（next/font の変数。未読込時は端末の明朝へフォールバック） */
+  --font-serif: var(--font-mincho), "Hiragino Mincho ProN", "Yu Mincho", "YuMincho",
+    serif;
 }
 
 :root {
@@ -20,8 +25,16 @@
   --foreground: #232323;
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* キーボード操作時のフォーカスをはっきり示す */
+:focus-visible {
+  outline: 3px solid #c9a96a;
+  outline-offset: 2px;
 }
 
 body {
@@ -35,6 +48,6 @@ body {
 /* スマホ固定CTA分の余白を確保（iOSのセーフエリアも考慮） */
 @media (max-width: 767px) {
   body {
-    padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
   }
 }

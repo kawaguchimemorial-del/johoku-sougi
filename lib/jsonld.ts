@@ -1,4 +1,4 @@
-import { siteConfig } from "@/app/config/site";
+import { siteConfig, operatorFacts } from "@/app/config/site";
 import type { Faq } from "@/data/faqs";
 
 // 注意: 存在しない住所・営業所は作らない。areaServed のみで地域性を示す。
@@ -34,11 +34,31 @@ export function organizationLd() {
       closes: "23:59",
     },
     sameAs: [siteConfig.parentSiteUrl],
-    parentOrganization: {
-      "@type": "Organization",
-      name: siteConfig.operator,
-      url: siteConfig.parentSiteUrl,
+    // 運営会社（川口典礼）は本体サイトのエンティティと @id で名寄せする。
+    // 住所は本体（埼玉県川口市）のもの。北区・板橋区に店舗があるようには見せない。
+    parentOrganization: operatorLd(),
+  };
+}
+
+// 運営会社（川口典礼）。@id は本体サイト kawaguchitenrei.com の Organization と同一。
+export function operatorLd() {
+  return {
+    "@type": "Organization",
+    "@id": `${siteConfig.parentSiteUrl}#organization`,
+    name: siteConfig.operator,
+    legalName: operatorFacts.legalName,
+    url: siteConfig.parentSiteUrl,
+    telephone: siteConfig.tel,
+    foundingDate: String(operatorFacts.foundedYear),
+    address: {
+      "@type": "PostalAddress",
+      postalCode: operatorFacts.postal,
+      addressRegion: "埼玉県",
+      addressLocality: "川口市",
+      streetAddress: "西新井宿440-1",
+      addressCountry: "JP",
     },
+    sameAs: [operatorFacts.googleReviewsUrl],
   };
 }
 
@@ -49,6 +69,8 @@ export function serviceLd(input: {
   path: string;
   // 未指定なら siteConfig の対応エリア（東京都内）を使う
   areaServed?: string[];
+  // プラン料金の目安（税込）。式場・火葬料金などは含まない旨を description に書く
+  price?: number;
 }) {
   const served =
     input.areaServed && input.areaServed.length > 0
@@ -63,6 +85,23 @@ export function serviceLd(input: {
     url: `${siteConfig.url}${input.path}`,
     provider: { "@id": `${siteConfig.url}#organization` },
     areaServed: adminAreas(served),
+    ...(input.price
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: input.price,
+            priceCurrency: "JPY",
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              price: input.price,
+              priceCurrency: "JPY",
+              valueAddedTaxIncluded: true,
+            },
+            description:
+              "プラン料金の目安（税込）。式場使用料・火葬料金・宗教者へのお礼・返礼品・飲食費などは含まず、内容により変動します。正確な費用は個別にお見積りします。",
+          },
+        }
+      : {}),
   };
 }
 
@@ -73,7 +112,7 @@ export function websiteLd() {
     name: siteConfig.name,
     url: siteConfig.url,
     inLanguage: "ja",
-    publisher: { "@type": "Organization", name: siteConfig.operator },
+    publisher: { "@id": `${siteConfig.parentSiteUrl}#organization` },
   };
 }
 
@@ -106,8 +145,9 @@ export function articleLd(input: {
   } | null;
 }) {
   const image = input.image ?? siteConfig.defaultImage;
+  // 監修者名が会社名（川口典礼）のままのときは Person として出さない（実在個人名の確定後に出す）
   const reviewedBy =
-    input.reviewer && input.reviewer.name
+    input.reviewer && input.reviewer.name && input.reviewer.name !== siteConfig.operator
       ? {
           reviewedBy: {
             "@type": "Person",
@@ -133,11 +173,7 @@ export function articleLd(input: {
     dateModified: input.updated,
     mainEntityOfPage: `${siteConfig.url}${input.path}`,
     image: `${siteConfig.url}${image}`,
-    author: {
-      "@type": "Organization",
-      name: siteConfig.operator,
-      url: siteConfig.parentSiteUrl,
-    },
+    author: { "@id": `${siteConfig.parentSiteUrl}#organization`, "@type": "Organization", name: siteConfig.operator, url: siteConfig.parentSiteUrl },
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,

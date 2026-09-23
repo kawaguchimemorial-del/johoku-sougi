@@ -30,7 +30,7 @@ export function ContentSections({
             <ul className="mt-4 space-y-2">
               {s.list.map((li) => (
                 <li key={li} className="flex gap-2 leading-relaxed">
-                  <span aria-hidden className="text-gold">
+                  <span aria-hidden className="text-gold-deep">
                     ✓
                   </span>
                   <span>{li}</span>
@@ -93,7 +93,7 @@ export function ContentSections({
                 <Link
                   key={l.href + l.label}
                   href={l.href}
-                  className="text-gold hover:underline"
+                  className="text-gold-deep hover:underline"
                 >
                   {l.label} →
                 </Link>

@@ -147,7 +147,7 @@ export default async function AreaPage({
             </div>
             <Link
               href="/hall/"
-              className="mt-5 inline-block text-sm font-bold text-gold hover:underline"
+              className="mt-5 inline-block text-sm font-bold text-gold-deep hover:underline"
             >
               斎場一覧を見る →
             </Link>

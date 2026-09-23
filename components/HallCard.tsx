@@ -53,7 +53,7 @@ export function HallCard({ hall }: { hall: Hall }) {
           </Link>
           <a
             href={siteConfig.telLink}
-            className="flex-1 rounded-lg bg-gold px-4 py-2.5 text-center text-sm font-bold text-white transition hover:opacity-90"
+            className="flex min-h-11 flex-1 items-center justify-center rounded-lg bg-gold-deep px-4 py-2.5 text-center text-sm font-bold text-white transition hover:opacity-90"
           >
             空き確認を相談する
           </a>

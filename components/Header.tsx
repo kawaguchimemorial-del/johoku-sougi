@@ -34,6 +34,7 @@ export function Header() {
           <a
             href={siteConfig.telLink}
             className="hidden flex-col items-end sm:flex"
+            data-cta-location="header"
           >
             <span className="text-xl font-bold tracking-wider text-gold-light">
               {siteConfig.tel}
@@ -44,12 +45,15 @@ export function Header() {
           </a>
         </div>
       </Container>
-      <nav className="border-t border-white/10 bg-navy-dark">
+      <nav aria-label="主要メニュー" className="border-t border-white/10 bg-navy-dark">
         <Container>
-          <ul className="flex gap-x-4 gap-y-1 overflow-x-auto whitespace-nowrap py-2 text-sm text-white/90">
+          <ul className="flex gap-x-1 overflow-x-auto whitespace-nowrap text-sm text-white/90">
             {navItems.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="hover:text-gold-light">
+                <Link
+                  href={item.href}
+                  className="inline-flex min-h-11 items-center px-2 hover:text-gold-light"
+                >
                   {item.label}
                 </Link>
               </li>

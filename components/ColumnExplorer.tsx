@@ -124,7 +124,7 @@ export function ColumnExplorer({ columns, categories, keywords }: Props) {
           <button
             type="button"
             onClick={reset}
-            className="ml-2 text-gold hover:underline"
+            className="ml-2 text-gold-deep hover:underline"
           >
             条件をリセット
           </button>
@@ -167,7 +167,7 @@ export function ColumnExplorer({ columns, categories, keywords }: Props) {
                 </p>
                 <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted">
                   <span>約{c.readMin}分で読めます</span>
-                  <span className="text-gold">続きを読む →</span>
+                  <span className="text-gold-deep">続きを読む →</span>
                 </div>
               </div>
             </Link>
@@ -192,10 +192,10 @@ function FilterChip({
   const base =
     "rounded-full border px-4 py-2 text-sm font-bold transition whitespace-nowrap";
   const on = gold
-    ? "border-gold bg-gold text-white"
+    ? "border-gold-deep bg-gold-deep text-white"
     : "border-navy bg-navy text-white";
   const off =
-    "border-black/10 bg-white text-navy hover:border-gold hover:text-gold";
+    "border-black/10 bg-white text-navy hover:border-gold hover:text-gold-deep";
   return (
     <button
       type="button"

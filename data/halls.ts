@@ -64,7 +64,7 @@ export const halls: Hall[] = [
     name: "戸田斎場",
     href: "/hall/toda-saijo/",
     hasDetail: true,
-    area: "埼玉県戸田市（北区・板橋区からアクセス良好）",
+    area: "東京都板橋区舟渡（北区・板橋区からアクセス良好）",
     summary:
       "火葬場が併設された斎場。北区・板橋区から多くの方が利用されています。",
     image: "/images/hall/toda-saijo/exterior.png",

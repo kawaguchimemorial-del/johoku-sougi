@@ -28,6 +28,27 @@ export const siteConfig = {
   gtmId: "GTM-N4G6QFDS",
 } as const;
 
+// 運営会社（川口典礼）の実績。すべて確定事実（川口典礼 本体サイト lib/company.ts と同一値）。
+// 誇張・推測で数字を変えない。更新時は本体サイトの値と揃える。
+export const operatorFacts = {
+  legalName: "株式会社川口典礼",
+  foundedYear: 2006,
+  yearsInBusiness: 20,
+  cumulativeCases: "4,600件以上",
+  annualCases: "約260件",
+  satisfactionRate: "97%以上",
+  satisfactionNote: "ご葬儀後にお答えいただいたアンケートの満足度",
+  googleRating: 4.6,
+  googleReviewCount: 29,
+  googleReviewsUrl: "https://www.google.com/maps?cid=8136740303180194415",
+  postal: "333-0833",
+  address: "埼玉県川口市西新井宿440-1",
+  hallName: "川口メモリアルホール",
+  // 北区・板橋区・足立区には店舗なし（お迎え・打合せに伺う形）
+  visitNote:
+    "北区・板橋区・足立区には店舗を構えていません。ご自宅・病院・施設などへお伺いしてご相談・お打合せをいたします。",
+} as const;
+
 // 価格・料金を表示する際に必ず添える注記文
 export const priceNotes = [
   "表示価格は目安です。内容により費用が変わる場合があります。",

@@ -49,7 +49,7 @@ export default function CompanyPage() {
           href={siteConfig.parentSiteUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-navy underline hover:text-gold"
+          className="text-navy underline hover:text-gold-deep"
         >
           {siteConfig.parentSiteName}
         </a>
@@ -101,7 +101,7 @@ export default function CompanyPage() {
                       </span>
                     </p>
                     {rv.credentials.length > 0 && (
-                      <p className="mt-1 text-sm text-gold">
+                      <p className="mt-1 text-sm text-gold-deep">
                         {rv.credentials.join("・")}
                       </p>
                     )}

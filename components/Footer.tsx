@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { siteConfig, disclaimer } from "@/app/config/site";
+import { siteConfig, disclaimer, operatorFacts } from "@/app/config/site";
 import { Container } from "./Container";
 
 const footerLinks = [
@@ -40,11 +40,11 @@ export function Footer() {
           </span>
         </p>
 
-        <nav className="mt-8 border-t border-white/10 pt-6">
+        <nav aria-label="サイト内リンク" className="mt-8 border-t border-white/10 pt-6">
           <ul className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-3">
             {footerLinks.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="hover:text-gold-light">
+                <Link href={l.href} className="inline-flex min-h-11 items-center hover:text-gold-light">
                   {l.label}
                 </Link>
               </li>
@@ -65,6 +65,10 @@ export function Footer() {
               {siteConfig.parentSiteName}
             </a>
             ）
+          </p>
+          <p className="mt-2">
+            運営会社所在地：〒{operatorFacts.postal} {operatorFacts.address}（{operatorFacts.hallName}）。
+            {operatorFacts.visitNote}
           </p>
           <p className="mt-4">
             © {siteConfig.name}
