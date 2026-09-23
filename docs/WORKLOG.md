@@ -12,6 +12,32 @@
 
 ---
 
+## 2026-09-24 — 問い合わせ導線を中心としたリニューアル（専門家会議＋4ループ）
+
+**進め方**: 競合調査（小さなお葬式・よりそう・小さな森の家・はばたき北区葬儀・LCT・宇野葬儀社・ファミーユ・板橋直葬センター等 11サイト）→「世界一の〇〇」4名（マーケッター／Webデザイナー／SEO・AIO／エンジニア）の専門家会議 → 実装 → レビュー、を4ループ。画像は OpenAI `gpt-image-2.5-sunburst` で生成（APIキーは川口典礼本体サイトの `.env.local` の OPENAI_API_KEY を使用。文字・人物の顔なしで生成し、サイト上は「写真はイメージです」と明記）。
+
+**主な変更**
+1. **相談フォーム新設**（`app/contact/ContactForm.tsx` `actions.ts` `options.ts`、`lib/forms/*`）。本体サイトと同じ Google Apps Script Webhook に `formType: "contact"`、`site: "johoku-sougi"`、件名 `【城北】…` で送る。**環境変数 `GOOGLE_APPS_SCRIPT_WEBHOOK_URL` と `FORM_WEBHOOK_SECRET` が未設定の間はフォームを表示せず電話案内のみ**（`lib/forms/config.ts` の `formEnabled`。ビルド時評価なので設定後は再デプロイが必要）。クエリ `?plan=one-day&hall=toda&area=kita&type=estimate` で選択肢を事前選択。迷惑送信対策は本体と同じ（ハニーポット・滞在秒・ランダム文字列のみ破棄）。
+2. **トップ刷新**（`app/page.tsx`）：明朝見出し（next/font Shippori Mincho）、実績バー、状況別の入口（お急ぎ／事前）、費用の3区分（プラン料金＋斎場の料金＋変動費）、考え方3点、お客様の声、流れ、斎場、エリア、FAQ（FAQPage）、運営会社。
+3. **信頼材料（実在データのみ）**：`app/config/site.ts` の `operatorFacts`（創業2006年・累計4,600件以上・年間約260件・Google口コミ★4.6/29件＝川口メモリアルホール・所在地 川口市西新井宿440-1）。値は本体サイト `lib/company.ts` と同一。満足度97%は回答数が不明なため不掲載。`data/voices.ts` に本体サイト掲載済みのアンケートの声6件（スタッフ名・川口市/めぐりの森・他社言及を含む声は除外）。
+4. **下層ページの統一**：`PageHero` に明朝＋実績の一行＋電話／フォームCTA（プラン・エリア・斎場）、プラン価格直下に「別途費用の明記＋見積り依頼」、形式別のお客様の声、エリア本文途中の相談導線、会社ページに所在地・実績。
+5. **戸田斎場**：所在地の誤り「埼玉県戸田市」→「東京都板橋区舟渡」を4か所修正。式場（光の間90席・せせらぎの間70席×2・思食の間60席×2）の席数・利用時間・写真を掲載（`assets-src/originals/戸田斎場/*/詳細.txt` の公表情報を要約）。
+6. **SEO/AIO**：JSON-LD の @id を `https://www.johoku-sougi.jp/#organization` に統一、parentOrganization を本体サイトの `https://kawaguchitenrei.com/#organization` に名寄せ（住所・創業年付き）、Service に Offer（税込目安・別途費用の注記）、下層に WebPage(dateModified)、会社名のままの監修者は Person 出力しない。`llms.txt` に事実ブロック・式場情報・各ページ要約。掲載内容の最終確認日 `contentCheckedAt` を表示し sitemap の lastmod に使用。コラムに「同じカテゴリのほかの記事」（被リンクの少ない順・`lib/links.ts`）→ 被リンク3本以下のコラム 24本→0本。
+7. **計測**（GTM dataLayer）：`phone_tap`（cta_location）、`cta_click`（cta_id）、`form_start`、`form_validation_error`、`form_submit_error`、`generate_lead`／`form_complete`（形式・斎場・地域のみ。個人情報なし）。`components/TrackClicks.tsx` で委譲計測。
+8. **a11y・性能**：金ボタンを `gold-deep #8a6a33`（白文字 5.0:1）に、金文字も濃色へ。タップ領域・フォーカス表示・スキップリンク。スマホ固定CTAはヒーローに電話ボタンがあるページではスクロール後に表示。表はスマホでカード表示。next/image を AVIF/WebP・最大1920px に。
+9. **最終審査（第4ループ）**：4専門家の合議で旧版→現状 マーケ42→84／デザイン55→86／SEO・AIO50→83／エンジニア60→88。公開は「フォーム用環境変数の設定」を条件に可。指摘により FuneralHome の image を戸田斎場の写真からブランド画像（/opengraph-image/）に変更。
+10. **その他**：公開状態だった未使用の元画像 `public/img/tmp/`（65MB）を `assets-src/originals/` へ移動。家族葬の画像が一日葬と同一ファイルだったため生成画像に差し替え。「川口典礼 公式サイト」表記を「川口典礼のホームページ」に（禁止語対応）。
+
+**確認**：各ループで `tsc` / `npm run build` / `npm run lint` エラーなし。ローカル本番ビルドで全81URLをクロールし、title・description・H1の重複0、canonical一致、noindex 0、JSON-LD解析エラー0、非公式表記・川口典礼表記は全ページ、禁止語0、内部リンク切れ0。フォームは事前選択・エラー時の入力保持・急ぎ選択時の電話案内を Playwright で確認（実送信は未テスト）。
+
+**あなた側の作業**
+- **フォームを有効にする**：Vercel の johoku-sougi プロジェクト → Settings → Environment Variables に、本体サイト（kawaguchitenrei-site）と同じ `GOOGLE_APPS_SCRIPT_WEBHOOK_URL` と `FORM_WEBHOOK_SECRET` を Production に追加 → 再デプロイ。GAS 側で `site: "johoku-sougi"` の受信を確認（件名に【城北】が付きます）。
+- GTM で `phone_tap` / `generate_lead` を GA4 イベント（キーイベント）として設定。
+- 用意いただけると効果が大きいデータ：各プランに含まれる品目／北区・板橋区の施行事例（匿名）／戸田斎場の式場料金・火葬料金の最新表／担当者の実名・資格／LINE公式の有無。
+- 戸田斎場の式場写真（光の間など）は `assets-src/originals/` にあった画像を使っています。施設の撮影写真の場合は掲載許可の確認をお願いします。
+
+---
+
 ## 2026-09-23 — SEOチェック（本番81URL全件クロール＋GSC実測）と軽微修正
 
 **何を**: 本番 sitemap 全81URLを Googlebot UA で取得し、title/description/canonical/robots/H1/OG/Twitter/JSON-LD/非公式表記/川口典礼表記/禁止語/alt/内部リンクを検査。

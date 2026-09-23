@@ -16,7 +16,8 @@ export function organizationLd() {
     description: siteConfig.description,
     url: siteConfig.url,
     telephone: siteConfig.tel,
-    image: `${siteConfig.url}${siteConfig.defaultImage}`,
+    // 施設（戸田斎場）の写真だと施設そのものと誤解されるため、ブランド画像を使う
+    image: `${siteConfig.url}/opengraph-image/`,
     priceRange: "¥¥",
     areaServed: adminAreas(siteConfig.areas.filter((a) => a.startsWith("東京都"))),
     openingHoursSpecification: {
