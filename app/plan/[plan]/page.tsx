@@ -11,10 +11,11 @@ import { JsonLd } from "@/components/JsonLd";
 import { ContentSections } from "@/components/ContentSections";
 import { FaqBlock } from "@/components/FaqBlock";
 import { RelatedColumns } from "@/components/RelatedColumns";
-import { breadcrumbLd, serviceLd, faqLd } from "@/lib/jsonld";
+import { breadcrumbLd, serviceLd, faqLd, webPageLd } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
 import { planFormValue } from "@/app/contact/options";
 import { PageCta } from "@/components/PageCta";
+import { CheckedDate } from "@/components/CheckedDate";
 import { VoiceList } from "@/components/VoiceList";
 import { voices } from "@/data/voices";
 import { disclaimer } from "@/app/config/site";
@@ -99,6 +100,7 @@ export default async function PlanPage({
             price: plan.price,
           }),
           faqLd(plan.faq),
+          webPageLd({ name: planHeading(plan), path: plan.href }),
         ]}
       />
       <Breadcrumbs items={crumbs} />
@@ -147,6 +149,7 @@ export default async function PlanPage({
               式場使用料・火葬料金、宗教者へのお礼・返礼品・飲食費などは別途。総額の目安は、斎場・人数をうかがって個別にお見積りします。
             </p>
             <PriceNote />
+            <CheckedDate className="mt-2" />
             <PageCta
               location="plan_price"
               query={`plan=${planFormValue[plan.slug] ?? "undecided"}&type=estimate`}
@@ -219,7 +222,7 @@ export default async function PlanPage({
                     {area && (
                       <Link
                         href={area.href}
-                        className="text-gold-deep hover:underline"
+                        className="inline-flex min-h-8 items-center text-gold-deep hover:underline"
                       >
                         {area.name}の葬儀のご相談について →
                       </Link>
@@ -228,7 +231,7 @@ export default async function PlanPage({
                       <Link
                         key={h.slug}
                         href={h.href}
-                        className="text-gold-deep hover:underline"
+                        className="inline-flex min-h-8 items-center text-gold-deep hover:underline"
                       >
                         {h.name}について →
                       </Link>

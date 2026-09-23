@@ -8,9 +8,10 @@ import { CtaSection } from "@/components/CtaSection";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PlanCard } from "@/components/PlanCard";
 import { JsonLd } from "@/components/JsonLd";
-import { breadcrumbLd, faqLd } from "@/lib/jsonld";
+import { breadcrumbLd, faqLd, webPageLd } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
 import { hallFormValue } from "@/app/contact/options";
+import { CheckedDate } from "@/components/CheckedDate";
 import { disclaimer } from "@/app/config/site";
 import { halls, getHall } from "@/data/halls";
 import { areas } from "@/data/areas";
@@ -83,12 +84,14 @@ export default async function HallPage({
 
   return (
     <>
-      <JsonLd data={[breadcrumbLd(crumbs), faqLd(hall.faqs)]} />
+      <JsonLd data={[breadcrumbLd(crumbs), faqLd(hall.faqs), webPageLd({ name: `${hall.name}での葬儀`, path: hall.href })]} />
       <Breadcrumbs items={crumbs} />
       <PageHero
         title={`${hall.name}での葬儀`}
         lead={hall.lead}
         cta
+        image={hall.image}
+        imageAlt={`${hall.name}の外観`}
         ctaLocation="hall_hero"
         formLabel="空き確認・見積りを依頼する"
         ctaQuery={`hall=${hallFormValue[hall.slug] ?? "undecided"}&type=hall`}
@@ -277,6 +280,7 @@ export default async function HallPage({
             {hall.roomsSource && (
               <p className="mt-4 text-xs leading-relaxed text-muted">※ {hall.roomsSource}</p>
             )}
+            <CheckedDate className="mt-2" />
           </Container>
         </section>
       )}

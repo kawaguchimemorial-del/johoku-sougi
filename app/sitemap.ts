@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { siteConfig } from "@/app/config/site";
+import { siteConfig, contentCheckedAt } from "@/app/config/site";
 import { plans } from "@/data/plans";
 import { areas } from "@/data/areas";
 import { halls } from "@/data/halls";
@@ -7,8 +7,9 @@ import { columns } from "@/data/columns";
 
 type Entry = MetadataRoute.Sitemap[number];
 
-// ビルド日時を最終更新の既定値に使う（記事は各 updated を優先）。
-const buildDate = new Date();
+// 固定ページ・斎場・プラン・エリアは「掲載内容の最終確認日」、記事は各 updated を使う。
+// （ビルドのたびに全URLの lastmod が変わると、更新シグナルとして信用されなくなるため）
+const buildDate = contentCheckedAt;
 
 function entry(
   path: string,

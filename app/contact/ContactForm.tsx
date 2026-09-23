@@ -143,7 +143,9 @@ export function ContactForm() {
       pushEvent("form_validation_error", { error_fields: fields.join(",") });
     }
     // 最初のエラー項目へフォーカス（エラー要約は aria-live で読み上げ）
-    const first = fields.find((f) => f !== "_form");
+    // 画面の並び順で最初のエラー項目を選ぶ
+    const order = ["inquiryType", "name", "phone", "email", "preferredContact", "preferredTime", "message", "consent"];
+    const first = order.find((f) => fields.includes(f));
     if (first) {
       const el = formRef.current?.querySelector<HTMLElement>(`[name="${first}"]`);
       el?.focus();
@@ -372,6 +374,7 @@ export function ContactForm() {
             type="checkbox"
             name="consent"
             value="agreed"
+            defaultChecked={values.consent === "agreed"}
             aria-invalid={Boolean(errors.consent)}
             aria-describedby={errors.consent ? errId("consent") : undefined}
             className="mt-0.5 h-5 w-5 shrink-0 accent-[#1b2a4a]"

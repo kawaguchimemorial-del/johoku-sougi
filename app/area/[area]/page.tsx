@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { PageHero } from "@/components/PageHero";
 import { PageCta } from "@/components/PageCta";
+import { CheckedDate } from "@/components/CheckedDate";
 import { VoiceList } from "@/components/VoiceList";
 import { CtaSection } from "@/components/CtaSection";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -12,7 +13,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { ContentSections } from "@/components/ContentSections";
 import { FaqBlock } from "@/components/FaqBlock";
 import { RelatedColumns } from "@/components/RelatedColumns";
-import { breadcrumbLd, faqLd } from "@/lib/jsonld";
+import { breadcrumbLd, faqLd, webPageLd } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
 import { disclaimer } from "@/app/config/site";
 import {
@@ -69,12 +70,14 @@ export default async function AreaPage({
 
   return (
     <>
-      <JsonLd data={[breadcrumbLd(crumbs), faqLd(area.faq)]} />
+      <JsonLd data={[breadcrumbLd(crumbs), faqLd(area.faq), webPageLd({ name: area.lead, path: area.href })]} />
       <Breadcrumbs items={crumbs} />
       <PageHero
         title={area.lead}
         lead={areaHeroLead(area)}
         cta
+        image={featuredHalls[0]?.image}
+        imageAlt={featuredHalls[0] ? `${featuredHalls[0].name}の外観` : ""}
         ctaLocation="area_hero"
         ctaQuery={`area=${area.slug.replace("-ku", "")}`}
       />
@@ -92,7 +95,7 @@ export default async function AreaPage({
       <section className="bg-cream py-12">
         <Container>
           <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
-            {area.name}から利用できる斎場
+            {area.name}の方によく選ばれている斎場
           </h2>
           <p className="mt-4 leading-relaxed">{areaFeaturedNote(area)}</p>
           <div className="mt-5 flex flex-wrap gap-3">
@@ -116,6 +119,7 @@ export default async function AreaPage({
       <section className="py-12">
         <Container>
           <ContentSections sections={area.sections} />
+          <CheckedDate className="mt-6" />
           <div className="mt-10 rounded-2xl bg-navy p-6 text-white sm:p-8">
             <p className="font-serif text-xl font-bold">
               {area.name}からのご葬儀、斎場の空き確認・お見積りはお気軽に
@@ -136,7 +140,7 @@ export default async function AreaPage({
       <section className="bg-cream py-12">
         <Container>
           <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
-            {area.name}でのご葬儀の形式
+            一日葬・火葬式・家族葬のプラン料金の目安
           </h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-3">
             {plans.map((p) => (
@@ -153,7 +157,7 @@ export default async function AreaPage({
         <section className="py-12">
           <Container>
             <h2 className="font-serif text-[22px] font-bold leading-snug text-navy sm:text-[28px]">
-              {area.name}から利用しやすい式場（選択肢の一例）
+              {area.name}内・近隣の式場
             </h2>
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
               {localHalls.map((h) => (

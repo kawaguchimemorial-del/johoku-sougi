@@ -46,7 +46,26 @@ export function ContentSections({
                   {s.table.caption}
                 </figcaption>
               )}
-              <div className="overflow-x-auto rounded-xl border border-black/10">
+              {/* スマホ：行ごとのカード（多列の表が細切れにならないように） */}
+              <ul className="space-y-3 md:hidden">
+                {s.table.rows.map((row) => (
+                  <li
+                    key={row.join("|")}
+                    className="rounded-xl border border-black/10 bg-white p-4"
+                  >
+                    <p className="font-bold text-navy">{row[0]}</p>
+                    <dl className="mt-2 space-y-1.5 text-sm">
+                      {row.slice(1).map((cell, ci) => (
+                        <div key={ci} className="grid grid-cols-[6.5em_1fr] gap-2">
+                          <dt className="text-muted">{s.table!.headers[ci + 1]}</dt>
+                          <dd className="leading-relaxed">{cell}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </li>
+                ))}
+              </ul>
+              <div className="hidden overflow-x-auto rounded-xl border border-black/10 md:block">
                 <table className="w-full border-collapse text-sm">
                   <thead>
                     <tr className="bg-navy text-white">
@@ -69,7 +88,9 @@ export function ContentSections({
                         {row.map((cell, ci) => (
                           <td
                             key={ci}
-                            className="border-t border-black/5 px-4 py-3 align-top leading-relaxed"
+                            className={`border-t border-black/5 px-3 py-3 align-top leading-relaxed sm:px-4 ${
+                              ci === 0 ? "min-w-[7.5em] font-bold text-navy" : "min-w-[9em]"
+                            }`}
                           >
                             {cell}
                           </td>

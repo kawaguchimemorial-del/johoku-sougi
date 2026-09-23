@@ -38,6 +38,7 @@ const FIELDS = [
   "preferredContact",
   "preferredTime",
   "message",
+  "consent",
 ] as const;
 
 // 各項目の最大文字数（長文スパム・誤貼り付け対策）

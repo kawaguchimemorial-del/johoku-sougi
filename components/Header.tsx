@@ -22,7 +22,7 @@ export function Header() {
         <div className="flex items-center justify-between py-3">
           <Link href="/" className="leading-tight">
             <span className="block text-xs text-gold-light">
-              北区・板橋区の葬儀相談窓口
+              北区・板橋区・足立区の葬儀相談窓口
             </span>
             <span className="block text-base font-bold tracking-wide sm:text-lg">
               {siteConfig.name}

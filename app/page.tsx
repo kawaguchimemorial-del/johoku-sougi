@@ -93,7 +93,7 @@ export default function Home() {
               <span aria-hidden>｜</span>
               <span>累計{operatorFacts.cumulativeCases}</span>
               <span aria-hidden>｜</span>
-              <span>Google口コミ★{operatorFacts.googleRating.toFixed(1)}（{operatorFacts.googleReviewCount}件）</span>
+              <span>川口典礼のGoogle口コミ★{operatorFacts.googleRating.toFixed(1)}（{operatorFacts.googleReviewCount}件）</span>
             </p>
             <p className="mt-5 text-[15px] leading-[1.95] text-white/90 sm:text-base">
               戸田斎場・舟渡斎場・北区セレモニーホールなどでのご葬儀を、

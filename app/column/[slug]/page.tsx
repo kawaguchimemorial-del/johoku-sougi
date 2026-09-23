@@ -313,7 +313,7 @@ export default async function ColumnDetailPage({
                   <Link
                     key={a.slug}
                     href={a.href}
-                    className="text-gold-deep hover:underline"
+                    className="inline-flex min-h-8 items-center text-gold-deep hover:underline"
                   >
                     {a.name}の葬儀・葬式のご相談 →
                   </Link>
@@ -414,7 +414,7 @@ export default async function ColumnDetailPage({
           <div className="mt-10 text-center">
             <Link
               href="/column/"
-              className="text-sm font-bold text-gold-deep hover:underline"
+              className="inline-flex min-h-11 items-center text-sm font-bold text-gold-deep hover:underline"
             >
               ← 葬儀コラム一覧に戻る
             </Link>

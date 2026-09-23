@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { PageHero } from "@/components/PageHero";
+import { PageCta } from "@/components/PageCta";
 import { CtaSection } from "@/components/CtaSection";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
@@ -38,13 +39,20 @@ export default function FaqPage() {
                 key={f.question}
                 className="rounded-xl border border-black/5 bg-white p-6 shadow-sm"
               >
-                <dt className="font-bold text-navy">Q. {f.question}</dt>
+                <dt className="font-bold text-navy"><span className="mr-1 font-serif text-gold-deep">Q.</span>{f.question}</dt>
                 <dd className="mt-2 leading-relaxed text-muted">
                   A. {f.answer}
                 </dd>
               </div>
             ))}
           </dl>
+          <div className="mt-10 rounded-2xl bg-cream p-6 sm:p-8">
+            <p className="font-serif text-xl font-bold text-navy">ここにないご質問も、お気軽にどうぞ</p>
+            <p className="mt-2 text-sm leading-[1.85] text-muted">
+              お電話は24時間365日受付。夜間などお電話しにくいときは、フォームからご相談いただけます。
+            </p>
+            <PageCta location="faq_bottom" query="type=other" formLabel="フォームで質問する" className="mt-5" />
+          </div>
         </Container>
       </section>
 

@@ -8,7 +8,7 @@ export function TrustBar({ invert = false }: { invert?: boolean }) {
     { value: operatorFacts.annualCases, label: "年間のご葬儀" },
     {
       value: `★${operatorFacts.googleRating.toFixed(1)}`,
-      label: `Google口コミ（${operatorFacts.googleReviewCount}件）`,
+      label: `川口典礼のGoogle口コミ（${operatorFacts.googleReviewCount}件）`,
     },
   ];
   return (

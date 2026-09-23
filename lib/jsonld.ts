@@ -1,4 +1,4 @@
-import { siteConfig, operatorFacts } from "@/app/config/site";
+import { siteConfig, operatorFacts, contentCheckedAt } from "@/app/config/site";
 import type { Faq } from "@/data/faqs";
 
 // 注意: 存在しない住所・営業所は作らない。areaServed のみで地域性を示す。
@@ -11,7 +11,7 @@ export function organizationLd() {
   return {
     "@context": "https://schema.org",
     "@type": "FuneralHome",
-    "@id": `${siteConfig.url}#organization`,
+    "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
     description: siteConfig.description,
     url: siteConfig.url,
@@ -83,7 +83,7 @@ export function serviceLd(input: {
     name: input.name,
     description: input.description,
     url: `${siteConfig.url}${input.path}`,
-    provider: { "@id": `${siteConfig.url}#organization` },
+    provider: { "@id": `${siteConfig.url}/#organization` },
     areaServed: adminAreas(served),
     ...(input.price
       ? {
@@ -176,6 +176,7 @@ export function articleLd(input: {
     author: { "@id": `${siteConfig.parentSiteUrl}#organization`, "@type": "Organization", name: siteConfig.operator, url: siteConfig.parentSiteUrl },
     publisher: {
       "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
       name: siteConfig.name,
       url: siteConfig.url,
       // Article リッチリザルトの必須プロパティ（PNG のブランド画像を動的生成）
@@ -199,5 +200,21 @@ export function faqLd(items: Faq[]) {
       name: f.question,
       acceptedAnswer: { "@type": "Answer", text: f.answer },
     })),
+  };
+}
+
+// 下層ページの WebPage（最終確認日を dateModified として示す。AI検索での鮮度シグナル）
+export function webPageLd(input: { name: string; path: string; description?: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${siteConfig.url}${input.path}#webpage`,
+    url: `${siteConfig.url}${input.path}`,
+    name: input.name,
+    ...(input.description ? { description: input.description } : {}),
+    inLanguage: "ja",
+    isPartOf: { "@type": "WebSite", url: siteConfig.url, name: siteConfig.name },
+    about: { "@id": `${siteConfig.url}/#organization` },
+    dateModified: contentCheckedAt,
   };
 }
