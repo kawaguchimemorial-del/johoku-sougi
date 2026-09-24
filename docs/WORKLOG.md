@@ -12,6 +12,17 @@
 
 ---
 
+## 2026-09-24 — 相談フォームを本番で有効化（Vercel 環境変数）
+
+**何を**: Vercel CLI（アカウント kawaguchimemorial-del、チーム kawaguchitenrei-s-projects）で johoku-sougi プロジェクトに `GOOGLE_APPS_SCRIPT_WEBHOOK_URL` と `FORM_WEBHOOK_SECRET` を Production / Preview に Sensitive で追加し、再デプロイ。
+- 値は川口典礼本体サイト（kawaguchitenrei-site）のローカル `.env.local` と同じもの（本体の Vercel 側は Sensitive のため読み出し不可）。送信先は本体と同じ GAS（script.google.com）。
+- `vercel link` により `.vercel/` と `.env.local` がローカルに作られ、`.gitignore` に `.vercel` `.env*` が追記された（いずれも git 管理外）。
+- 戸田斎場の式場写真（光の間など）は運営者より掲載許可ありと確認。
+
+**あなた側の作業**: なし（テスト送信の受信確認はこの下の結果を参照）。
+
+---
+
 ## 2026-09-24 — 問い合わせ導線を中心としたリニューアル（専門家会議＋4ループ）
 
 **進め方**: 競合調査（小さなお葬式・よりそう・小さな森の家・はばたき北区葬儀・LCT・宇野葬儀社・ファミーユ・板橋直葬センター等 11サイト）→「世界一の〇〇」4名（マーケッター／Webデザイナー／SEO・AIO／エンジニア）の専門家会議 → 実装 → レビュー、を4ループ。画像は OpenAI `gpt-image-2.5-sunburst` で生成（APIキーは川口典礼本体サイトの `.env.local` の OPENAI_API_KEY を使用。文字・人物の顔なしで生成し、サイト上は「写真はイメージです」と明記）。
@@ -34,7 +45,7 @@
 - **フォームを有効にする**：Vercel の johoku-sougi プロジェクト → Settings → Environment Variables に、本体サイト（kawaguchitenrei-site）と同じ `GOOGLE_APPS_SCRIPT_WEBHOOK_URL` と `FORM_WEBHOOK_SECRET` を Production に追加 → 再デプロイ。GAS 側で `site: "johoku-sougi"` の受信を確認（件名に【城北】が付きます）。
 - GTM で `phone_tap` / `generate_lead` を GA4 イベント（キーイベント）として設定。
 - 用意いただけると効果が大きいデータ：各プランに含まれる品目／北区・板橋区の施行事例（匿名）／戸田斎場の式場料金・火葬料金の最新表／担当者の実名・資格／LINE公式の有無。
-- 戸田斎場の式場写真（光の間など）は `assets-src/originals/` にあった画像を使っています。施設の撮影写真の場合は掲載許可の確認をお願いします。
+- 戸田斎場の式場写真（光の間など）は `assets-src/originals/` の画像を使用（2026-09-24 運営者より掲載許可あり）。
 
 ---
 
