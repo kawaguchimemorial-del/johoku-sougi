@@ -12,6 +12,18 @@
 
 ---
 
+## 2026-09-27 — SEOチェック（リニューアル3日後）
+
+**本番クロール（全81URL）**: すべて200、title・description・H1の重複0、canonical一致、禁止語0、非公式表記・川口典礼表記は全ページ、リンク切れ0、被リンク3本以下のコラム0。本文が薄いのは /hall/ /contact/ /company/ /privacy/ のみ（性格上問題小）。
+
+**Search Console**: データは 9/24（リニューアル公開日）まで。公開後の効果はまだ測れない。9/17以降は1日の表示回数が約60→約35に減少（リニューアル前から。Google側の変動の可能性）。順位は横ばい：板橋 一日葬 12.0位、板橋区 一日葬 15.7位、北区 家族葬 36.6位（前40.8）、北区 葬儀 51.9位（前53.7）、北区 直葬 42.5位。
+
+**インデックス**: 主要ページの最終クロールが 8/22〜9/6 のままで、リニューアル後の内容はまだ Google に取り込まれていない（/plan/direct-funeral/ のみ 9/24 にクロール）。→ Search Console API でサイトマップを再送信（2026-09-27 03:24 UTC、エラー0）。
+
+**あなた側の作業**: Search Console の「URL検査」で次の7ページを「インデックス登録をリクエスト」（API では不可）：`/` `/plan/one-day-funeral/` `/plan/family-funeral/` `/area/kita-ku/` `/area/itabashi-ku/` `/hall/toda-saijo/` `/contact/`。PSI/CrUX API は依然 403（APIキーの制限に2つのAPIを追加が必要）。
+
+---
+
 ## 2026-09-24 — 相談フォームを本番で有効化（Vercel 環境変数）
 
 **何を**: Vercel CLI（アカウント kawaguchimemorial-del、チーム kawaguchitenrei-s-projects）で johoku-sougi プロジェクトに `GOOGLE_APPS_SCRIPT_WEBHOOK_URL` と `FORM_WEBHOOK_SECRET` を Production / Preview に Sensitive で追加し、再デプロイ。
