@@ -10,7 +10,7 @@ import { siteConfig, disclaimer, operatorFacts } from "@/app/config/site";
 import { publishedReviewers } from "@/data/reviewers";
 
 export const metadata: Metadata = buildMetadata({
-  title: "運営者情報",
+  title: `運営者情報｜運営・施行 ${siteConfig.operator}`,
   description:
     "城北セレモニーサポートセンターの運営者情報です。運営・施行は川口典礼。対応エリアは東京都北区・板橋区および周辺地域。一日葬・火葬式・直葬・家族葬、斎場相談、搬送、安置相談、見積り相談に対応します。",
   path: "/company/",

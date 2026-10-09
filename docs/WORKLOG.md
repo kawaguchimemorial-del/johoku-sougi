@@ -12,6 +12,27 @@
 
 ---
 
+## 2026-10-09 — SEOチェック＋GA4チェック（リニューアル約2週間後）
+
+**本番クロール（全81URL）**: すべて200、title・description・H1の重複0、H1は各1つ、canonical一致、noindex 0、og/twitter 全件、JSON-LD解析エラー0（FuneralHome/WebSite 全件・FAQPage 49・Article 63）、禁止語0、非公式表記・川口典礼表記は全ページ、alt欠落0、内部リンク切れ0、被リンク3本以下0。apex/http/スラッシュなしは308で正規URLへ、404正常。
+- **修正**: `/company/` の title が「運営者情報」（5文字）と短く汎用的だったため「運営者情報｜運営・施行 川口典礼」に（`app/company/page.tsx`）。
+
+**Search Console（9/23〜10/6 と 前14日の比較）**: 表示 806→454、クリック 2→2、平均順位 37.1→37.9。表示減の大半は他社斎場名などのノイズクエリ（平城セレモニーホール・城北葬祭等）が消えたため。主要KWは横ばい：北区 家族葬 39.9→35.7、板橋区 市民葬 22.0→11.0、北区 市民葬 37.9→4.5（表示2）、板橋区 区民葬 24.7、板橋 一日葬 11.1→17.2、北区 葬儀 54.3→56.7、舟渡斎場 49.6→70.2。トップページが「北区 葬儀」「北区 直葬」で76〜87位に出るようになり、`/area/kita-ku/` と競合ぎみ（要観察）。
+- **インデックス**: `/` `/plan/one-day-funeral/` は 9/27 に再クロール済み（リニューアル後の内容が反映）。`/plan/family-funeral/` `/area/kita-ku/` `/area/itabashi-ku/`（9/6）、`/contact/`（8/25）、`/hall/toda-saijo/`（8/22）は未再クロール。サイトマップは 10/3 に Google が取得、エラー0。旧 `https://johoku-sougi.jp/sitemap.xml`（www なし）も GSC に登録が残っている（実害なし）。
+- PSI / CrUX API は引き続き 403（APIキーの制限）。キーなし実行も日次上限で 429。
+
+**GA4（9/25〜10/8 と 前14日）**: セッション 34→55、ユーザー 32→50、エンゲージメント率 38%→42%。流入は Bing 17・ChatGPT 11・Direct 16・Google 2（Google 自然検索からの流入はまだ少ない）。ランディングは `/` とコラム（after-death-tasks / moshu-role / religion-funeral 等）が中心。
+- **重大**: サイト側で dataLayer に送っている `phone_tap` / `cta_click` / `generate_lead` / `form_complete` / `form_submit_error` / `form_validation_error` が GA4 に1件も届いていない（9/24 のテスト送信の generate_lead も無し）。公開中の GTM コンテナ（GTM-N4G6QFDS）を確認したところ、**Google タグ（G-8VK17H3XH7）1つだけでイベントタグが無い**。キーイベントも0。
+- → GTM にインポートするだけで設定できるファイル `docs/gtm-import-ga4-events.json` を作成（カスタムイベント トリガー1つ＋GA4 イベントタグ1つ＋データレイヤー変数10個。イベント名はそのまま転送、cta_location / cta_id / plan / hall / area 等をパラメータ化。`form_start` は GA4 の拡張計測と名前が重なるため対象外）。
+
+**あなた側の作業（ブラウザ）**
+1. GTM（tagmanager.google.com）→ GTM-N4G6QFDS → 管理 → コンテナをインポート → `docs/gtm-import-ga4-events.json` を選択 → ワークスペース「既存」→「統合（マージ）」「競合するタグ等は名前を変更」→ 確認 → **公開**。
+2. GA4 → 管理 → イベント（翌日以降に一覧に出る）→ `phone_tap` と `generate_lead` を「キーイベントとしてマーク」。
+3. GA4 → 管理 → カスタム定義 → カスタムディメンション（イベント）で `cta_location` `plan` `hall` `area` を登録（どこのボタン・どのプランからの問い合わせかを見るため）。
+4. Search Console の URL 検査で `/plan/family-funeral/` `/area/kita-ku/` `/area/itabashi-ku/` `/hall/toda-saijo/` `/contact/` を「インデックス登録をリクエスト」（前回依頼分のうち未再クロールのもの）。
+
+---
+
 ## 2026-09-27 — SEOチェック（リニューアル3日後）
 
 **本番クロール（全81URL）**: すべて200、title・description・H1の重複0、canonical一致、禁止語0、非公式表記・川口典礼表記は全ページ、リンク切れ0、被リンク3本以下のコラム0。本文が薄いのは /hall/ /contact/ /company/ /privacy/ のみ（性格上問題小）。
