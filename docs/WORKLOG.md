@@ -12,6 +12,21 @@
 
 ---
 
+## 2026-10-29 — SEOチェックの対策（ブラウザ操作は Claude in Chrome で実施）
+
+1. **Search Console**: URL 検査で `/area/kita-ku/` `/plan/family-funeral/` `/area/itabashi-ku/` `/contact/` の「インデックス登録をリクエスト」を実行（4件とも「リクエスト済み」表示）。
+2. **GTM（GTM-N4G6QFDS）**: `docs/gtm-import-ga4-events.json` を「統合・競合は名前を変更」でインポート（追加12・更新0・削除0）→ **バージョン4として公開**。タグは「GA4 イベント - 城北サイト計測(dataLayer転送)」と既存の Google タグの2つ。公開後 gtm.js に GA4 イベントタグ（__gaawe）が入ったことを確認。本番で一日葬ページの見積りボタンを1回クリックし、GA4 リアルタイムに `cta_click` が届くことを確認（テストの1件）。
+3. **GA4（プロパティ 542503463、アカウント 398691597）**: カスタムディメンション（イベント）を4つ登録 — CTA設置場所=cta_location、プラン=plan、斎場=hall、地域=area。**キーイベント（phone_tap / generate_lead）は未設定**：GA4 は受信実績のあるイベントにしか印を付けられないため、イベントが管理画面に出てから（1〜2日後）設定する。
+4. **Google Cloud（プロジェクト johoku-sougi-seo、APIキー1）**: API の制限に PageSpeed Insights API と Chrome UX Report API を追加（従来は Search Console API のみ）。→ PSI が取得できるようになった。CrUX は「トラフィック不足でデータなし」（エラーではない）。
+5. **表示速度の改善（コード）**: PSI モバイルで `/area/kita-ku/` 67・`/plan/family-funeral/` 67・`/` 61〜97（LCP 7.2〜7.7秒）。主因は ①外部CSS 2本の読み込み待ち（推定3.2秒）②LCP画像に fetchpriority=high が無い。
+   - `next.config.ts` に `experimental.inlineCss: true`（CSSを head に埋め込み）。
+   - LCP 画像に `fetchPriority="high"`：トップのヒーロー（`app/page.tsx`）、`components/PageHero.tsx`、プランの画像（`app/plan/[plan]/page.tsx`。非推奨の `priority` を `preload` に置換）。
+   - ビルド出力で外部CSSリンク0・style 埋め込み・fetchPriority 付与を確認。
+
+**あなた側の作業**: なし（キーイベントの設定は次回のチェック時に Claude が実施）。
+
+---
+
 ## 2026-10-29 — SEOチェック（リニューアル約5週間後）
 
 **本番クロール（全81URL）**: すべて200、title・description・H1の重複0、canonical一致、noindex 0、og/twitter 全件、JSON-LD解析エラー0、非公式表記・川口典礼表記は全ページ、alt欠落0、内部リンク切れ0、被リンク3本以下0、308/404正常。コラム5本の「公式」は「各区の公式情報をご確認ください」という参照で、禁止語の趣旨には当たらない。

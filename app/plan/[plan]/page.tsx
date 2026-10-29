@@ -122,7 +122,8 @@ export default async function PlanPage({
                 src={plan.image}
                 alt={plan.imageAlt}
                 fill
-                priority
+                preload
+                fetchPriority="high"
                 sizes="(max-width: 768px) 100vw, 900px"
                 className="object-cover"
               />

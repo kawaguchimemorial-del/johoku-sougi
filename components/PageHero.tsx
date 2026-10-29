@@ -29,7 +29,7 @@ export function PageHero({
     <section className="relative overflow-hidden bg-gradient-to-b from-navy-dark to-navy py-12 text-white sm:py-16">
       {image && (
         <div className="absolute inset-0">
-          <Image src={image} alt={imageAlt} fill preload quality={55} sizes="100vw" className="object-cover" />
+          <Image src={image} alt={imageAlt} fill preload fetchPriority="high" quality={55} sizes="100vw" className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-navy-dark/85 via-navy-dark/85 to-navy-dark/95 md:bg-gradient-to-r md:from-navy-dark md:via-navy-dark/85 md:to-navy-dark/40" />
         </div>
       )}

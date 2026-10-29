@@ -69,6 +69,7 @@ export default function Home() {
             alt="戸田斎場の外観"
             fill
             preload
+            fetchPriority="high"
             quality={55}
             sizes="100vw"
             className="object-cover object-[70%_center]"
