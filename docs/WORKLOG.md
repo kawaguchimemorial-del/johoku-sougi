@@ -12,6 +12,29 @@
 
 ---
 
+## 2026-10-29 — SEOチェック（リニューアル約5週間後）
+
+**本番クロール（全81URL）**: すべて200、title・description・H1の重複0、canonical一致、noindex 0、og/twitter 全件、JSON-LD解析エラー0、非公式表記・川口典礼表記は全ページ、alt欠落0、内部リンク切れ0、被リンク3本以下0、308/404正常。コラム5本の「公式」は「各区の公式情報をご確認ください」という参照で、禁止語の趣旨には当たらない。
+- **修正**: `/privacy/` の title が「プライバシーポリシー」（10文字）だけだったため「プライバシーポリシー｜城北セレモニーサポートセンター」に（`app/privacy/page.tsx`）。
+
+**Search Console（10/10〜10/26 と 9/23〜10/9）**: 表示 581→551、クリック 3→5、平均順位 39.3→44.1（悪化）。北区 家族葬 40.2→67.1、北区 直葬 40.6→48.1、板橋区 直葬 40.3→49.0、北区 葬儀 58.5→66.3。改善は 板橋区 一日葬 29.8→27.3、板橋区 区民葬 24.9→18.8、板橋区 葬祭費 74→57.4、戸田葬祭場 58.5→46.3、北区 葬儀 時間 8.0位（新規）。ページ別では /area/itabashi-ku/ 42.9→37.3（クリック2）、/hall/ 49.1→35.6、/area/kita-ku/ 53.9→60.3。「北区 葬儀」でトップ（93位）と北区ページ、「北区 直葬」で北区ページと直葬ページが競合ぎみ。
+- **インデックス**: `/plan/family-funeral/` `/area/kita-ku/` `/area/itabashi-ku/` は最終クロール 9/6、`/contact/` は 8/25 のまま（リニューアル前の内容で評価）。`/` 10/24、`/plan/direct-funeral/` 10/28、`/hall/toda-saijo/` 10/12 は再クロール済み。
+- PSI / CrUX API は引き続き 403。
+
+**GA4（10/10〜10/28 と 9/21〜10/9）**: セッション 73→117、ユーザー 66→111、エンゲージメント率 44%→55%。流入は ChatGPT 47・Direct 39・Bing 21・Google 7。ランディングは `/` 31、`/column/shoukou-manner/` 28、`/column/after-death-tasks/` 13。
+- **未解決**: phone_tap 等のイベントは引き続き GA4 に0件。公開中の GTM コンテナは Google タグのみ（`docs/gtm-import-ga4-events.json` のインポート未実施）。
+
+**レポート**: https://claude.ai/artifact/2csR3ESZctSj296sAiRnxE
+
+**あなた側の作業（ブラウザ）**
+1. Search Console の URL 検査で `/area/kita-ku/` `/plan/family-funeral/` `/area/itabashi-ku/` `/contact/` を「インデックス登録をリクエスト」（最優先）。
+2. GTM に `docs/gtm-import-ga4-events.json` をインポートして公開 → GA4 で phone_tap / generate_lead をキーイベントに（手順は 2026-10-09 の項）。
+3. Google Cloud の APIキーの「APIの制限」に PageSpeed Insights API と Chrome UX Report API を追加。
+
+**備考**: `security/2026-10-22` ブランチ（next 16.4.2 更新・Basic 認証の定数時間比較）は main 未マージのまま。今回の修正は main に直接コミット。
+
+---
+
 ## 2026-10-09 — SEOチェック＋GA4チェック（リニューアル約2週間後）
 
 **本番クロール（全81URL）**: すべて200、title・description・H1の重複0、H1は各1つ、canonical一致、noindex 0、og/twitter 全件、JSON-LD解析エラー0（FuneralHome/WebSite 全件・FAQPage 49・Article 63）、禁止語0、非公式表記・川口典礼表記は全ページ、alt欠落0、内部リンク切れ0、被リンク3本以下0。apex/http/スラッシュなしは308で正規URLへ、404正常。

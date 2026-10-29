@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@/app/config/site";
 
 export const metadata: Metadata = buildMetadata({
-  title: "プライバシーポリシー",
+  title: `プライバシーポリシー｜${siteConfig.name}`,
   description:
     "城北セレモニーサポートセンター（運営・施行：川口典礼）のプライバシーポリシーです。お客様からお預かりする個人情報の取得・利用目的、管理方法、第三者への提供、お問い合わせ窓口についてご案内します。",
   path: "/privacy/",
