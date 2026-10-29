@@ -31,7 +31,7 @@
 2. GTM に `docs/gtm-import-ga4-events.json` をインポートして公開 → GA4 で phone_tap / generate_lead をキーイベントに（手順は 2026-10-09 の項）。
 3. Google Cloud の APIキーの「APIの制限」に PageSpeed Insights API と Chrome UX Report API を追加。
 
-**備考**: `security/2026-10-22` ブランチ（next 16.4.2 更新・Basic 認証の定数時間比較）は main 未マージのまま。今回の修正は main に直接コミット。
+**備考**: commit 7528d31（main）。
 
 ---
 
