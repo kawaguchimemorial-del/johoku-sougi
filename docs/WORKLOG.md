@@ -22,6 +22,7 @@
    - `next.config.ts` に `experimental.inlineCss: true`（CSSを head に埋め込み）。
    - LCP 画像に `fetchPriority="high"`：トップのヒーロー（`app/page.tsx`）、`components/PageHero.tsx`、プランの画像（`app/plan/[plan]/page.tsx`。非推奨の `priority` を `preload` に置換）。
    - ビルド出力で外部CSSリンク0・style 埋め込み・fetchPriority 付与を確認。
+   - **本番反映後の PSI（モバイル）**: `/area/kita-ku/` 67→84（LCP 7.2→3.6秒）、`/plan/family-funeral/` 67→84（LCP 7.4→3.5秒）、`/` 61→81（LCP 7.7→4.4秒）。CSS の読み込み待ちの指摘は解消。commit 34d8109。
 
 **あなた側の作業**: なし（キーイベントの設定は次回のチェック時に Claude が実施）。
 
