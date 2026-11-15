@@ -334,7 +334,7 @@ export default function Home() {
           <ol className="mt-8 grid gap-4 md:grid-cols-4">
             {flow.map((f, i) => (
               <li key={f.title} className="relative rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
-                <span className="font-serif text-4xl font-bold text-gold/50">{String(i + 1).padStart(2, "0")}</span>
+                <span aria-hidden className="font-serif text-4xl font-bold text-gold">{String(i + 1).padStart(2, "0")}</span>
                 <h3 className="mt-2 font-serif text-lg font-bold text-navy">{f.title}</h3>
                 <p className="mt-1 text-xs font-bold text-gold-deep">{f.time}</p>
                 <p className="mt-2 text-sm leading-[1.85] text-muted">{f.body}</p>

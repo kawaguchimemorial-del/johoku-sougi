@@ -12,6 +12,31 @@
 
 ---
 
+## 2026-11-15 — SEO・GTM・GA4・AIO チェック（10/29 対策の効果検証）
+
+**10/29 の対策の効果**
+- **インデックス登録リクエスト → 成功**: `/area/kita-ku/` `/area/itabashi-ku/` `/plan/family-funeral/` `/contact/` の4件とも 10/29 に再クロール・登録済み（URL 検査 API で確認）。`/area/adachi-ku/` 11/1、`/hall/funado-saijo/` `/company/` 10/26。未再クロールは `/plan/one-day-funeral/`（9/27）`/faq/`（10/3）`/hall/toda-saijo/`（10/12）。サイトマップは 11/10 取得・エラー0・81件。
+- **Search Console（10/30〜11/12 と 10/16〜10/29）**: 表示 469→586、クリック 3→33、平均順位 41.7→34.9。再クロール後に順位が改善：北区 家族葬 58.7→41.3（`/plan/family-funeral/` 単体は 24.2）、板橋区 家族葬 44.8→30.1、北区 葬儀 49.2→41.8、板橋区 直葬 48.9→41.7、板橋区 一日葬 26.5→22.8（クリック2）。`/plan/family-funeral/` 表示 29→106・クリック5。11/13 は表示111・平均18.7位。
+  - **注意**: クリック33のうち約19は社名検索（川口典礼・川口メモリアルホール・セレサポート等）で `/company/` に来たもの。目標キーワード（北区/板橋区 × 家族葬・直葬・葬儀）のクリックはまだ0〜数件。
+  - 「北区 家族葬」「北区 直葬」「板橋区 直葬」でエリアページ・プランページ・トップが同じ検索語に出ている（役割分担は設計どおり。要観察）。
+- **表示速度（PSI モバイル、11/15）**: `/` 75〜92（LCP 4.2秒・TBT 450ms。ばらつきあり）、`/area/kita-ku/` 88〜90（LCP 3.6秒）、`/plan/family-funeral/` 89、`/area/itabashi-ku/` 88、`/contact/` 98。SEO・ベストプラクティスは全件100。残る指摘は GTM/gtag の未使用JS（約168KiB、外部スクリプトのため対応小）。CrUX はデータ不足。
+- **GTM**: 公開中はバージョン4。Google タグ（初期化時）＋ GA4 イベントタグ（phone_tap|cta_click|generate_lead|form_complete|form_submit_error|form_validation_error）を gtm.js の中身で確認。本番 `/company/` で GA4 の page_view 送信（G-8VK17H3XH7）を実ブラウザで確認。
+- **GA4（10/30〜11/14 と 10/14〜10/29）**: セッション 101→64、キーイベント0。流入は direct 34・Bing 15・ChatGPT 11・Google 3。
+  - direct 34 のうち約25は米国アッシュバーン・欧州などの滞在0秒（ボット）。実質の人の訪問はもっと少ない。
+  - ChatGPT からの流入 36→11 は、前期に `/column/shoukou-manner/` が一時的に24件あったため（その分が落ちた）。
+  - GSC のクリック33に対し GA4 の Google 流入は3件と差が大きい（社名検索のクリックが計測されていない可能性。広告ブロック・即離脱など）。
+  - phone_tap / generate_lead は期間中0件（スマホ訪問12件のみ）。**キーイベントは引き続き未設定**：GA4 は受信実績のないイベントをキーイベントにできない。Claude による本番ページからのテスト送信はツールの安全判定で止められたため未実施。
+- **本番クロール（全81URL）**: すべて200、title・description・H1 重複0、canonical 一致、noindex 0、og/twitter 全件、JSON-LD 解析エラー0（FuneralHome/WebSite 81・BreadcrumbList 80・Article 63・FAQPage 49・WebPage 11・Service 3）、非公式表記・川口典礼表記は全ページ、禁止語0、alt 欠落0、内部リンク切れ0。
+- **AIO**: robots.txt は全許可、llms.txt 正常（31KB）。GPTBot・OAI-SearchBot・ChatGPT-User・ClaudeBot・PerplexityBot・Bingbot・Applebot すべて 200。
+
+**修正（コード）**: PSI のアクセシビリティ指摘2件。
+- `components/FixedCtaReveal.tsx`: スマホ固定CTAが非表示（aria-hidden）のとき中のリンクにフォーカスできた → `inert` を付与。
+- `app/page.tsx`: 「ご相談から葬儀までの流れ」の番号（01〜04）が半透明の金でコントラスト不足 → 装飾として `aria-hidden`、色を `text-gold`（白地約3.1:1・大きい文字の基準を満たす）に。
+
+**あなた側の作業**: GA4 のキーイベント設定のため、スマホで本番サイトの電話ボタンを1回タップ（発信はしなくて可）→ 翌日以降に GA4 管理 → イベント → `phone_tap` の星を付ける。`generate_lead` はフォームの実送信が1件入ってから同様に。
+
+---
+
 ## 2026-10-29 — SEOチェックの対策（ブラウザ操作は Claude in Chrome で実施）
 
 1. **Search Console**: URL 検査で `/area/kita-ku/` `/plan/family-funeral/` `/area/itabashi-ku/` `/contact/` の「インデックス登録をリクエスト」を実行（4件とも「リクエスト済み」表示）。

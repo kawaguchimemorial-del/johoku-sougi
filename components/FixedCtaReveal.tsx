@@ -33,6 +33,8 @@ export function FixedCtaReveal({
         visible ? "translate-y-0" : "pointer-events-none translate-y-[120%]"
       }`}
       aria-hidden={!visible}
+      // 非表示中は中のリンクにフォーカスが移らないようにする（aria-hidden 内のフォーカス可能要素の解消）
+      inert={!visible}
     >
       {children}
     </div>
