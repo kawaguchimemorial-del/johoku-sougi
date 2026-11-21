@@ -12,6 +12,28 @@
 
 ---
 
+## 2026-11-21 — SEO・AIO・GA4・GTM チェック（11/15 以降の変化）
+
+- **本番クロール（全81URL）**: すべて200、title・description・H1 重複0、H1 各1つ、canonical 一致、noindex 0、og/twitter 全件、JSON-LD 解析エラー0（FuneralHome/WebSite 81・BreadcrumbList 80・Article 63・FAQPage 49・WebPage 11・Service 3）、非公式表記・川口典礼表記は全ページ、禁止語0、alt 欠落0、内部リンク切れ0。→ **修正不要**。
+- **Search Console（11/6〜11/19 と 10/23〜11/5、ページ集計）**: 表示 643→889（+38%）、平均順位 43.2→31.8 に改善。クリック 33→3。減った分はほぼ社名検索（川口メモリアルホール 7・川口典礼 6・セレサポート 5 →0）と 板橋区 通夜 4→1。目標キーワードのクリックは前回同様ほぼ0。
+  - 順位：板橋区 一日葬 26.9→19.9（表示13→34、`/area/itabashi-ku/` 18.7位）、北区 直葬 47.0→40.9、北区 葬儀 70.3→62.7、板橋区 直葬 47.2→41.0、舟渡斎場 52.9→33.9、北区 家族葬 42.6→48.6（悪化。`/plan/family-funeral/` 単体は30.4位、北区ページ64.5位・トップ81.5位も同じ語に出ている）。
+  - ページ：`/plan/family-funeral/` 表示127・27.5位、`/area/kita-ku/` 64.6→45.6位、`/column/ippan-cost/` 新たに表示88・18.1位、`/column/kouji-koubun/` 表示55・8.1位。
+  - 1日あたりの表示は 11/13 以降 50〜111 で、10月（約30）より明らかに増えた。
+- **インデックス（URL 検査 API）**: 12ページとも「送信済み・登録済み」。`/` 11/16・`/hall/toda-saijo/` 11/18・`/column/ippan-cost/` 11/12 に再クロール。古いままの `/plan/one-day-funeral/`（9/27）と `/faq/`（10/3）は、Claude が Chrome で Search Console の「インデックス登録をリクエスト」を実行（2件とも「リクエスト済み」を確認）。サイトマップは 9/27 送信分・エラー0・81件（旧 apex の登録も残るが実害なし）。
+- **表示速度（PSI モバイル）**: `/` 93（LCP 2.6秒）、`/area/itabashi-ku/` 97（2.4秒）、`/area/kita-ku/` 91（3.3秒）、`/plan/family-funeral/` 86（3.9秒）。アクセシビリティ・ベストプラクティス・SEO はすべて100。前回より改善。
+- **GTM**: 本番HTMLに GTM-N4G6QFDS、gtm.js に Google タグ（G-8VK17H3XH7）と GA4 イベントタグ（__gaawe）があることを確認（公開バージョンは変化なし）。
+- **GA4（11/6〜11/20 と 10/22〜11/5）**: セッション 73→49、エンゲージメント率 59%→35%。日本からのセッション 54→24、米国 0→19（滞在0のボット）。流入 direct 27・ChatGPT 11（前23）・Bing 7（前19）・Yahoo 3・Google 1。キーイベント0（phone_tap は 11/15 のテスト1件のみ、キーイベント化前）。`generate_lead` は未受信のためキーイベント化はまだできない。
+  - ChatGPT・Bing からの流入が半減。前期の `/column/shoukou-manner/` 15件が落ちたのが主因。
+- **AIO**: robots.txt 全許可、llms.txt 200（31KB）。GPTBot・OAI-SearchBot・ChatGPT-User・ClaudeBot・PerplexityBot・bingbot・Applebot・Google-Extended すべて 200。
+
+**今後の観察点**: 「北区 家族葬」で3ページが同じ語に出ている（家族葬プランページを主にする設計どおりだが、北区ページから家族葬プランへの導線・アンカーの見直しを次回検討）。Google からの目標キーワードのクリックはまだ出ていない。
+
+**セキュリティ更新**: ビルド時に「Next.js 16.4.2 に既知の脆弱性」と警告（npm audit で moderate 1件：use cache のキャッシュ漏えい、画像最適化の SVG 判定回避など）。パッチ版の `next` / `eslint-config-next` を 16.4.2 → 16.4.6 に更新（`package.json` / `package-lock.json`）。build・lint 成功、audit 0件。
+
+**あなた側の作業**: なし。
+
+---
+
 ## 2026-11-16 — GA4 キーイベント設定（phone_tap）
 
 - GA4（プロパティ 542503463）→ 管理 → データの表示 → イベント →「最近のイベント」に `phone_tap` が出たので、Claude in Chrome で星を付けてキーイベントにした（「phone_tap がキーイベントとして有効になりました」を確認）。前日の実クリックのテスト1件が元になっている。
